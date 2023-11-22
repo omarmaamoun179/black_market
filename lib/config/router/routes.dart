@@ -1,3 +1,4 @@
+import 'package:black_market/features/splash/presentation/pages/splash._screen.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -11,7 +12,7 @@ class AppRoutes {
   static Route? ongenerate(RouteSettings settings) {
     switch (settings.name) {
       case (Routes.splash):
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       default:
         MaterialPageRoute(builder: (_) => unDefindeRoute());
     }
