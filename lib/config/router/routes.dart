@@ -1,11 +1,12 @@
 import 'package:black_market/features/auth/presentation/pages/login_page.dart';
+import 'package:black_market/features/auth/presentation/pages/register.dart';
 import 'package:black_market/features/splash/presentation/pages/splash._screen.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
   static const String splash = '/splash';
   static const String login = '/login';
-  static const String singUp = 'register';
+  static const String register = 'register';
   static const String home = 'home';
 }
 
@@ -16,6 +17,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case (Routes.login):
         return MaterialPageRoute(builder: (_) => LogingScreen());
+      case (Routes.register):
+        return MaterialPageRoute(builder: (_) =>  RegisterScreen());
       default:
         MaterialPageRoute(builder: (_) => unDefindeRoute());
     }

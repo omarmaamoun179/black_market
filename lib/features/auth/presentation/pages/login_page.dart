@@ -1,3 +1,4 @@
+import 'package:black_market/config/router/routes.dart';
 import 'package:black_market/core/widget/custom_app_bar.dart';
 import 'package:black_market/core/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -161,13 +162,18 @@ class LogingScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          textDirection: TextDirection.rtl,
-                          'إنشاء حساب ',
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w700,
-                              color: const Color(0xffFFF4B0)),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, Routes.register);
+                          },
+                          child: Text(
+                            textDirection: TextDirection.rtl,
+                            'إنشاء حساب ',
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xffFFF4B0)),
+                          ),
                         ),
                         Text(
                           textDirection: TextDirection.rtl,
