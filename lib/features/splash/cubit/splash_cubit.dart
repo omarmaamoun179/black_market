@@ -11,7 +11,7 @@ class SplashCubit extends Cubit<SplashState> {
 
   void durationTimer(BuildContext context) {
     emit(SplashInitialState());
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, '/login');
     });
   }
