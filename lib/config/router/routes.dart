@@ -1,3 +1,4 @@
+import 'package:black_market/features/auth/presentation/pages/forget_password.dart';
 import 'package:black_market/features/auth/presentation/pages/login_page.dart';
 import 'package:black_market/features/auth/presentation/pages/register.dart';
 import 'package:black_market/features/splash/presentation/pages/splash._screen.dart';
@@ -7,6 +8,7 @@ class Routes {
   static const String splash = '/splash';
   static const String login = '/login';
   static const String register = 'register';
+  static const String foregetPassword = 'foregetPassword';
   static const String home = 'home';
 }
 
@@ -19,6 +21,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => LogingScreen());
       case (Routes.register):
         return MaterialPageRoute(builder: (_) =>  RegisterScreen());
+          case (Routes.foregetPassword):
+        return MaterialPageRoute(builder: (_) => ForgetPassword());
       default:
         MaterialPageRoute(builder: (_) => unDefindeRoute());
     }
