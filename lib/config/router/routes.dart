@@ -1,3 +1,5 @@
+import 'package:black_market/features/auth/presentation/pages/confirm_password.dart';
+import 'package:black_market/features/auth/presentation/pages/finish_screen.dart';
 import 'package:black_market/features/auth/presentation/pages/forget_password.dart';
 import 'package:black_market/features/auth/presentation/pages/login_page.dart';
 import 'package:black_market/features/auth/presentation/pages/otp_screen.dart';
@@ -11,7 +13,9 @@ class Routes {
   static const String register = 'register';
   static const String foregetPassword = 'foregetPassword';
   static const String otp = 'otp';
+  static const String confirmPass = 'confirmPass';
   static const String home = 'home';
+  static const String finish = 'finish';
 }
 
 class AppRoutes {
@@ -22,11 +26,15 @@ class AppRoutes {
       case (Routes.login):
         return MaterialPageRoute(builder: (_) => LogingScreen());
       case (Routes.register):
-        return MaterialPageRoute(builder: (_) =>  RegisterScreen());
-          case (Routes.foregetPassword):
+        return MaterialPageRoute(builder: (_) => RegisterScreen());
+      case (Routes.foregetPassword):
         return MaterialPageRoute(builder: (_) => ForgetPassword());
-          case (Routes.otp):
-        return MaterialPageRoute(builder: (_) => OtpScreen());
+      case (Routes.otp):
+        return MaterialPageRoute(builder: (_) => const OtpScreen());
+         case (Routes.confirmPass):
+        return MaterialPageRoute(builder: (_) => ConfirmPassword());
+          case (Routes.finish):
+        return MaterialPageRoute(builder: (_) => FinishScreen());
       default:
         MaterialPageRoute(builder: (_) => unDefindeRoute());
     }

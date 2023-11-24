@@ -5,7 +5,7 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.controller,
     this.obscureText,
-    required this.keyBoardType,
+     this.keyBoardType,
     required this.lableText,
     required this.prefixIcon,
     this.suffixIcon,
@@ -15,7 +15,7 @@ class CustomTextFormField extends StatelessWidget {
   });
 
   final TextEditingController controller;
-  final TextInputType keyBoardType;
+  final TextInputType? keyBoardType;
   final String lableText;
   final Icon prefixIcon;
   final Icon? suffixIcon;
