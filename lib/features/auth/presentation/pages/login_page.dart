@@ -102,13 +102,19 @@ class LogingScreen extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(
-                          textDirection: TextDirection.rtl,
-                          'نسيت كلمة المرور؟ ',
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w700,
-                              color: const Color(0xffFFF4B0)),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, Routes.foregetPassword);
+                          },
+                          child: Text(
+                            textDirection: TextDirection.rtl,
+                            'نسيت كلمة المرور؟ ',
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xffFFF4B0)),
+                          ),
                         ),
                         const Spacer(),
                         Expanded(
