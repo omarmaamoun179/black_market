@@ -1,3 +1,4 @@
+import 'package:black_market/config/router/routes.dart';
 import 'package:black_market/core/widget/custom_app_bar.dart';
 import 'package:black_market/core/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +96,9 @@ class ForgetPassword extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.r),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.otp);
+                  },
                   child: Text(
                     ' إرسال ',
                     style: TextStyle(
