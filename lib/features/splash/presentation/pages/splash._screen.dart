@@ -24,8 +24,12 @@ class SplashScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Image(
+                    image: AssetImage('assets/images/splash.png'),
+                
+                  ),
                   Text(
-                    'Black>Market',
+                    'Black<Market',
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,

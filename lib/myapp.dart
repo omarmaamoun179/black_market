@@ -10,10 +10,9 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, child) => MaterialApp(
-    
         debugShowCheckedModeBanner: false,
         onGenerateRoute: (settings) => AppRoutes.ongenerate(settings),
-        initialRoute: Routes.splash,
+        initialRoute: Routes.home,
       ),
     );
   }
