@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: (context, child) => MaterialApp(
         localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: (settings) => AppRoutes.ongenerate(settings),
-        initialRoute: Routes.splash,
+        initialRoute: Routes.home,
       ),
     );
   }
