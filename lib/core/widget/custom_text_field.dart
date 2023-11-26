@@ -5,22 +5,22 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.controller,
     this.obscureText,
-     this.keyBoardType,
+    this.keyBoardType,
     required this.lableText,
-    required this.prefixIcon,
+    this.prefixIcon,
     this.suffixIcon,
     this.suffixIconPressed,
-    required this.hasSuffixIcon,
-     this.textInputAction,
+    this.hasSuffixIcon,
+    this.textInputAction,
   });
 
   final TextEditingController controller;
   final TextInputType? keyBoardType;
   final String lableText;
-  final Icon prefixIcon;
+  final Icon? prefixIcon;
   final Icon? suffixIcon;
   final Function? suffixIconPressed;
-  final bool hasSuffixIcon;
+  final bool? hasSuffixIcon;
   final bool? obscureText;
   final TextInputAction? textInputAction;
 
@@ -36,13 +36,7 @@ class CustomTextFormField extends StatelessWidget {
           label: Text(lableText),
           labelStyle: const TextStyle(color: Colors.grey),
           prefixIcon: prefixIcon,
-          suffixIcon: hasSuffixIcon
-              ? IconButton(
-                  onPressed: () {
-                    suffixIconPressed!();
-                  },
-                  icon: suffixIcon!)
-              : null,
+          suffixIcon: suffixIcon,
           fillColor: const Color(0xff2A2A2A),
           filled: true,
           enabledBorder: outLineInputBorder(),

@@ -77,13 +77,12 @@ class ForgetPassword extends StatelessWidget {
                 controller: emailController,
                 keyBoardType: TextInputType.emailAddress,
                 lableText: 'أدخل البريد الالكتروني',
-                prefixIcon: const Icon(
+                suffixIcon: const Icon(
                   Icons.email,
                   color: Color(
                     0xffFFFFFF,
                   ),
                 ),
-                hasSuffixIcon: false,
               ),
               const Spacer(),
               Padding(

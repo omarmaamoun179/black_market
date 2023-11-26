@@ -21,15 +21,15 @@ class LogingScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: CustomAppBar(
-                  title: '',
                   icon: IconButton(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.arrow_forward,
+                      Icons.arrow_back,
                       color: Colors.white,
                       size: 24.sp,
                     ),
                   ),
+                  title: '',
                 ),
               ),
               SizedBox(
@@ -66,13 +66,13 @@ class LogingScreen extends StatelessWidget {
                       controller: emailController,
                       keyBoardType: TextInputType.emailAddress,
                       lableText: 'أدخل الايميل الالكتروني',
-                      prefixIcon: const Icon(
+                      suffixIcon: const Icon(
                         Icons.email,
                         color: Color(
                           0xffFFFFFF,
                         ),
                       ),
-                      hasSuffixIcon: false,
+                      hasSuffixIcon: true,
                     ),
                     SizedBox(
                       height: 52.h,
@@ -92,13 +92,12 @@ class LogingScreen extends StatelessWidget {
                       controller: emailController,
                       keyBoardType: TextInputType.emailAddress,
                       lableText: 'أدخل كلمة المرور',
-                      prefixIcon: const Icon(
+                      suffixIcon: const Icon(
                         Icons.lock,
                         color: Color(
                           0xffFFFFFF,
                         ),
                       ),
-                      hasSuffixIcon: false,
                     ),
                     Row(
                       children: [

@@ -47,13 +47,12 @@ class ConfirmPassword extends StatelessWidget {
                         textInputAction: TextInputAction.next,
                         controller: passwordController,
                         lableText: 'أدخل كلمة المرور الجديدة',
-                        prefixIcon: const Icon(
+                        suffixIcon: const Icon(
                           Icons.lock_outlined,
                           color: Color(
                             0xffFFFFFF,
                           ),
                         ),
-                        hasSuffixIcon: false,
                       ),
                       SizedBox(
                         height: 55.h,
@@ -62,13 +61,12 @@ class ConfirmPassword extends StatelessWidget {
                         textInputAction: TextInputAction.next,
                         controller: confirmPasswordController,
                         lableText: 'أعد إدخال كلمة المرور الجديدة',
-                        prefixIcon: const Icon(
+                        suffixIcon: const Icon(
                           Icons.lock_outlined,
                           color: Color(
                             0xffFFFFFF,
                           ),
                         ),
-                        hasSuffixIcon: false,
                       ),
                     ],
                   ),
@@ -85,7 +83,8 @@ class ConfirmPassword extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.otp);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, Routes.finish, (route) => false);
                   },
                   child: Text(
                     ' إرسال ',

@@ -49,13 +49,12 @@ class RegisterScreen extends StatelessWidget {
                         controller: nameController,
                         keyBoardType: TextInputType.emailAddress,
                         lableText: 'أدخل الاسم بالكامل',
-                        prefixIcon: const Icon(
+                        suffixIcon: const Icon(
                           Icons.person,
                           color: Color(
                             0xffFFFFFF,
                           ),
                         ),
-                        hasSuffixIcon: false,
                       ),
                       SizedBox(
                         height: 55.h,
@@ -65,13 +64,12 @@ class RegisterScreen extends StatelessWidget {
                         controller: emailController,
                         keyBoardType: TextInputType.emailAddress,
                         lableText: 'أدخل الايميل الالكتروني',
-                        prefixIcon: const Icon(
+                        suffixIcon: const Icon(
                           Icons.email,
                           color: Color(
                             0xffFFFFFF,
                           ),
                         ),
-                        hasSuffixIcon: false,
                       ),
                       SizedBox(
                         height: 55.h,
@@ -81,13 +79,12 @@ class RegisterScreen extends StatelessWidget {
                         controller: passwordController,
                         keyBoardType: TextInputType.emailAddress,
                         lableText: ' أدخل كلمة المرور',
-                        prefixIcon: const Icon(
+                        suffixIcon: const Icon(
                           Icons.lock,
                           color: Color(
                             0xffFFFFFF,
                           ),
                         ),
-                        hasSuffixIcon: false,
                       ),
                       SizedBox(
                         height: 55.h,
@@ -97,13 +94,12 @@ class RegisterScreen extends StatelessWidget {
                         controller: passwordController,
                         keyBoardType: TextInputType.emailAddress,
                         lableText: ' أدخل كلمة المرور',
-                        prefixIcon: const Icon(
+                        suffixIcon: const Icon(
                           Icons.lock,
                           color: Color(
                             0xffFFFFFF,
                           ),
                         ),
-                        hasSuffixIcon: false,
                       ),
                       SizedBox(height: 120.h),
                       Padding(

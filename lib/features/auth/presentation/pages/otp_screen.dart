@@ -113,7 +113,7 @@ class OtpScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.finish);
+                    Navigator.pushNamed(context, Routes.confirmPass);
                   },
                   child: Text(
                     ' إرسال ',
