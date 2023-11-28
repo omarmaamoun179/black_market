@@ -1,9 +1,15 @@
+import 'package:black_market/features/home/presentation/widgets/chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CoinsScreen extends StatelessWidget {
+class CoinsScreen extends StatefulWidget {
   const CoinsScreen({super.key});
 
+  @override
+  State<CoinsScreen> createState() => _CoinsScreenState();
+}
+
+class _CoinsScreenState extends State<CoinsScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -152,20 +158,88 @@ class CoinsScreen extends StatelessWidget {
           SizedBox(
             height: 30.h,
           ),
-          const DefaultTabController(
-            length: 6,
-            child: TabBar(
-              isScrollable: true,
-              
-              tabs: [
-                Text('سبت'),
-                Text('أحد'),
-                Text('إثنين'),
-                Text('ثلاثاء'),
-                Text('أربعاء'),
-                Text(
-                  'خميس',
+          Expanded(
+            child: ListView(
+              children: [
+                SizedBox(
+                  height: 303.5.h,
+                  child: const LineChartSample2(),
                 ),
+                DefaultTabController(
+                  length: 6,
+                  child: TabBar(
+                    indicatorColor: Colors.transparent,
+                    dividerColor: Colors.transparent,
+                    labelColor: const Color(0xffFEDC00),
+                    labelStyle: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 24.w),
+                    tabAlignment: TabAlignment.center,
+                    unselectedLabelStyle: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    unselectedLabelColor: const Color(0xffB1BCCD),
+                    onTap: (index) {
+                      print(index);
+                    },
+                    indicator: const BoxDecoration(),
+                    isScrollable: true,
+                    tabs: const [
+                      Text(
+                        'سبت',
+                      ),
+                      Text('أحد'),
+                      Text('إثنين'),
+                      Text('ثلاثاء'),
+                      Text('أربعاء'),
+                      Text(
+                        'خميس',
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 250.h,
+                  child: GridView.builder(
+                      itemCount: 20,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 7 / 8,
+                        crossAxisSpacing: 10.w,
+                        mainAxisSpacing: 10.h,
+                      ),
+                      itemBuilder: (context, index) {
+                        return Row(
+                          children: [
+                            const Icon(Icons.favorite),
+                            CircleAvatar(
+                              radius: 45.r,
+                            ),
+                            const Icon(Icons.share),
+                          ],
+                        );
+                      }),
+                ),
+
+                // const DefaultTabController(
+                //   length: 6,
+                //   child: TabBar(
+                //     isScrollable: true,
+                //     tabs: [
+                //       Text('سبت'),
+                //       Text('أحد'),
+                //       Text('إثنين'),
+                //       Text('ثلاثاء'),
+                //       Text('أربعاء'),
+                //       Text(
+                //         'خميس',
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -212,4 +286,10 @@ class CoulmnText extends StatelessWidget {
       ],
     );
   }
+}
+
+class SalesData {
+  SalesData(this.year, this.sales);
+  final String year;
+  final double sales;
 }
