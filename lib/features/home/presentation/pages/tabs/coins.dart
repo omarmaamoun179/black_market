@@ -13,7 +13,8 @@ class _CoinsScreenState extends State<CoinsScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
+      child: ListView(
+        physics: const PageScrollPhysics(),
         children: [
           Container(
             height: 300.h,
@@ -158,90 +159,165 @@ class _CoinsScreenState extends State<CoinsScreen> {
           SizedBox(
             height: 30.h,
           ),
-          Expanded(
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: 303.5.h,
-                  child: const LineChartSample2(),
+          SizedBox(
+            height: 303.5.h,
+            child: const LineChartSample2(),
+          ),
+          DefaultTabController(
+            length: 6,
+            child: TabBar(
+              indicatorColor: Colors.transparent,
+              dividerColor: Colors.transparent,
+              labelColor: const Color(0xffFEDC00),
+              labelStyle: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w700,
+              ),
+              labelPadding: EdgeInsets.symmetric(horizontal: 24.w),
+              tabAlignment: TabAlignment.center,
+              unselectedLabelStyle: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+              ),
+              unselectedLabelColor: const Color(0xffB1BCCD),
+              onTap: (index) {
+                print(index);
+              },
+              indicator: const BoxDecoration(),
+              isScrollable: true,
+              tabs: const [
+                Text(
+                  'سبت',
                 ),
-                DefaultTabController(
-                  length: 6,
-                  child: TabBar(
-                    indicatorColor: Colors.transparent,
-                    dividerColor: Colors.transparent,
-                    labelColor: const Color(0xffFEDC00),
-                    labelStyle: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
+                Text('أحد'),
+                Text('إثنين'),
+                Text('ثلاثاء'),
+                Text('أربعاء'),
+                Text(
+                  'خميس',
+                ),
+              ],
+            ),
+          ),
+          GridView.builder(
+            physics: const PageScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 20,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10.w,
+              childAspectRatio: 7 / 8,
+              mainAxisSpacing: 10.h,
+            ),
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {},
+                child: Container(
+                  margin: const EdgeInsets.all(12),
+                  width: 156.w,
+                  height: 134.3.h,
+                  decoration: BoxDecoration(
+                    color: const Color(0xff2A2A2A),
+                    borderRadius: BorderRadius.circular(7.7.r),
+                    border: Border.all(
+                      width: .5.w,
+                      color: const Color(0xff4F4F4F),
                     ),
-                    labelPadding: EdgeInsets.symmetric(horizontal: 24.w),
-                    tabAlignment: TabAlignment.center,
-                    unselectedLabelStyle: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    unselectedLabelColor: const Color(0xffB1BCCD),
-                    onTap: (index) {
-                      print(index);
-                    },
-                    indicator: const BoxDecoration(),
-                    isScrollable: true,
-                    tabs: const [
-                      Text(
-                        'سبت',
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 14.5.h,
                       ),
-                      Text('أحد'),
-                      Text('إثنين'),
-                      Text('ثلاثاء'),
-                      Text('أربعاء'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: 25.5.w,
+                            height: 25.5.h,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: .78.w,
+                                color: const Color(0xff4F4F4F),
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.favorite_border,
+                              size: 12.sp,
+                              color: const Color(0xffF1F0FA),
+                            ),
+                          ),
+                          Image.asset(
+                            'assets/images/bank_misr.png',
+                            width: 46.6.w,
+                            height: 46.6.h,
+                          ),
+                          Container(
+                            width: 25.5.w,
+                            height: 25.5.h,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: .78.w,
+                                color: const Color(0xff4F4F4F),
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.share,
+                              size: 12.sp,
+                              color: const Color(0xffF1F0FA),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
                       Text(
-                        'خميس',
+                        'بنك مصر',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xffFFFFFF),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      IntrinsicHeight(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            CoulmnText(
+                              text: 'شراء',
+                              text2: '30.65',
+                              style: TextStyle(
+                                color: const Color(0xffffffff),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            VerticalDivider(
+                              color: const Color(0xff4F4F4F),
+                              indent: 18.h,
+                              width: 18.w,
+                            ),
+                            CoulmnText(
+                              color: const Color(0xffffffff),
+                              text: 'بيع',
+                              text2: '35',
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 250.h,
-                  child: GridView.builder(
-                      itemCount: 20,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 7 / 8,
-                        crossAxisSpacing: 10.w,
-                        mainAxisSpacing: 10.h,
-                      ),
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            const Icon(Icons.favorite),
-                            CircleAvatar(
-                              radius: 45.r,
-                            ),
-                            const Icon(Icons.share),
-                          ],
-                        );
-                      }),
-                ),
-
-                // const DefaultTabController(
-                //   length: 6,
-                //   child: TabBar(
-                //     isScrollable: true,
-                //     tabs: [
-                //       Text('سبت'),
-                //       Text('أحد'),
-                //       Text('إثنين'),
-                //       Text('ثلاثاء'),
-                //       Text('أربعاء'),
-                //       Text(
-                //         'خميس',
-                //       ),
-                //     ],
-                //   ),
-                // ),
-              ],
-            ),
+              );
+            },
           ),
         ],
       ),
@@ -255,10 +331,12 @@ class CoulmnText extends StatelessWidget {
     this.text,
     this.text2,
     this.style,
+    this.color,
   });
   String? text;
   String? text2;
   TextStyle? style;
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -266,11 +344,12 @@ class CoulmnText extends StatelessWidget {
       children: [
         Text(
           text ?? '',
-          style: TextStyle(
-            color: const Color(0xff828282),
-            fontSize: 10.sp,
-            fontWeight: FontWeight.w700,
-          ),
+          style: style ??
+              TextStyle(
+                fontSize: 10.sp,
+                color: color ?? const Color(0xff828282),
+                fontWeight: FontWeight.w700,
+              ),
         ),
         SizedBox(
           height: 14.h,
@@ -280,16 +359,11 @@ class CoulmnText extends StatelessWidget {
           style: style ??
               TextStyle(
                 fontSize: 10.sp,
+                color: color ?? const Color(0xffFFFFFF),
                 fontWeight: FontWeight.w800,
               ),
         ),
       ],
     );
   }
-}
-
-class SalesData {
-  SalesData(this.year, this.sales);
-  final String year;
-  final double sales;
 }
