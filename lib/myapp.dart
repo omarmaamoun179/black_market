@@ -11,6 +11,9 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, child) => MaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: const Color(0xff0D0D0D),
+        ),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

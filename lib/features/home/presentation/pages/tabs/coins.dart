@@ -1,4 +1,7 @@
+import 'package:black_market/config/router/routes.dart';
 import 'package:black_market/features/home/presentation/widgets/chart_widget.dart';
+import 'package:black_market/features/home/presentation/widgets/column_text.dart';
+import 'package:black_market/features/home/presentation/widgets/grid_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -133,7 +136,7 @@ class _CoinsScreenState extends State<CoinsScreen> {
                             CoulmnText(
                               text: 'سعر البنك',
                               text2: '30.65',
-                              style: TextStyle(
+                              style2: TextStyle(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w800,
                                 color: const Color(0xffBFA500),
@@ -211,159 +214,15 @@ class _CoinsScreenState extends State<CoinsScreen> {
             ),
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: () {},
-                child: Container(
-                  margin: const EdgeInsets.all(12),
-                  width: 156.w,
-                  height: 134.3.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xff2A2A2A),
-                    borderRadius: BorderRadius.circular(7.7.r),
-                    border: Border.all(
-                      width: .5.w,
-                      color: const Color(0xff4F4F4F),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 14.5.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: 25.5.w,
-                            height: 25.5.h,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: .78.w,
-                                color: const Color(0xff4F4F4F),
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.favorite_border,
-                              size: 12.sp,
-                              color: const Color(0xffF1F0FA),
-                            ),
-                          ),
-                          Image.asset(
-                            'assets/images/bank_misr.png',
-                            width: 46.6.w,
-                            height: 46.6.h,
-                          ),
-                          Container(
-                            width: 25.5.w,
-                            height: 25.5.h,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: .78.w,
-                                color: const Color(0xff4F4F4F),
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.share,
-                              size: 12.sp,
-                              color: const Color(0xffF1F0FA),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Text(
-                        'بنك مصر',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xffFFFFFF),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      IntrinsicHeight(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            CoulmnText(
-                              text: 'شراء',
-                              text2: '30.65',
-                              style: TextStyle(
-                                color: const Color(0xffffffff),
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                            VerticalDivider(
-                              color: const Color(0xff4F4F4F),
-                              indent: 18.h,
-                              width: 18.w,
-                            ),
-                            CoulmnText(
-                              color: const Color(0xffffffff),
-                              text: 'بيع',
-                              text2: '35',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.bankDetails);
+                },
+                child: const BankWidgetGridView(),
               );
             },
           ),
         ],
       ),
-    );
-  }
-}
-
-class CoulmnText extends StatelessWidget {
-  CoulmnText({
-    super.key,
-    this.text,
-    this.text2,
-    this.style,
-    this.color,
-  });
-  String? text;
-  String? text2;
-  TextStyle? style;
-  Color? color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          text ?? '',
-          style: style ??
-              TextStyle(
-                fontSize: 10.sp,
-                color: color ?? const Color(0xff828282),
-                fontWeight: FontWeight.w700,
-              ),
-        ),
-        SizedBox(
-          height: 14.h,
-        ),
-        Text(
-          text2 ?? '',
-          style: style ??
-              TextStyle(
-                fontSize: 10.sp,
-                color: color ?? const Color(0xffFFFFFF),
-                fontWeight: FontWeight.w800,
-              ),
-        ),
-      ],
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:black_market/features/auth/presentation/pages/forget_password.da
 import 'package:black_market/features/auth/presentation/pages/login_page.dart';
 import 'package:black_market/features/auth/presentation/pages/otp_screen.dart';
 import 'package:black_market/features/auth/presentation/pages/register.dart';
+import 'package:black_market/features/bank_details/presentation/pages/bank_details.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/pages/home_layout.dart';
 import 'package:black_market/features/splash/presentation/pages/splash._screen.dart';
@@ -22,6 +23,7 @@ class Routes {
   static const String coins = 'coins';
   static const String golds = 'golds';
   static const String favorites = 'favorites';
+  static const String bankDetails = 'bankDetails';
 
   static const String finish = 'finish';
 }
@@ -41,6 +43,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const OtpScreen());
       case (Routes.confirmPass):
         return MaterialPageRoute(builder: (_) => ConfirmPassword());
+      case (Routes.bankDetails):
+        return MaterialPageRoute(builder: (_) => const BankDetails());
       case (Routes.finish):
         return MaterialPageRoute(builder: (_) => const FinishScreen());
       case (Routes.home):
