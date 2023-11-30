@@ -1,4 +1,6 @@
+import 'package:black_market/features/bank_details/presentation/widgets/bank_details_appbar.dart';
 import 'package:black_market/features/bank_details/presentation/widgets/calc_widget.dart';
+import 'package:black_market/features/bank_details/presentation/widgets/info_widget.dart';
 import 'package:black_market/features/bank_details/presentation/widgets/statics_of_bank.dart';
 import 'package:black_market/features/home/presentation/widgets/column_text.dart';
 import 'package:flutter/material.dart';
@@ -13,14 +15,14 @@ class BankDetails extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const ConisAppBar(),
+            const BankDetailsAppBar(),
             SizedBox(
               height: 32.h,
             ),
             Expanded(
               child: ListView(
                 shrinkWrap: true,
-                physics: const PageScrollPhysics(),
+            
                 children: [
                   SizedBox(height: 70.h),
                   Container(
@@ -98,7 +100,8 @@ class BankDetails extends StatelessWidget {
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(12.r),
                           topRight: Radius.circular(12.r),
-                        )),
+                        ),
+                        ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 24.w),
                       child: Row(
@@ -152,159 +155,6 @@ class BankDetails extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ConisAppBar extends StatelessWidget {
-  const ConisAppBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 300.h,
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-      decoration: BoxDecoration(
-        color: const Color(0xff1A1A1A),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20.r),
-          bottomRight: Radius.circular(20.r),
-        ),
-      ),
-      child: Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.center,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 230.h),
-                decoration: BoxDecoration(
-                  color: const Color(0xff0E0E0E).withOpacity(.4),
-                  borderRadius: BorderRadius.circular(50.r),
-                ),
-                child: Center(
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 24.sp,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 26.h,
-          ),
-          Text(
-            'Black<Market',
-            style: TextStyle(
-                fontSize: 28.sp,
-                fontWeight: FontWeight.w800,
-                color: const Color(0xffFEDC00)),
-          ),
-          Positioned(
-            bottom: 70.h,
-            child: Text(
-              ' بكام في السوق السوداء ؟',
-              style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xffFFF4B0)),
-            ),
-          ),
-          Positioned(
-            top: 230.h,
-            child: StatictsOfBank(
-              coulmnText1: CoulmnText(
-                text: 'البنك',
-                text2: '30.65',
-                color2: const Color(0xff4F4F4F),
-              ),
-              coulmnText2: CoulmnText(
-                text: 'أخر تحديث',
-                text2: 'منذ 15 دقيقة',
-                color2: const Color(0xff4F4F4F),
-              ),
-              coulmnText3: CoulmnText(
-                text: 'السوق السوداء',
-                text2: '50.65',
-                color2: const Color(0xffBFA500),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class InfoWidget extends StatelessWidget {
-  const InfoWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 327.w,
-      decoration: BoxDecoration(
-        color: const Color(0xff2A2A2A),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(12.r),
-          bottomRight: Radius.circular(12.r),
-        ),
-      ),
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(10),
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'دولار أمريكي /Usd',
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xffFFFFFF),
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  '30.65',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xffFEDC00),
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  '35',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xffFEDC00),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
       ),
     );
   }

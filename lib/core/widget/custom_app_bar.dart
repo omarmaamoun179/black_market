@@ -5,7 +5,7 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
       {super.key, required this.title, required this.icon, this.onPressed});
   final String title;
-  final Widget icon;
+  final Widget? icon;
   final void Function()? onPressed;
 
   @override
@@ -22,11 +22,12 @@ class CustomAppBar extends StatelessWidget {
           child: Center(
             child: IconButton(
               onPressed: onPressed,
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-                size: 24.sp,
-              ),
+              icon: icon ??
+                  Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 24.sp,
+                  ),
             ),
           ),
         ),

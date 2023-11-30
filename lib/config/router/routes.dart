@@ -24,6 +24,7 @@ class Routes {
   static const String golds = 'golds';
   static const String favorites = 'favorites';
   static const String bankDetails = 'bankDetails';
+  
 
   static const String finish = 'finish';
 }

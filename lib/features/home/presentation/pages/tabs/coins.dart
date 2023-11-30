@@ -217,7 +217,15 @@ class _CoinsScreenState extends State<CoinsScreen> {
                 onTap: () {
                   Navigator.pushNamed(context, Routes.bankDetails);
                 },
-                child: const BankWidgetGridView(),
+                child: BankWidgetGridView(
+                  imagePath: 'assets/images/bank_misr.png',
+                  icon: Icon(
+                    Icons.favorite_border,
+                    size: 12.sp,
+                    color: const Color(0xffF1F0FA),
+                  ),
+                  text: 'بنك مصر',
+                ),
               );
             },
           ),

@@ -3,9 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BankWidgetGridView extends StatelessWidget {
-  const BankWidgetGridView({
+  BankWidgetGridView({
     super.key,
+    this.text,
+    this.imagePath,
+    this.icon,
+    this.container,
   });
+  String? text;
+  String? imagePath;
+  Widget? icon;
+  Widget? container;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,7 @@ class BankWidgetGridView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
+            container ??   Container(
                 width: 25.5.w,
                 height: 25.5.h,
                 decoration: BoxDecoration(
@@ -40,14 +48,10 @@ class BankWidgetGridView extends StatelessWidget {
                     color: const Color(0xff4F4F4F),
                   ),
                 ),
-                child: Icon(
-                  Icons.favorite_border,
-                  size: 12.sp,
-                  color: const Color(0xffF1F0FA),
-                ),
+                child: icon ?? const Text(''),
               ),
               Image.asset(
-                'assets/images/bank_misr.png',
+                imagePath!,
                 width: 46.6.w,
                 height: 46.6.h,
               ),
@@ -74,7 +78,7 @@ class BankWidgetGridView extends StatelessWidget {
             height: 10.h,
           ),
           Text(
-            'بنك مصر',
+            text!,
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.w700,
