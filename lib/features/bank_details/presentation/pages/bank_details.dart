@@ -14,12 +14,17 @@ class BankDetails extends StatelessWidget {
         child: Column(
           children: [
             const ConisAppBar(),
+            SizedBox(
+              height: 32.h,
+            ),
             Expanded(
               child: ListView(
+                shrinkWrap: true,
                 physics: const PageScrollPhysics(),
                 children: [
                   SizedBox(height: 70.h),
                   Container(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
                     height: 85.h,
                     width: 327.w,
                     margin: EdgeInsets.symmetric(
@@ -85,6 +90,62 @@ class BankDetails extends StatelessWidget {
                     child: const CalculaterWidget(),
                   ),
                   SizedBox(height: 18.h),
+                  Container(
+                    padding: EdgeInsets.only(top: 10.h),
+                    width: 327.w,
+                    decoration: BoxDecoration(
+                        color: const Color(0xff2A2A2A),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12.r),
+                          topRight: Radius.circular(12.r),
+                        )),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'العمله',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xffFFFFFF),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Text(
+                            'شراء',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xffFFFFFF),
+                            ),
+                          ),
+                          Text(
+                            'بيع',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xffFFFFFF),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10.h),
+                    decoration: const BoxDecoration(
+                      color: Color(0xff2A2A2A),
+                    ),
+                    child: Divider(
+                      color: const Color(0xff967373),
+                      indent: 28.w,
+                      endIndent: 28.w,
+                    ),
+                  ),
                   const InfoWidget(),
                 ],
               ),
@@ -196,108 +257,54 @@ class InfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 327.w,
-      height: 284.h,
       decoration: BoxDecoration(
         color: const Color(0xff2A2A2A),
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(12.r),
+          bottomRight: Radius.circular(12.r),
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            height: 16.h,
-          ),
-          Padding(
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(10),
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          return Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'العمله',
+                  'دولار أمريكي /Usd',
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w700,
                     color: const Color(0xffFFFFFF),
                   ),
                 ),
-                SizedBox(
-                  width: 1.w,
-                ),
+                const Spacer(),
                 Text(
-                  'شراء',
+                  '30.65',
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w700,
-                    color: const Color(0xffFFFFFF),
+                    color: const Color(0xffFEDC00),
                   ),
                 ),
+                const Spacer(),
                 Text(
-                  'بيع',
+                  '35',
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w700,
-                    color: const Color(0xffFFFFFF),
+                    color: const Color(0xffFEDC00),
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 12.h,
-          ),
-          Divider(
-            color: const Color(0xff967373),
-            indent: 28.w,
-            endIndent: 28.w,
-          ),
-          SizedBox(
-            height: 12.h,
-          ),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const PageScrollPhysics(),
-              primary: false,
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'دولار أمريكي /Usd',
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xffFFFFFF),
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        '30.65',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xffFEDC00),
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        '35',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xffFEDC00),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
