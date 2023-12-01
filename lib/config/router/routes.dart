@@ -24,7 +24,7 @@ class Routes {
   static const String golds = 'golds';
   static const String favorites = 'favorites';
   static const String bankDetails = 'bankDetails';
-  
+
 
   static const String finish = 'finish';
 }
@@ -46,6 +46,7 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => ConfirmPassword());
       case (Routes.bankDetails):
         return MaterialPageRoute(builder: (_) => const BankDetails());
+     
       case (Routes.finish):
         return MaterialPageRoute(builder: (_) => const FinishScreen());
       case (Routes.home):
