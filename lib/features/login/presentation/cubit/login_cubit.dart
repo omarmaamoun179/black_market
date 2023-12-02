@@ -8,7 +8,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(
     this.loginBaseRepo,
   ) : super(LoginInitial());
-   LoginRepoImpl loginBaseRepo;
+  LoginRepoImpl loginBaseRepo;
   bool isVisible = false;
   Icon suffixIcon = const Icon(Icons.lock, color: Color(0xffFFFFFF));
   void changeVisibility() {
@@ -26,12 +26,12 @@ class LoginCubit extends Cubit<LoginState> {
     emit(ChangeVisibilityState());
   }
 
-GlobalKey<FormState> formKey = GlobalKey();  
- TextEditingController emailController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   static LoginCubit get(context) => BlocProvider.of(context);
-    login() async {
+  login() async {
     LoginData loginData = LoginData(
       email: emailController.text,
       password: passwordController.text,

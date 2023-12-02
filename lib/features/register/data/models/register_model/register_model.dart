@@ -14,6 +14,4 @@ class RegisterModel {
         accessToken: json['access_token'] as String?,
         expiresAt: json['expires_at'] as String?,
       );
-
- 
 }

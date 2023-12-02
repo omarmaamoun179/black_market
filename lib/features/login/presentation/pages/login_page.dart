@@ -254,7 +254,6 @@ extension EmailValidator on String {
   }
 }
 
-
 extension PasswordValidator on String {
   bool isValidPassword() {
     return RegExp(

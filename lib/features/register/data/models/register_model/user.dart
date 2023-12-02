@@ -18,5 +18,4 @@ class User {
             : DateTime.parse(json['created_at'] as String),
         id: json['id'] as int?,
       );
-
 }

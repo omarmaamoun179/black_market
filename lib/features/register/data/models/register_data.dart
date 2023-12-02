@@ -9,10 +9,6 @@ class RegisterData {
       {required this.name,
       required this.email,
       required this.password,
-      required this.passwordConfirmation , 
-      
-      this.phone
-      });
-
-
+      required this.passwordConfirmation,
+      this.phone});
 }
