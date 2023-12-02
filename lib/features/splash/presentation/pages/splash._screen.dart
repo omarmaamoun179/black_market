@@ -26,7 +26,6 @@ class SplashScreen extends StatelessWidget {
                 children: [
                   Image(
                     image: AssetImage('assets/images/splash.png'),
-                
                   ),
                   Text(
                     'Black<Market',

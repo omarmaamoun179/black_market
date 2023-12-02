@@ -93,4 +93,3 @@ class BankDetailsAppBar extends StatelessWidget {
     );
   }
 }
-

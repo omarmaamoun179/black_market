@@ -22,7 +22,6 @@ class BankDetails extends StatelessWidget {
             Expanded(
               child: ListView(
                 shrinkWrap: true,
-            
                 children: [
                   SizedBox(height: 70.h),
                   Container(
@@ -96,12 +95,12 @@ class BankDetails extends StatelessWidget {
                     padding: EdgeInsets.only(top: 10.h),
                     width: 327.w,
                     decoration: BoxDecoration(
-                        color: const Color(0xff2A2A2A),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12.r),
-                          topRight: Radius.circular(12.r),
-                        ),
-                        ),
+                      color: const Color(0xff2A2A2A),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12.r),
+                        topRight: Radius.circular(12.r),
+                      ),
+                    ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 24.w),
                       child: Row(

@@ -98,9 +98,3 @@ class _GoldsScreenState extends State<GoldsScreen>
     );
   }
 }
-
-
-
-
-
-

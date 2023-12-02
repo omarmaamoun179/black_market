@@ -37,19 +37,20 @@ class BankWidgetGridView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-            container ??   Container(
-                width: 25.5.w,
-                height: 25.5.h,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    width: .78.w,
-                    color: const Color(0xff4F4F4F),
+              container ??
+                  Container(
+                    width: 25.5.w,
+                    height: 25.5.h,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: .78.w,
+                        color: const Color(0xff4F4F4F),
+                      ),
+                    ),
+                    child: icon ?? const Text(''),
                   ),
-                ),
-                child: icon ?? const Text(''),
-              ),
               Image.asset(
                 imagePath!,
                 width: 46.6.w,

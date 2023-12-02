@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CalculaterWidget extends StatelessWidget {
-  
   const CalculaterWidget({
     super.key,
   });
@@ -58,7 +57,7 @@ class CalculaterWidget extends StatelessWidget {
             ],
           ),
         ),
-    
+
         Container(
           width: 147.w,
           height: 26.h,
@@ -122,7 +121,6 @@ class CalculaterWidget extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          
           children: [
             ItemOfCalculator(
               width: 101.w,
@@ -157,4 +155,3 @@ class CalculaterWidget extends StatelessWidget {
     );
   }
 }
-

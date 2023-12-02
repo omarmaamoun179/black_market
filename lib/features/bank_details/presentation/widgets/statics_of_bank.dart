@@ -14,7 +14,6 @@ class StatictsOfBank extends StatelessWidget {
     return Container(
       height: 92.h,
       width: 327.w,
-     
       decoration: BoxDecoration(
         color: const Color(0xfffafafa),
         borderRadius: BorderRadius.circular(16.r),

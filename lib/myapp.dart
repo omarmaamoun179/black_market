@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: (settings) => AppRoutes.ongenerate(settings),
-        initialRoute: Routes.home,
+        initialRoute: Routes.login,
       ),
     );
   }

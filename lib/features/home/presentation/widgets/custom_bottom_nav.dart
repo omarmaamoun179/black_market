@@ -13,7 +13,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: const Color(0xffFFFFFF).withOpacity(0.5),
       showUnselectedLabels: false,
