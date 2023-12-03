@@ -31,7 +31,7 @@ class CoulmnText extends StatelessWidget {
               ),
         ),
         SizedBox(
-          height: 14.h,
+          height: 8.h,
         ),
         Text(
           text2 ?? '',

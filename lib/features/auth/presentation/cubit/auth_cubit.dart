@@ -61,21 +61,19 @@ class AuthCubit extends Cubit<AuthState> {
   //     emit(UpdatePassError(e.toString()));
   //   });
   // }
-  updatePassword( 
-
-   String email,
+  updatePassword(
+    String email,
   ) async {
     emit(UpdatePassLoading());
     UpdatePassData updatePassData = UpdatePassData(
       password: passwordController.text,
       passwordConfirmation: confirmPasswordController.text,
       otp: otpController.text,
-      email:email,
+      email: email,
     );
 
     var result = await baseAuthRepo.updatePassword(
       updatePassData,
-
     );
     result.fold(
       (l) {

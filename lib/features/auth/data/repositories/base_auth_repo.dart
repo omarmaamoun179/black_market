@@ -8,7 +8,6 @@ import 'package:dartz/dartz.dart';
 abstract class BaseAuthRepo {
   Future<Either<Failure, ForgetPassModel>> forgetPassword(EmailData email);
   Future<Either<Failure, UpdatePassModel>> updatePassword(
-      UpdatePassData updatePassData, 
-      
-      );
+    UpdatePassData updatePassData,
+  );
 }

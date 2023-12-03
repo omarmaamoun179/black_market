@@ -45,5 +45,4 @@ class User {
             ? null
             : DateTime.parse(json['updated_at'] as String),
       );
-
 }

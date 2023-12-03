@@ -9,6 +9,5 @@ class UpdatePassData {
     required this.passwordConfirmation,
     required this.otp,
     required this.email,
-    
   });
 }

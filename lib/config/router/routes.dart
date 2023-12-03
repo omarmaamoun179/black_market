@@ -1,10 +1,10 @@
-import 'package:black_market/features/auth/data/models/update_pass_data.dart';
 import 'package:black_market/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:black_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:black_market/features/auth/presentation/pages/finish_screen.dart';
 import 'package:black_market/features/auth/presentation/pages/forget_password.dart';
 import 'package:black_market/features/auth/presentation/pages/otp_screen.dart';
 import 'package:black_market/features/bank_details/presentation/pages/bank_details.dart';
+import 'package:black_market/features/home/data/repositories/home_repo_imp.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/pages/home_layout.dart';
 import 'package:black_market/features/login/data/repositories/login_impl.dart';
@@ -68,7 +68,7 @@ class AppRoutes {
                     AuthRepoImpl(),
                   ),
                   child: OtpScreen(
-                  email: settings.arguments as String,
+                    email: settings.arguments as String,
                   ),
                 ));
       // case (Routes.confirmPass):
@@ -81,7 +81,11 @@ class AppRoutes {
       case (Routes.home):
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
-                  create: (context) => HomeCubit(),
+                  create: (context) => HomeCubit(
+                    HomeRepoImp(),
+                  )
+                    ..getHomeData()
+                    ..getBanksData(),
                   child: const HomeScreen(),
                 ));
       default:

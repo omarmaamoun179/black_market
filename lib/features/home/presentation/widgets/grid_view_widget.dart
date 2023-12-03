@@ -1,4 +1,7 @@
+import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
+import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/presentation/widgets/column_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,11 +12,14 @@ class BankWidgetGridView extends StatelessWidget {
     this.imagePath,
     this.icon,
     this.container,
+    this.banksModel,
   });
   String? text;
   String? imagePath;
   Widget? icon;
   Widget? container;
+  CoinsModel? coinsModel;
+  BanksModel? banksModel;
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +57,13 @@ class BankWidgetGridView extends StatelessWidget {
                     ),
                     child: icon ?? const Text(''),
                   ),
-              Image.asset(
-                imagePath!,
-                width: 46.6.w,
-                height: 46.6.h,
+              CachedNetworkImage(
+                imageUrl: 'http://voipsys.space/storage/${banksModel?.icon}',
+                height: 46.h,
+                width: 46.w,
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               Container(
                 width: 25.5.w,
@@ -79,7 +88,7 @@ class BankWidgetGridView extends StatelessWidget {
             height: 10.h,
           ),
           Text(
-            text!,
+            banksModel?.name ?? '',
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.w700,

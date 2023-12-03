@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpBoxWidget extends StatelessWidget {
- OtpBoxWidget({super.key , required this.otpController}); 
+  OtpBoxWidget({super.key, required this.otpController});
   TextEditingController otpController = TextEditingController();
 
   @override
