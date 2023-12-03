@@ -1,3 +1,3 @@
 class ForgetPassModel {
-  String messag = "Success" ;
+  String messag = "Success";
 }

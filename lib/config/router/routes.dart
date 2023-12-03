@@ -1,4 +1,6 @@
-import 'package:black_market/features/auth/presentation/pages/confirm_password.dart';
+import 'package:black_market/features/auth/data/models/update_pass_data.dart';
+import 'package:black_market/features/auth/data/repositories/auth_repo_impl.dart';
+import 'package:black_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:black_market/features/auth/presentation/pages/finish_screen.dart';
 import 'package:black_market/features/auth/presentation/pages/forget_password.dart';
 import 'package:black_market/features/auth/presentation/pages/otp_screen.dart';
@@ -52,11 +54,25 @@ class AppRoutes {
                   child: RegisterScreen(),
                 ));
       case (Routes.foregetPassword):
-        return MaterialPageRoute(builder: (_) => ForgetPassword());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => AuthCubit(
+                    AuthRepoImpl(),
+                  ),
+                  child: const ForgetPassword(),
+                ));
       case (Routes.otp):
-        return MaterialPageRoute(builder: (_) => const OtpScreen());
-      case (Routes.confirmPass):
-        return MaterialPageRoute(builder: (_) => ConfirmPassword());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => AuthCubit(
+                    AuthRepoImpl(),
+                  ),
+                  child: OtpScreen(
+                  email: settings.arguments as String,
+                  ),
+                ));
+      // case (Routes.confirmPass):
+      //   return MaterialPageRoute(builder: (_) => ConfirmPassword());
       case (Routes.bankDetails):
         return MaterialPageRoute(builder: (_) => const BankDetails());
 

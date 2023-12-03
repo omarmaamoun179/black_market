@@ -15,3 +15,12 @@ class AuthError extends AuthState {
   final String error;
   AuthError(this.error);
 }
+class UpdatePassLoading extends AuthState {}
+class UpdatePassSuccess extends AuthState {
+  UpdatePassModel updatePassModel;
+  UpdatePassSuccess(this.updatePassModel);
+}
+class UpdatePassError extends AuthState {
+  final String error;
+  UpdatePassError(this.error);
+}

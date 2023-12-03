@@ -16,6 +16,11 @@ class DioHelper {
 
   static Future<Response> postData(String path,
       {Map<String, dynamic>? data}) async {
+    Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        });
     dio.options.headers = {
       // 'Authorization': Constant.token ?? '',
       // 'lang': 'en',
