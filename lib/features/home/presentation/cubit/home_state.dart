@@ -13,13 +13,11 @@ class HomeChangeBottomNavState extends HomeState {}
 
 class HomeCurrcinesSuccessState extends HomeState {
   List<CoinsModel> coinsModel;
-  List<LivePrice> livePrices;
-  List<BlackMarketPrice> blackMarketPrices;
+
 
   HomeCurrcinesSuccessState(
     this.coinsModel,
-    this.livePrices,
-    this.blackMarketPrices,
+
   );
 }
 
@@ -39,22 +37,22 @@ class HomeBanksErrorState extends HomeState {
   HomeBanksErrorState(this.error);
 }
 
-class HomeBlackMarketSuccessState extends HomeState {
-  List<dynamic> blackMarketModel;
-  HomeBlackMarketSuccessState(this.blackMarketModel);
-}
-
-class HomeBlackMarketErrorState extends HomeState {
-  final String error;
-  HomeBlackMarketErrorState(this.error);
-}
-
-class HomeLiveSuccessState extends HomeState {
-  List<dynamic> liveModel;
-  HomeLiveSuccessState(this.liveModel);
-}
-
 class HomeLiveErrorState extends HomeState {
   final String error;
   HomeLiveErrorState(this.error);
+}
+
+class HomeStackWidgetSuccessState extends HomeState {
+  CoinsModel? selectedModel;
+  HomeStackWidgetSuccessState(this.selectedModel);
+}
+
+class HomeStackWidgetErrorState extends HomeState {
+  final String error;
+  HomeStackWidgetErrorState(this.error);
+}
+
+class HomeGetCoinsIdSuccessState extends HomeState {
+  List<CoinsModel> coinsModel;
+  HomeGetCoinsIdSuccessState(this.coinsModel);
 }

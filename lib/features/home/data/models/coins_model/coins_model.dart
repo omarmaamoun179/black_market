@@ -1,3 +1,4 @@
+import 'bank_price.dart';
 import 'black_market_price.dart';
 import 'live_price.dart';
 
@@ -12,10 +13,10 @@ class CoinsModel {
   int? showNetworkImage;
   String? lastUpdate;
   dynamic createdAt;
-  String? updatedAt;
+  DateTime? updatedAt;
   List<LivePrice>? livePrices;
   List<BlackMarketPrice>? blackMarketPrices;
-  List<dynamic>? bankPrices;
+  List<BankPrice>? bankPrices;
 
   CoinsModel({
     this.id,
@@ -45,31 +46,17 @@ class CoinsModel {
         showNetworkImage: json['show_network_image'] as int?,
         lastUpdate: json['last_update'] as String?,
         createdAt: json['created_at'] as dynamic,
-        updatedAt: json['updated_at'] as String?,
+        updatedAt: json['updated_at'] == null
+            ? null
+            : DateTime.parse(json['updated_at'] as String),
         livePrices: (json['live_prices'] as List<dynamic>?)
             ?.map((e) => LivePrice.fromJson(e as Map<String, dynamic>))
             .toList(),
         blackMarketPrices: (json['black_market_prices'] as List<dynamic>?)
             ?.map((e) => BlackMarketPrice.fromJson(e as Map<String, dynamic>))
             .toList(),
-        bankPrices: json['bank_prices'] as List<dynamic>?,
+        bankPrices: (json['bank_prices'] as List<dynamic>?)
+            ?.map((e) => BankPrice.fromJson(e as Map<String, dynamic>))
+            .toList(),
       );
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'banner': banner,
-        'icon': icon,
-        'name': name,
-        'code': code,
-        'can_be_main': canBeMain,
-        'sort': sort,
-        'show_network_image': showNetworkImage,
-        'last_update': lastUpdate,
-        'created_at': createdAt,
-        'updated_at': updatedAt,
-        'live_prices': livePrices?.map((e) => e.toJson()).toList(),
-        'black_market_prices':
-            blackMarketPrices?.map((e) => e.toJson()).toList(),
-        'bank_prices': bankPrices,
-      };
 }

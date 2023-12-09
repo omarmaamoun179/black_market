@@ -1,3 +1,4 @@
+import 'package:black_market/config/router/routes.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
@@ -21,13 +22,7 @@ class CoinsScreen extends StatelessWidget {
               content: Text(state.error),
             ),
           );
-        } else if (state is HomeCurrcinesSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Success'),
-            ),
-          );
-        }
+        } else if (state is HomeCurrcinesSuccessState) {}
       },
       builder: (context, state) {
         return SafeArea(
@@ -85,7 +80,7 @@ class CoinsScreen extends StatelessWidget {
                         ),
                         const Spacer(),
                         Container(
-                          margin: EdgeInsets.only(bottom: 230.h),
+                          margin: EdgeInsets.only(bottom: 270.h),
                           decoration: BoxDecoration(
                             color: const Color(0xff0E0E0E).withOpacity(.4),
                             borderRadius: BorderRadius.circular(50.r),
@@ -124,28 +119,9 @@ class CoinsScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                        top: 265.h,
-                        child: SizedBox(
-                          height: 92.h,
-                          width: 327.w,
-                          child: ListView.builder(
-                              itemCount:
-                                  HomeCubit.get(context).coinsModel?.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return StackWidget(
-                                  coinsModel:
-                                      HomeCubit.get(context).coinsModel?[index],
-                                  blackMarketPrice: HomeCubit.get(context)
-                                      .blackbankPrices?[index]
-                                      .sellPrice,
-                                  livePrice: HomeCubit.get(context)
-                                      .livePrices?[index]
-                                      .price,
-                                );
-                              }),
-                        )),
+                      top: 265.h,
+                      child: const StackWidget(),
+                    ),
                   ],
                 ),
               ),
@@ -195,7 +171,7 @@ class CoinsScreen extends StatelessWidget {
               GridView.builder(
                 physics: const PageScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: HomeCubit.get(context).banksModel?.length ?? 0,
+                itemCount: HomeCubit.get(context).coinsModel?.length ?? 0,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10.w,
@@ -206,9 +182,16 @@ class CoinsScreen extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       HomeCubit.get(context).getBanksData();
-                      // Navigator.pushNamed(context, Routes.bankDetails);
+                      // HomeCubit.get(context).getCoinsId(
+                      //     HomeCubit.get(context).selectedCoin?.id ?? 3);
+                      Navigator.pushNamed(
+                        context,
+                        Routes.bankDetails,
+                        arguments: HomeCubit.get(context).banksModel?[index],
+                      );
                     },
                     child: BankWidgetGridView(
+                      index: index,
                       banksModel: HomeCubit.get(context).banksModel?[index],
                       imagePath:
                           HomeCubit.get(context).banksModel?[index].icon ?? '',

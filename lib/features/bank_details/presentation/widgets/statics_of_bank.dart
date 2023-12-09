@@ -1,13 +1,20 @@
+import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/widgets/column_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StatictsOfBank extends StatelessWidget {
   StatictsOfBank(
-      {super.key, this.coulmnText1, this.coulmnText2, this.coulmnText3});
+      {super.key,
+      this.coulmnText1,
+      this.coulmnText2,
+      this.coulmnText3,
+      this.banksModel});
   CoulmnText? coulmnText1;
   CoulmnText? coulmnText2;
   CoulmnText? coulmnText3;
+  BanksModel? banksModel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +30,25 @@ class StatictsOfBank extends StatelessWidget {
         children: [
           //هنا هيبقي في agrument صورة البنك واسمه
           Padding(
-            padding: EdgeInsets.only(right: 10.w, top: 5.h),
+            padding: EdgeInsets.only(right: 20.w, top: 5.h),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset(
-                  'assets/images/bank_misr.png',
-                  width: 22.w,
-                  height: 22.h,
+                CachedNetworkImage(
+                  imageUrl:
+                      'http://voipsys.space/storage/${banksModel?.icon ?? ''}',
+                  fit: BoxFit.cover,
+                  width: 25.5.w,
+                  height: 25.h.h,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
                 SizedBox(
                   width: 6.w,
                 ),
                 Text(
-                  ' البنك المركزي المصري ',
+                  banksModel?.name ?? 'البنك',
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w700,

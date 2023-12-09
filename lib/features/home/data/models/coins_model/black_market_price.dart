@@ -1,8 +1,8 @@
 class BlackMarketPrice {
   int? id;
   int? currencyId;
-  dynamic? buyPrice;
-  dynamic? sellPrice;
+  double? buyPrice;
+  double? sellPrice;
   String? date;
   int? hour;
   DateTime? createdAt;
@@ -23,8 +23,8 @@ class BlackMarketPrice {
     return BlackMarketPrice(
       id: json['id'] as int?,
       currencyId: json['currency_id'] as int?,
-      buyPrice: json['buy_price'] ,
-      sellPrice: json['sell_price'] ,
+      buyPrice: (json['buy_price'] as num?)?.toDouble(),
+      sellPrice: (json['sell_price'] as num?)?.toDouble(),
       date: json['date'] as String?,
       hour: json['hour'] as int?,
       createdAt: json['created_at'] == null
@@ -36,14 +36,5 @@ class BlackMarketPrice {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'currency_id': currencyId,
-        'buy_price': buyPrice,
-        'sell_price': sellPrice,
-        'date': date,
-        'hour': hour,
-        'created_at': createdAt?.toIso8601String(),
-        'updated_at': updatedAt?.toIso8601String(),
-      };
+ 
 }

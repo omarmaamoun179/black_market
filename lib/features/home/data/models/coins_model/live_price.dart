@@ -3,7 +3,7 @@ class LivePrice {
   int? currencyId;
   String? date;
   int? hour;
-  dynamic? price;
+  double? price;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -22,7 +22,7 @@ class LivePrice {
         currencyId: json['currency_id'] as int?,
         date: json['date'] as String?,
         hour: json['hour'] as int?,
-        price: json['price'] ,
+        price: (json['price'] as num?)?.toDouble(),
         createdAt: json['created_at'] == null
             ? null
             : DateTime.parse(json['created_at'] as String),
@@ -31,30 +31,5 @@ class LivePrice {
             : DateTime.parse(json['updated_at'] as String),
       );
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'currency_id': currencyId,
-        'date': date,
-        'hour': hour,
-        'price': price,
-        'created_at': createdAt?.toIso8601String(),
-        'updated_at': updatedAt?.toIso8601String(),
-      };
-      int getTimeDifferenceInMinutes() {
-    // Check if createdAt is not null
-    if (createdAt != null) {
-      // Get the current time
-      DateTime currentTime = DateTime.now();
-
-      // Calculate the difference in minutes
-      Duration difference = currentTime.difference(createdAt!);
-      int differenceInMinutes = difference.inMinutes;
-
-      return differenceInMinutes;
-    } else {
-      // Handle the case where createdAt is null
-      return 0;
-    }
-  }
-
+ 
 }

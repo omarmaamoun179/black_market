@@ -1,12 +1,16 @@
 import 'package:black_market/features/bank_details/presentation/widgets/statics_of_bank.dart';
+import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
+import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/widgets/column_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BankDetailsAppBar extends StatelessWidget {
-  const BankDetailsAppBar({
+  BankDetailsAppBar({
     super.key,
+    required this.banksModel,
   });
+  BanksModel banksModel;
 
   @override
   Widget build(BuildContext context) {
@@ -71,19 +75,23 @@ class BankDetailsAppBar extends StatelessWidget {
           Positioned(
             top: 230.h,
             child: StatictsOfBank(
+              banksModel: banksModel,
               coulmnText1: CoulmnText(
                 text: 'البنك',
-                text2: '30.65',
-                color2: const Color(0xff4F4F4F),
+                text2:
+                    '${HomeCubit.get(context).selectedCoin?.livePrices?[0].price ?? ''}',
+                color2: const Color(0xff2a2a2a),
               ),
               coulmnText2: CoulmnText(
                 text: 'أخر تحديث',
-                text2: 'منذ 15 دقيقة',
-                color2: const Color(0xff4F4F4F),
+                text2:
+                    'منذ ${HomeCubit.get(context).selectedCoin?.updatedAt?.minute ?? ''} دقيقة',
+                color2: const Color(0xff2a2a2a),
               ),
               coulmnText3: CoulmnText(
                 text: 'السوق السوداء',
-                text2: '50.65',
+                text2:
+                    '${HomeCubit.get(context).selectedCoin?.blackMarketPrices?[0].sellPrice ?? ''}',
                 color2: const Color(0xffBFA500),
               ),
             ),

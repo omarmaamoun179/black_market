@@ -4,8 +4,7 @@ import 'package:black_market/features/auth/presentation/pages/finish_screen.dart
 import 'package:black_market/features/auth/presentation/pages/forget_password.dart';
 import 'package:black_market/features/auth/presentation/pages/otp_screen.dart';
 import 'package:black_market/features/bank_details/presentation/pages/bank_details.dart';
-import 'package:black_market/features/home/data/repositories/home_repo_imp.dart';
-import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
+import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/pages/home_layout.dart';
 import 'package:black_market/features/login/data/repositories/login_impl.dart';
 import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
@@ -74,20 +73,15 @@ class AppRoutes {
       // case (Routes.confirmPass):
       //   return MaterialPageRoute(builder: (_) => ConfirmPassword());
       case (Routes.bankDetails):
-        return MaterialPageRoute(builder: (_) => const BankDetails());
+        return MaterialPageRoute(
+            builder: (_) => BankDetails(
+                  banksModel: settings.arguments as BanksModel,
+                ));
 
       case (Routes.finish):
         return MaterialPageRoute(builder: (_) => const FinishScreen());
       case (Routes.home):
-        return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) => HomeCubit(
-                    HomeRepoImp(),
-                  )
-                    ..getHomeData()
-                    ..getBanksData(),
-                  child: const HomeScreen(),
-                ));
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       default:
         MaterialPageRoute(builder: (_) => unDefindeRoute());
     }
