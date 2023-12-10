@@ -3,7 +3,6 @@ import 'package:black_market/features/home/presentation/widgets/gold_widget/gold
 import 'package:black_market/features/home/presentation/widgets/gold_widget/sec_tab_widget.dart';
 import 'package:black_market/features/home/presentation/widgets/gold_widget/tab_bar_widget.dart';
 import 'package:black_market/features/home/presentation/widgets/gold_widget/third_tab_widget.dart';
-import 'package:black_market/features/home/presentation/widgets/grid_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

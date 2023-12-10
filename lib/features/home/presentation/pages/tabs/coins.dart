@@ -182,6 +182,7 @@ class CoinsScreen extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       HomeCubit.get(context).getBanksData();
+
                       // HomeCubit.get(context).getCoinsId(
                       //     HomeCubit.get(context).selectedCoin?.id ?? 3);
                       Navigator.pushNamed(
@@ -191,6 +192,9 @@ class CoinsScreen extends StatelessWidget {
                       );
                     },
                     child: BankWidgetGridView(
+                      bankPrice: HomeCubit.get(context)
+                          .selectedCoin
+                          ?.bankPrices?[index + 1],
                       index: index,
                       banksModel: HomeCubit.get(context).banksModel?[index],
                       imagePath:

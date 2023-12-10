@@ -1,4 +1,5 @@
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
+import 'package:black_market/features/home/data/models/coins_model/bank_price.dart';
 import 'package:black_market/features/home/data/models/coins_model/black_market_price.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/data/models/coins_model/live_price.dart';
@@ -13,11 +14,15 @@ class HomeChangeBottomNavState extends HomeState {}
 
 class HomeCurrcinesSuccessState extends HomeState {
   List<CoinsModel> coinsModel;
-
+  List<LivePrice> livePrices;
+  List<BlackMarketPrice> blackMarketPrices;
+  List<BankPrice> bankPrices;
 
   HomeCurrcinesSuccessState(
     this.coinsModel,
-
+    this.livePrices,
+    this.blackMarketPrices,
+    this.bankPrices,
   );
 }
 

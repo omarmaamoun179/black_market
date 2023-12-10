@@ -9,6 +9,7 @@ class CoulmnText extends StatelessWidget {
       this.style1,
       this.color1,
       this.color2,
+      this.id = 0,
       this.style2});
   String? text;
   String? text2;
@@ -16,6 +17,7 @@ class CoulmnText extends StatelessWidget {
   TextStyle? style2;
   Color? color1;
   Color? color2;
+  int id = 0;
 
   @override
   Widget build(BuildContext context) {

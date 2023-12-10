@@ -1,4 +1,5 @@
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
+import 'package:black_market/features/home/data/models/coins_model/bank_price.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/column_text.dart';
@@ -16,6 +17,8 @@ class BankWidgetGridView extends StatelessWidget {
     this.container,
     this.banksModel,
     this.index = 0,
+    this.bankPrice,
+    this.id,
   });
   String? text;
   String? imagePath;
@@ -23,8 +26,9 @@ class BankWidgetGridView extends StatelessWidget {
   Widget? container;
 
   BanksModel? banksModel;
+  BankPrice? bankPrice;
   int index = 0;
-
+  int? id = 0;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
@@ -117,7 +121,7 @@ class BankWidgetGridView extends StatelessWidget {
                       text: 'شراء',
                       text2: index == 0
                           ? '${HomeCubit.get(context).selectedCoin?.blackMarketPrices?[0].buyPrice ?? '15'}'
-                          : '${HomeCubit.get(context).selectedCoin?.bankPrices?[0].buyPrice ?? '15'}',
+                          : '${bankPrice?.buyPrice ?? '15'}',
                       style2: TextStyle(
                         color: const Color(0xffffffff),
                         fontSize: 10.sp,
@@ -134,7 +138,7 @@ class BankWidgetGridView extends StatelessWidget {
                       text: 'بيع',
                       text2: index == 0
                           ? '${HomeCubit.get(context).selectedCoin?.blackMarketPrices?[0].sellPrice ?? '15'}'
-                          : '${HomeCubit.get(context).selectedCoin?.bankPrices?[0].sellPrice ?? '15'}',
+                          : '${bankPrice?.sellPrice ?? '15'}',
                     ),
                   ],
                 ),

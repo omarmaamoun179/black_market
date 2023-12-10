@@ -2,7 +2,6 @@ import 'package:black_market/features/bank_details/presentation/widgets/bank_det
 import 'package:black_market/features/bank_details/presentation/widgets/calc_widget.dart';
 import 'package:black_market/features/bank_details/presentation/widgets/info_widget.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
-import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/column_text.dart';
@@ -12,17 +11,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BankDetails extends StatelessWidget {
-  BankDetails({super.key, this.banksModel});
+  BankDetails({
+    super.key,
+    this.banksModel,
+  });
   BanksModel? banksModel;
 
   @override
   Widget build(BuildContext context) {
-    var selectedCoinsModel = HomeCubit.get(context).selectedCoin;
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        if (state is HomeCurrcinesSuccessState) {
-          HomeCubit.get(context).updateSelectedCoin(selectedCoinsModel);
-        }
+        if (state is HomeCurrcinesSuccessState) {}
       },
       builder: (context, state) {
         return Scaffold(
@@ -51,152 +50,7 @@ class BankDetails extends StatelessWidget {
                           color: const Color(0xffFEDC00),
                           borderRadius: BorderRadius.circular(12.r),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                DropdownButton<CoinsModel>(
-                                  padding: EdgeInsets.zero,
-                                  alignment: Alignment.center,
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  value: HomeCubit.get(context).selectedCoin,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w700,
-                                    color: const Color(0xff4F4F4F),
-                                  ),
-                                  hint: Text(
-                                    selectedCoinsModel?.name ??
-                                        'الدولار الأمريكي',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: const Color(0xff4F4F4F),
-                                    ),
-                                  ),
-                                  underline: const SizedBox.shrink(),
-                                  onChanged: (
-                                    newValue,
-                                  ) {
-                                    // Update the selected coinsModel in the HomeCubit
-                                    HomeCubit.get(context)
-                                        .updateSelectedCoin(newValue);
-                                  },
-                                  items: HomeCubit.get(context).selectedCoin !=
-                                          null
-                                      ? HomeCubit.get(context)
-                                          .coinsModel
-                                          ?.map<DropdownMenuItem<CoinsModel>>(
-                                              (CoinsModel? value) {
-                                          return DropdownMenuItem<CoinsModel>(
-                                            value: value,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  value?.name ??
-                                                      'الدولار الأمريكي',
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff4F4F4F),
-                                                  ),
-                                                ),
-                                                CachedNetworkImage(
-                                                  imageUrl:
-                                                      'http://voipsys.space/storage/${value?.icon ?? ''}',
-                                                  fit: BoxFit.cover,
-                                                  width: 25.5.w,
-                                                  height: 25.h.h,
-                                                  placeholder: (context, url) =>
-                                                      const CircularProgressIndicator(),
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      const Icon(Icons.error),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }).toList()
-                                      : [],
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                CoulmnText(
-                                  text: 'سعر البنك',
-                                  text2:
-                                      '${selectedCoinsModel?.livePrices?[0].price ?? ''}',
-                                  style2: TextStyle(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w800,
-                                    color: const Color(0xffBFA500),
-                                  ),
-                                ),
-                                CoulmnText(
-                                  text: 'أخر تحديث',
-                                  text2:
-                                      'منذ ${selectedCoinsModel?.updatedAt?.minute ?? ''} دقيقة ',
-                                  color2: const Color(0xff2a2a2a),
-                                ),
-                                CoulmnText(
-                                  text: 'السوق السوداء',
-                                  text2:
-                                      '${selectedCoinsModel?.blackMarketPrices?[0].sellPrice ?? ''}',
-                                  color2: const Color(0xff2a2a2a),
-                                ),
-                              ],
-                            ),
-
-                            //هنا هيبقي في agrument صورة البنك واسمه
-                            //   Text(
-                            //     ' ${HomeCubit.get(context).selectedCoin?.name} ',
-                            //     style: TextStyle(
-                            //       fontSize: 12.sp,
-                            //       fontWeight: FontWeight.w700,
-                            //       color: const Color(0xff4F4F4F),
-                            //     ),
-                            //   ),
-
-                            //   IntrinsicHeight(
-                            //     child: Row(
-                            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            //       children: [
-                            //         CoulmnText(
-                            //           text: 'شراء',
-                            //           text2:
-                            //               ' ${HomeCubit.get(context).selectedCoin?.bankPrices?[0].buyPrice} ',
-                            //           color1: const Color(0xff362727),
-                            //           color2: const Color(0xff0E0E0E),
-                            //         ),
-                            //         VerticalDivider(
-                            //           color: const Color(0xff4F4F4F),
-                            //           indent: 12.5.h,
-                            //           width: 25.w,
-                            //         ),
-                            //         CoulmnText(
-                            //           text: 'بيع',
-                            //           text2:
-                            //               ' ${HomeCubit.get(context).selectedCoin?.bankPrices?[0].sellPrice} ',
-                            //           color1: const Color(0xff362727),
-                            //           color2: const Color(0xff0E0E0E),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                          ],
-                        ),
+                        child: CurrciensInBank(banksModel: banksModel),
                       ),
                       SizedBox(height: 18.h),
                       Container(
@@ -210,52 +64,7 @@ class BankDetails extends StatelessWidget {
                         child: const CalculaterWidget(),
                       ),
                       SizedBox(height: 18.h),
-                      Container(
-                        padding: EdgeInsets.only(top: 10.h),
-                        width: 327.w,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff2A2A2A),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12.r),
-                            topRight: Radius.circular(12.r),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'العمله',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xffFFFFFF),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 1.w,
-                              ),
-                              Text(
-                                'شراء',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xffFFFFFF),
-                                ),
-                              ),
-                              Text(
-                                'بيع',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xffFFFFFF),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      const HeadOfInfoWidget(),
                       Container(
                         padding: EdgeInsets.only(top: 10.h),
                         decoration: const BoxDecoration(
@@ -267,7 +76,9 @@ class BankDetails extends StatelessWidget {
                           endIndent: 28.w,
                         ),
                       ),
-                      const InfoWidget(),
+                      InfoWidget(
+                        banksModel: banksModel!,
+                      ),
                     ],
                   ),
                 ),
@@ -276,6 +87,216 @@ class BankDetails extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class HeadOfInfoWidget extends StatelessWidget {
+  const HeadOfInfoWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 10.h),
+      width: 327.w,
+      decoration: BoxDecoration(
+        color: const Color(0xff2A2A2A),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12.r),
+          topRight: Radius.circular(12.r),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 50.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'العمله',
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w700,
+                color: const Color(0xffFFFFFF),
+              ),
+            ),
+            SizedBox(
+              width: 1.w,
+            ),
+            Text(
+              'شراء',
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w700,
+                color: const Color(0xffFFFFFF),
+              ),
+            ),
+            Text(
+              'بيع',
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w700,
+                color: const Color(0xffFFFFFF),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CurrciensInBank extends StatelessWidget {
+  const CurrciensInBank({
+    super.key,
+    required this.banksModel,
+  });
+
+  final BanksModel? banksModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 5.h,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              HomeCubit.get(context).selectedCoin?.name ?? 'الدولار الأمريكي',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w700,
+                color: const Color(0xff4F4F4F),
+              ),
+            ),
+            CachedNetworkImage(
+              imageUrl:
+                  'http://voipsys.space/storage/${HomeCubit.get(context).selectedCoin?.icon}',
+              width: 20.5.w,
+              height: 20.5.h,
+              fit: BoxFit.cover,
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      child: SizedBox(
+                        height: 300.h,
+                        width: 300.w,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount:
+                              HomeCubit.get(context).coinsModel?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            // Check if the current coin has prices for the current bank
+                            bool hasPricesForBank = HomeCubit.get(context)
+                                    .coinsModel?[index]
+                                    .bankPrices
+                                    ?.any((price) =>
+                                        price.bankId == banksModel?.id) ??
+                                false;
+
+                            // Display the coin only if it has prices for the current bank
+                            if (hasPricesForBank) {
+                              return Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    HomeCubit.get(context).updateSelectedCoin(
+                                        HomeCubit.get(context)
+                                            .coinsModel?[index]);
+                                    Navigator.pop(context);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        HomeCubit.get(context)
+                                                .coinsModel?[index]
+                                                .name ??
+                                            'الدولار الأمريكي',
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: const Color(0xff4F4F4F),
+                                        ),
+                                      ),
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            'http://voipsys.space/storage/${HomeCubit.get(context).coinsModel?[index].icon}',
+                                        width: 26.5.w,
+                                        height: 26.5.h,
+                                        fit: BoxFit.cover,
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            } else {
+                              // Return an empty container if the coin doesn't have prices for the bank
+                              return Container();
+                            }
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              icon: const Icon(Icons.keyboard_arrow_down_rounded),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CoulmnText(
+              text: 'شراء',
+              color1: const Color(0xff0E0E0E),
+              text2:
+                  '${HomeCubit.get(context).selectedCoin?.bankPrices?[0].buyPrice ?? ''}',
+              style2: TextStyle(
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w800,
+                color: const Color(0xff0E0E0E),
+              ),
+            ),
+            CoulmnText(
+              color1: const Color(0xff0E0E0E),
+              text: 'أخر تحديث',
+              text2:
+                  'منذ ${HomeCubit.get(context).selectedCoin?.updatedAt?.minute ?? ''} دقيقة ',
+              color2: const Color(0xff2a2a2a),
+            ),
+            CoulmnText(
+              color1: const Color(0xff0E0E0E),
+              text: 'بيع',
+              text2:
+                  '${HomeCubit.get(context).selectedCoin?.bankPrices?[0].sellPrice ?? ''}',
+              color2: const Color(0xff0E0E0E),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
