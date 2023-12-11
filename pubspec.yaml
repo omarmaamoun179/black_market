@@ -33,6 +33,7 @@ dependencies:
   dartz: ^0.10.1
   dio: ^5.4.0
   easy_localization: ^3.0.3
+  expansion_tile_group: ^1.2.4
   fl_chart: ^0.65.0
   flutter:
     sdk: flutter

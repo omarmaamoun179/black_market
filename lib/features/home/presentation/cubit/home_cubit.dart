@@ -23,7 +23,6 @@ class HomeCubit extends Cubit<HomeState> {
   CoinsModel? selectedCoin;
   List<GoldsModel> goldsModel = [];
   List<CompniesModel> compniesModel = [];
-  List companiesData = [];
   IngotsModel? ingotsModel;
   CompniesModel? selectedCompnies;
   List<Ingot> btcIngotInfo = [];
@@ -38,6 +37,8 @@ class HomeCubit extends Cubit<HomeState> {
   List<String> tabs = ['الذهب', 'السبائك', 'العملات'];
   int selectedIndex = 0;
   late TabController tabController;
+  int textIndex = 0;
+  bool isClicked = false;
 
   int currentIndex = 0;
   int index = 0;
@@ -87,16 +88,19 @@ class HomeCubit extends Cubit<HomeState> {
   }
 // void to update about select compines
 
-  updateSelectedCompnies(CompniesModel selecetCompines) async {
+  updateSelectedCompnies(CompniesModel selecetCompines, int index) async {
     selectedCompnies = selecetCompines;
-    for (var e in ingotsModel!.ingots!) {
-      for (var i in e.companiesData!) {
-        if (i.companyId == selecetCompines.id) {
-          print(e.name);
-          
-        }
-      }
-    }
+    textIndex = index;
+    isClicked = !isClicked;
+
+    // for (var e in ingotsModel!.ingots!) {
+    //   for (var i in e.companiesData!) {
+    //     if (i.companyId == selecetCompines.id) {
+    //       print(e.name);
+
+    //     }
+    //   }
+    // }
 
     print(selectedCompnies?.id);
     print(selectedCompnies?.name);
