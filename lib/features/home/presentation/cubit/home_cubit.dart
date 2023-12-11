@@ -2,6 +2,7 @@ import 'package:black_market/features/home/data/models/banks_model/banks_model.d
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
 import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
+import 'package:black_market/features/home/data/models/ingots_model/companies_datum.dart';
 import 'package:black_market/features/home/data/models/ingots_model/ingots_model.dart';
 import 'package:black_market/features/home/data/repositories/home_base_repo.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
@@ -22,9 +23,10 @@ class HomeCubit extends Cubit<HomeState> {
   CoinsModel? selectedCoin;
   List<GoldsModel> goldsModel = [];
   List<CompniesModel> compniesModel = [];
+  List companiesData = [];
   IngotsModel? ingotsModel;
   CompniesModel? selectedCompnies;
-
+  
   static HomeCubit get(context) => BlocProvider.of(context);
   List<Widget> screens = [
     CoinsScreen(),
@@ -86,9 +88,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   updateSelectedCompnies(CompniesModel selecetCompines) async {
     selectedCompnies = selecetCompines;
-    print(selectedCompnies?.id);
 
-    emit(HomeUpdateCompniesState());
+    print(selectedCompnies?.id);
+    print(selectedCompnies?.name);
+
+    emit(HomeUpdateCompniesState(
+      selecetCompines,
+    ));
   }
 
   getGoldData() async {
@@ -109,6 +115,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeCompaniesErrorState(l.message.toString()));
     }, (r) {
       compniesModel = r;
+      selectedCompnies = r[0];
       emit(HomeCompaniesSuccessState(r));
     });
   }
@@ -120,7 +127,9 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeIngotsErrorState(l.message.toString()));
     }, (r) {
       ingotsModel = r;
-      emit(HomeIngotsSuccessState(r));
+      emit(HomeIngotsSuccessState(
+        r,
+      ));
     });
   }
 }

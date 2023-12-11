@@ -2,6 +2,7 @@ import 'package:black_market/features/home/data/models/banks_model/banks_model.d
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
 import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
+import 'package:black_market/features/home/data/models/ingots_model/companies_datum.dart';
 import 'package:black_market/features/home/data/models/ingots_model/ingots_model.dart';
 
 abstract class HomeState {}
@@ -78,7 +79,9 @@ class HomeCompaniesErrorState extends HomeState {
 class HomeIngotsSuccessState extends HomeState {
   IngotsModel ingotsModel;
 
-  HomeIngotsSuccessState(this.ingotsModel);
+  HomeIngotsSuccessState(this.ingotsModel , 
+  
+  );
 }
 
 class HomeIngotsErrorState extends HomeState {
@@ -87,5 +90,8 @@ class HomeIngotsErrorState extends HomeState {
 }
 
 class HomeUpdateCompniesState extends HomeState {
-  HomeUpdateCompniesState();
+  CompniesModel selectedCompnies;
+  HomeUpdateCompniesState(
+    this.selectedCompnies,
+  );
 }

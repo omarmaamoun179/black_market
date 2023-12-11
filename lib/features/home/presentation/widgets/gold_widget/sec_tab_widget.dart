@@ -74,62 +74,174 @@ class GoldSecTabWidget extends StatelessWidget {
               child: ListView.separated(
                 itemCount: cubit.ingotsModel?.ingots?.length ?? 0,
                 itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      color: const Color(0xff2A2A2A),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: ExpansionTile(
-                          collapsedIconColor: const Color(0xffFFFFFF),
-                          title: Text(
-                            cubit.ingotsModel?.ingots?[index].name ?? '',
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                              color: const Color(0xffFFFFFF),
+                  for (var e in cubit.ingotsModel!.ingots!) {
+                    for (var i in e.companiesData!) {
+                      if (i.companyId == cubit.selectedCompnies?.id) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            color: const Color(0xff2A2A2A),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            child: ExpansionTile(
+                              collapsedIconColor: const Color(0xffFFFFFF),
+                              title: Text(
+                                e.name ?? '',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xffFFFFFF),
+                                ),
+                              ),
+                              iconColor: const Color(0xffFFFFFF),
+                              children: [
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '1جرام ',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                        Text(
+                                          '${e.price!.sellPrice!}',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'مصنعية الجرام',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                        Text(
+                                          '${i.workmanship}',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'الضريبة الكلية',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                        Text(
+                                          '${i.tax * e.weight}',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'السعر الكلي',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                        Text(
+                                          '${e.price!.sellPrice! * e.weight! + i.tax * e.weight! + i.workmanship!}',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'البملغ المسترد',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                        Text(
+                                          '${i.returnFees}',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'الفرق',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                        Text(
+                                          '${i.workmanship - i.returnFees!}',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xffFFFFFF)
+                                                  .withOpacity(0.9)),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          iconColor: const Color(0xffFFFFFF),
-                          children: [
-                            ListView.separated(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (context, index) {
-                                  return Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '1جرام ',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: const Color(0xffFFFFFF)
-                                                .withOpacity(0.9)),
-                                      ),
-                                      Text(
-                                        '2250',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: const Color(0xffFFFFFF)
-                                                .withOpacity(0.9)),
-                                      ),
-                                    ],
-                                  );
-                                },
-                                separatorBuilder: (context, index) {
-                                  return SizedBox(
-                                    height: 10.h,
-                                  );
-                                },
-                                itemCount: 3)
-                          ]),
-                    ),
-                  );
+                        );
+                      } else {
+                        continue;
+                      }
+                    }
+                  }
+                  return Container();
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(
