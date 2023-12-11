@@ -1,5 +1,4 @@
-import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
-import 'package:black_market/features/home/data/models/coins_model/bank_price.dart';
+import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/column_text.dart';
@@ -8,32 +7,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BankWidgetGridView extends StatelessWidget {
-  BankWidgetGridView({
-    super.key,
-    this.text,
-    this.imagePath,
-    this.icon,
-    this.container,
-    this.banksModel,
-    this.index = 0,
-    this.bankPrice,
-    this.id,
-  });
+class GoldWidgetGridView extends StatelessWidget {
+  GoldWidgetGridView(
+      {super.key,
+      this.text,
+      this.imagePath,
+      this.icon,
+      this.container,
+      this.goldsModel});
   String? text;
   String? imagePath;
   Widget? icon;
   Widget? container;
+  GoldsModel? goldsModel;
 
-  BanksModel? banksModel;
-  BankPrice? bankPrice;
-  int index = 0;
-  int? id = 0;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        if (state is HomeCurrcinesSuccessState) {}
+        if (state is HomeGoldsSuccessState) {}
       },
       builder: (context, state) {
         return Container(
@@ -72,7 +64,7 @@ class BankWidgetGridView extends StatelessWidget {
                       ),
                   CachedNetworkImage(
                     imageUrl:
-                        'http://voipsys.space/storage/${banksModel?.icon}',
+                        'http://voipsys.space/storage/${goldsModel?.icon}',
                     height: 46.h,
                     width: 46.w,
                     placeholder: (context, url) =>
@@ -103,7 +95,7 @@ class BankWidgetGridView extends StatelessWidget {
                 height: 10.h,
               ),
               Text(
-                banksModel?.name ?? '',
+                goldsModel?.name ?? '',
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w700,
@@ -119,9 +111,7 @@ class BankWidgetGridView extends StatelessWidget {
                   children: [
                     CoulmnText(
                       text: 'شراء',
-                      text2: index == 0
-                          ? '${HomeCubit.get(context).selectedCoin?.blackMarketPrices?[0].buyPrice ?? '15'}'
-                          : '${bankPrice?.buyPrice ?? '15'}',
+                      text2: '${goldsModel?.price?.buyPrice ?? '15'}',
                       style2: TextStyle(
                         color: const Color(0xffffffff),
                         fontSize: 10.sp,
@@ -134,12 +124,9 @@ class BankWidgetGridView extends StatelessWidget {
                       width: 18.w,
                     ),
                     CoulmnText(
-                      color1: const Color(0xffffffff),
-                      text: 'بيع',
-                      text2: index == 0
-                          ? '${HomeCubit.get(context).selectedCoin?.blackMarketPrices?[0].sellPrice ?? '15'}'
-                          : '${bankPrice?.sellPrice ?? '15'}',
-                    ),
+                        color1: const Color(0xffffffff),
+                        text: 'بيع',
+                        text2: '${goldsModel?.price?.price ?? '15'}'),
                   ],
                 ),
               ),

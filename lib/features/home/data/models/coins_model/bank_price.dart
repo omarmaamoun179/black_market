@@ -29,5 +29,4 @@ class BankPrice {
         createdAt: json['created_at'] as String?,
         updatedAt: json['updated_at'] as String?,
       );
-
 }

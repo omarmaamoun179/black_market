@@ -6,4 +6,7 @@ class EndPoints {
   static String historical = 'historical';
   static String banks = 'banks';
   static String latest = 'latest';
+  static String gold = 'gold';
+  static String companies = 'companies';
+  static String goldIngot = 'ingots-coins';
 }

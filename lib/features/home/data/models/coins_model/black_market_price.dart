@@ -35,6 +35,4 @@ class BlackMarketPrice {
           : DateTime.parse(json['updated_at'] as String),
     );
   }
-
- 
 }

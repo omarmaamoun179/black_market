@@ -1,8 +1,8 @@
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
-import 'package:black_market/features/home/data/models/coins_model/bank_price.dart';
-import 'package:black_market/features/home/data/models/coins_model/black_market_price.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
-import 'package:black_market/features/home/data/models/coins_model/live_price.dart';
+import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
+import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
+import 'package:black_market/features/home/data/models/ingots_model/ingots_model.dart';
 
 abstract class HomeState {}
 
@@ -14,15 +14,9 @@ class HomeChangeBottomNavState extends HomeState {}
 
 class HomeCurrcinesSuccessState extends HomeState {
   List<CoinsModel> coinsModel;
-  List<LivePrice> livePrices;
-  List<BlackMarketPrice> blackMarketPrices;
-  List<BankPrice> bankPrices;
 
   HomeCurrcinesSuccessState(
     this.coinsModel,
-    this.livePrices,
-    this.blackMarketPrices,
-    this.bankPrices,
   );
 }
 
@@ -57,7 +51,41 @@ class HomeStackWidgetErrorState extends HomeState {
   HomeStackWidgetErrorState(this.error);
 }
 
-class HomeGetCoinsIdSuccessState extends HomeState {
-  List<CoinsModel> coinsModel;
-  HomeGetCoinsIdSuccessState(this.coinsModel);
+class HomeChangeTabState extends HomeState {}
+
+class HomeGoldsSuccessState extends HomeState {
+  List<GoldsModel> goldsModel;
+
+  HomeGoldsSuccessState(this.goldsModel);
+}
+
+class HomeGoldsErrorState extends HomeState {
+  final String error;
+  HomeGoldsErrorState(this.error);
+}
+
+class HomeCompaniesSuccessState extends HomeState {
+  List<CompniesModel> compniesModel;
+
+  HomeCompaniesSuccessState(this.compniesModel);
+}
+
+class HomeCompaniesErrorState extends HomeState {
+  final String error;
+  HomeCompaniesErrorState(this.error);
+}
+
+class HomeIngotsSuccessState extends HomeState {
+  IngotsModel ingotsModel;
+
+  HomeIngotsSuccessState(this.ingotsModel);
+}
+
+class HomeIngotsErrorState extends HomeState {
+  final String error;
+  HomeIngotsErrorState(this.error);
+}
+
+class HomeUpdateCompniesState extends HomeState {
+  HomeUpdateCompniesState();
 }

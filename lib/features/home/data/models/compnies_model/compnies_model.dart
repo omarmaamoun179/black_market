@@ -1,28 +1,28 @@
-class LivePrice {
+class CompniesModel {
   int? id;
-  int? currencyId;
-  String? date;
-  int? hour;
-  double? price;
+  String? image;
+  String? name;
+  String? key;
+  int? active;
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  LivePrice({
+  CompniesModel({
     this.id,
-    this.currencyId,
-    this.date,
-    this.hour,
-    this.price,
+    this.image,
+    this.name,
+    this.key,
+    this.active,
     this.createdAt,
     this.updatedAt,
   });
 
-  factory LivePrice.fromJson(Map<String, dynamic> json) => LivePrice(
+  factory CompniesModel.fromJson(Map<String, dynamic> json) => CompniesModel(
         id: json['id'] as int?,
-        currencyId: json['currency_id'] as int?,
-        date: json['date'] as String?,
-        hour: json['hour'] as int?,
-        price: (json['price'] as num?)?.toDouble(),
+        image: json['image'] as String?,
+        name: json['name'] as String?,
+        key: json['key'] as String?,
+        active: json['active'] as int?,
         createdAt: json['created_at'] == null
             ? null
             : DateTime.parse(json['created_at'] as String),

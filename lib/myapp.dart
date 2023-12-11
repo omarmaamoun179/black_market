@@ -18,7 +18,10 @@ class MyApp extends StatelessWidget {
           HomeRepoImp(),
         )
           ..getBanksData()
-          ..getHomeData(),
+          ..getHomeData()
+          ..getGoldData()
+          ..getCompniesData()
+          ..getIngotsData(),
         child: MaterialApp(
           theme: ThemeData(
             scaffoldBackgroundColor: const Color(0xff0D0D0D),

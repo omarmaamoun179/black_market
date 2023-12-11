@@ -1,4 +1,5 @@
-import 'package:black_market/features/home/presentation/widgets/grid_view_widget.dart';
+import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
+import 'package:black_market/features/home/presentation/widgets/gold_widget/gold_gird_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,10 +8,11 @@ class GoldFirstTabWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = HomeCubit.get(context);
     return GridView.builder(
       physics: const PageScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 20,
+      itemCount: cubit.goldsModel.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10.w,
@@ -20,14 +22,18 @@ class GoldFirstTabWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {},
-          child: BankWidgetGridView(
-            imagePath: 'assets/images/gold_image.png',
-            text: 'ذهب عيار22',
+          child: GoldWidgetGridView(
             container: Padding(
                 padding: EdgeInsets.only(left: 25.w), child: const Text('')),
+            imagePath: cubit.goldsModel[index].icon,
+            goldsModel: cubit.goldsModel[index],
           ),
         );
       },
     );
   }
 }
+/*
+ container: Padding(
+                padding: EdgeInsets.only(left: 25.w), child: const Text('')),
+* */
