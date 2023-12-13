@@ -87,7 +87,10 @@ class CoinsScreen extends StatelessWidget {
                           ),
                           child: Center(
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, Routes.notification);
+                              },
                               icon: Icon(
                                 Icons.notifications,
                                 color: Colors.white,

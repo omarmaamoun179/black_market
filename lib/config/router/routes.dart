@@ -12,6 +12,7 @@ import 'package:black_market/features/languages/presentation/pages/lanugage_scre
 import 'package:black_market/features/login/data/repositories/login_impl.dart';
 import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
 import 'package:black_market/features/login/presentation/pages/login_page.dart';
+import 'package:black_market/features/notification/presentation/pages/notifaction_screen.dart';
 import 'package:black_market/features/register/data/repositories/register_repo_impl.dart';
 import 'package:black_market/features/register/presentation/cubit/register_cubit.dart';
 import 'package:black_market/features/register/presentation/pages/register.dart';
@@ -41,6 +42,7 @@ class Routes {
   static const String arrangeBanks = 'arrangeBanks';
   static const String arrangeCoins = 'arrangeCoins';
   static const String language = 'language';
+  static const String notification = 'notification';
 }
 
 class AppRoutes {
@@ -118,6 +120,10 @@ class AppRoutes {
             builder: (_) => LangugaeScreen(
                   title: settings.arguments as String,
                 ));
+      case (Routes.notification):
+        return MaterialPageRoute(
+          builder: (_) => const NotifactionScreen(),
+        );
       default:
         MaterialPageRoute(builder: (_) => unDefindeRoute());
     }
