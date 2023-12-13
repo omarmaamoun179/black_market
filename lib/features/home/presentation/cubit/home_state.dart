@@ -25,6 +25,7 @@ class HomeCurrcinesErrorState extends HomeState {
   final String error;
   HomeCurrcinesErrorState(this.error);
 }
+class HomeBankLoadingState extends HomeState {}
 
 class HomeBanksSuccessState extends HomeState {
   List<BanksModel> banksModel;

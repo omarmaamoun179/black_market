@@ -11,7 +11,7 @@ class CoinsModel {
   int? canBeMain;
   int? sort;
   int? showNetworkImage;
-  String? lastUpdate;
+  DateTime? lastUpdate;
   dynamic createdAt;
   DateTime? updatedAt;
   List<LivePrice>? livePrices;
@@ -44,7 +44,7 @@ class CoinsModel {
         canBeMain: json['can_be_main'] as int?,
         sort: json['sort'] as int?,
         showNetworkImage: json['show_network_image'] as int?,
-        lastUpdate: json['last_update'] as String?,
+        lastUpdate: json['last_update'] ==null ? null : DateTime.parse(json['last_update'] as String),
         createdAt: json['created_at'] as dynamic,
         updatedAt: json['updated_at'] == null
             ? null

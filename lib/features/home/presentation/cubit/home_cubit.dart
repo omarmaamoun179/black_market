@@ -93,14 +93,7 @@ class HomeCubit extends Cubit<HomeState> {
     textIndex = index;
     isClicked = !isClicked;
 
-    // for (var e in ingotsModel!.ingots!) {
-    //   for (var i in e.companiesData!) {
-    //     if (i.companyId == selecetCompines.id) {
-    //       print(e.name);
-
-    //     }
-    //   }
-    // }
+    
 
     print(selectedCompnies?.id);
     print(selectedCompnies?.name);

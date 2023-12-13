@@ -1,3 +1,5 @@
+import 'package:black_market/features/arrange_of_banks/presentation/pages/arrange_banks_screen.dart';
+import 'package:black_market/features/arrange_of_coins/presentation/pages/arrange_of_coins.dart';
 import 'package:black_market/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:black_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:black_market/features/auth/presentation/pages/finish_screen.dart';
@@ -6,12 +8,15 @@ import 'package:black_market/features/auth/presentation/pages/otp_screen.dart';
 import 'package:black_market/features/bank_details/presentation/pages/bank_details.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/pages/home_layout.dart';
+import 'package:black_market/features/languages/presentation/pages/lanugage_screen.dart';
 import 'package:black_market/features/login/data/repositories/login_impl.dart';
 import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
 import 'package:black_market/features/login/presentation/pages/login_page.dart';
 import 'package:black_market/features/register/data/repositories/register_repo_impl.dart';
 import 'package:black_market/features/register/presentation/cubit/register_cubit.dart';
 import 'package:black_market/features/register/presentation/pages/register.dart';
+import 'package:black_market/features/saving/presentation/pages/saving.dart';
+import 'package:black_market/features/setting/presentation/pages/setting.dart';
 import 'package:black_market/features/splash/presentation/pages/splash._screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +36,11 @@ class Routes {
   static const String bankDetails = 'bankDetails';
 
   static const String finish = 'finish';
+  static const String saving = 'saving';
+  static const String setting = 'setting';
+  static const String arrangeBanks = 'arrangeBanks';
+  static const String arrangeCoins = 'arrangeCoins';
+  static const String language = 'language';
 }
 
 class AppRoutes {
@@ -82,6 +92,32 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const FinishScreen());
       case (Routes.home):
         return MaterialPageRoute(builder: (_) => const HomeScreen());
+      case (Routes.saving):
+        return MaterialPageRoute(
+            builder: (_) => SavingScreen(
+                  title: settings.arguments as String,
+                ));
+      case (Routes.setting):
+        return MaterialPageRoute(
+          builder: (_) => SettingScreen(
+            titile: settings.arguments as String,
+          ),
+        );
+      case (Routes.arrangeBanks):
+        return MaterialPageRoute(
+            builder: (_) => ArrangeBanks(
+                  title: settings.arguments as String,
+                ));
+      case (Routes.arrangeCoins):
+        return MaterialPageRoute(
+            builder: (_) => ArrangeCoins(
+                  title: settings.arguments as String,
+                ));
+      case (Routes.language):
+        return MaterialPageRoute(
+            builder: (_) => LangugaeScreen(
+                  title: settings.arguments as String,
+                ));
       default:
         MaterialPageRoute(builder: (_) => unDefindeRoute());
     }

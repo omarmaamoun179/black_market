@@ -11,13 +11,15 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       // ignore: prefer_const_literals_to_create_immutables
       children: [
         Container(
+          margin: EdgeInsets.only(right: 10.w),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: const Color(0xff2A2A2A),
-            borderRadius: BorderRadius.circular(16.r),
+            borderRadius: BorderRadius.circular(20.r),
           ),
           child: Center(
             child: IconButton(
@@ -31,13 +33,13 @@ class CustomAppBar extends StatelessWidget {
             ),
           ),
         ),
-        const Spacer(),
-        Padding(
-          padding: EdgeInsets.only(left: 117.w),
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 20.sp, color: Colors.white),
-          ),
+        Text(
+          textAlign: TextAlign.center,
+          title,
+          style: TextStyle(fontSize: 18.sp, color: Colors.white),
+        ),
+        const SizedBox(
+          width: 40,
         ),
       ],
     );
