@@ -1,4 +1,3 @@
-import 'package:black_market/features/notification/data/models/articels_details/comment.dart';
 import 'package:black_market/features/notification/data/models/articels_details/datum.dart';
 import 'package:black_market/features/notification/data/models/articles_model/datum.dart';
 import 'package:black_market/features/notification/data/models/notifaction_model/datum.dart';
@@ -20,8 +19,8 @@ class NotificationCubit extends Cubit<NotificationState> {
   List<DatumNots> nots = [];
   List<DatumArticles> articels = [];
   List<DatumArticlesDetails> articelsDetails = [];
+  DatumArticlesDetails? articelsDetailsModel;
   NotifactionModel? notifactionModel;
-
 
   ScrollController scrollController = ScrollController();
 
@@ -120,16 +119,17 @@ class NotificationCubit extends Cubit<NotificationState> {
       });
     });
   }
-  getArticelsDetails() async{
+
+  getArticelsDetails(int id) async {
     emit(GetArticlesDetailsLoadingState());
-    var rusult = await notifactionRepoImp.getArticlesDetails(page,);
+    var rusult = await notifactionRepoImp.getArticlesDetails(page, id);
     rusult.fold((l) {
       emit(ArticesDetailsErrorState(l.toString()));
     }, (r) {
       articelsDetails = r.data ?? [];
-      
+      articelsDetailsModel = r.data?[0];
+
       emit(ArticesDetailsSuccessState(r));
     });
-
   }
 }

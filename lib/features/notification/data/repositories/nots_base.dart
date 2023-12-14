@@ -7,7 +7,5 @@ import 'package:dartz/dartz.dart';
 abstract class NotifiactionBaseRepo {
   Future<Either<Failure, NotifactionModel>> getNotifaction(int page);
   Future<Either<Failure, ArticlesModel>> getArticles(int page);
-  Future<Either<Failure, ArticelsDetails>> getArticlesDetails(
-    int page,
-  );
+  Future<Either<Failure, ArticelsDetails>> getArticlesDetails(int page, int id);
 }

@@ -15,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
           SizedBox(
             height: 20.h,
           ),
+
           Align(
             alignment: Alignment.center,
             child: Text(
@@ -36,6 +37,7 @@ class ProfileScreen extends StatelessWidget {
               color: Color(0xffE5C600),
               shape: BoxShape.circle,
             ),
+
             child: Text(
               textAlign: TextAlign.center,
               'ع',
@@ -59,10 +61,13 @@ class ProfileScreen extends StatelessWidget {
           SizedBox(
             height: 36.h,
           ),
-          profileItemWidget(
-            icon: Icons.person,
-            text: 'تعديل الملف الشخصي',
-          ),
+
+        Row(
+          children: [
+            
+          ],
+        ),
+        
           SizedBox(
             height: 16.h,
           ),

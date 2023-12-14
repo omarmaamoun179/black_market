@@ -137,4 +137,13 @@ class HomeCubit extends Cubit<HomeState> {
       ));
     });
   }
+  String getCurrencyCode(String originalText) {
+  // Splitting the original text by '/'
+  List<String> parts = originalText.split('/');
+
+  // Getting the last part of the split text (which should be 'USD' in this case)
+  String currencyCode = parts.last;
+
+  return currencyCode;
+}
 }

@@ -63,10 +63,10 @@ class NotifactionRepoImp implements NotifiactionBaseRepo {
 
   @override
   Future<Either<Failure, ArticelsDetails>> getArticlesDetails(
-      int page, ) async {
+      int page, int id) async {
     try {
       Response response = await DioHelper.getData(
-          '${Constant.baseUrl}${EndPoints.articles}',
+          '${Constant.baseUrl}${EndPoints.articles}/$id',
           query: {
             "start_date": "2023-11-29",
             "page": page,

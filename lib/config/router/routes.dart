@@ -12,7 +12,6 @@ import 'package:black_market/features/languages/presentation/pages/lanugage_scre
 import 'package:black_market/features/login/data/repositories/login_impl.dart';
 import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
 import 'package:black_market/features/login/presentation/pages/login_page.dart';
-import 'package:black_market/features/notification/data/models/articels_details/datum.dart';
 import 'package:black_market/features/notification/presentation/pages/articels_details_screen.dart';
 import 'package:black_market/features/notification/presentation/pages/notifaction_screen.dart';
 import 'package:black_market/features/register/data/repositories/register_repo_impl.dart';
@@ -127,10 +126,10 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => const NotifactionScreen(),
         );
-        case (Routes.articlesDetails):
+      case (Routes.articlesDetails):
         return MaterialPageRoute(
           builder: (_) => ArticelsDetailsScreen(
-            datumArticlesDetails: settings.arguments as DatumArticlesDetails,
+            id: settings.arguments as int,
           ),
         );
       default:

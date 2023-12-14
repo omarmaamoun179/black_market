@@ -61,7 +61,9 @@ class BankDetails extends StatelessWidget {
                           color: const Color(0xff2A2A2A),
                           borderRadius: BorderRadius.circular(12.r),
                         ),
-                        child: const CalculaterWidget(),
+                        child: CalculaterWidget(
+                          banksModel: banksModel,
+                        ),
                       ),
                       SizedBox(height: 18.h),
                       const HeadOfInfoWidget(),
@@ -167,12 +169,14 @@ class CurrciensInBank extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(
-              HomeCubit.get(context).selectedCoin?.name ?? 'الدولار الأمريكي',
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w700,
-                color: const Color(0xff4F4F4F),
+            Expanded(
+              child: Text(
+                HomeCubit.get(context).selectedCoin?.name ?? 'الدولار الأمريكي',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xff4F4F4F),
+                ),
               ),
             ),
             CachedNetworkImage(
@@ -192,72 +196,7 @@ class CurrciensInBank extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return Dialog(
-                      child: SizedBox(
-                        height: 300.h,
-                        width: 300.w,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount:
-                              HomeCubit.get(context).coinsModel?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            // Check if the current coin has prices for the current bank
-                            bool hasPricesForBank = HomeCubit.get(context)
-                                    .coinsModel?[index]
-                                    .bankPrices
-                                    ?.any((price) =>
-                                        price.bankId == banksModel?.id) ??
-                                false;
-
-                            // Display the coin only if it has prices for the current bank
-                            if (hasPricesForBank) {
-                              return Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: InkWell(
-                                  onTap: () {
-                                    HomeCubit.get(context).updateSelectedCoin(
-                                        HomeCubit.get(context)
-                                            .coinsModel?[index]);
-                                    Navigator.pop(context);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        HomeCubit.get(context)
-                                                .coinsModel?[index]
-                                                .name ??
-                                            'الدولار الأمريكي',
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w700,
-                                          color: const Color(0xff4F4F4F),
-                                        ),
-                                      ),
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            'http://voipsys.space/storage/${HomeCubit.get(context).coinsModel?[index].icon}',
-                                        width: 26.5.w,
-                                        height: 26.5.h,
-                                        fit: BoxFit.cover,
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
-                                        placeholder: (context, url) =>
-                                            const Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            } else {
-                              // Return an empty container if the coin doesn't have prices for the bank
-                              return Container();
-                            }
-                          },
-                        ),
-                      ),
+                      child: DialogBankCoins(banksModel: banksModel),
                     );
                   },
                 );
@@ -297,6 +236,78 @@ class CurrciensInBank extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+class DialogBankCoins extends StatelessWidget {
+  const DialogBankCoins({
+    super.key,
+    required this.banksModel,
+  });
+
+  final BanksModel? banksModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 300.h,
+      width: 300.w,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: HomeCubit.get(context).coinsModel?.length ?? 0,
+        itemBuilder: (context, index) {
+          // Check if the current coin has prices for the current bank
+          bool hasPricesForBank = HomeCubit.get(context)
+                  .coinsModel?[index]
+                  .bankPrices
+                  ?.any((price) => price.bankId == banksModel?.id) ??
+              false;
+
+          // Display the coin only if it has prices for the current bank
+          if (hasPricesForBank) {
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: InkWell(
+                onTap: () {
+                  HomeCubit.get(context).updateSelectedCoin(
+                      HomeCubit.get(context).coinsModel?[index]);
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      HomeCubit.get(context).coinsModel?[index].name ??
+                          'الدولار الأمريكي',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xff4F4F4F),
+                      ),
+                    ),
+                    CachedNetworkImage(
+                      imageUrl:
+                          'http://voipsys.space/storage/${HomeCubit.get(context).coinsModel?[index].icon}',
+                      width: 26.5.w,
+                      height: 26.5.h,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            // Return an empty container if the coin doesn't have prices for the bank
+            return Container();
+          }
+        },
+      ),
     );
   }
 }

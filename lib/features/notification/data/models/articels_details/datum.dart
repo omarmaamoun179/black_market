@@ -9,7 +9,7 @@ class DatumArticlesDetails {
   String? description;
   int? draft;
   DateTime? createdAt;
-  String? updatedAt;
+  DateTime? updatedAt;
   List<Comment>? comments;
   int? readsCount;
 
@@ -27,7 +27,8 @@ class DatumArticlesDetails {
     this.readsCount,
   });
 
-  factory DatumArticlesDetails.fromJson(Map<String, dynamic> json) => DatumArticlesDetails(
+  factory DatumArticlesDetails.fromJson(Map<String, dynamic> json) =>
+      DatumArticlesDetails(
         id: json['id'] as int?,
         thumbnail: json['thumbnail'] as String?,
         banner: json['banner'] as String?,
@@ -35,13 +36,15 @@ class DatumArticlesDetails {
         shortDescription: json['short_description'] as String?,
         description: json['description'] as String?,
         draft: json['draft'] as int?,
-        createdAt: json['created_at'] == null ? null : DateTime.parse(json['created_at'] as String),
-        updatedAt: json['updated_at'] as String?,
+        createdAt: json['created_at'] == null
+            ? null
+            : DateTime.parse(json['created_at'] as String),
+        updatedAt: json['updated_at'] == null
+            ? null
+            : DateTime.parse(json['updated_at'] as String),
         comments: (json['comments'] as List<dynamic>?)
             ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
             .toList(),
         readsCount: json['reads_count'] as int?,
       );
-
- 
 }
