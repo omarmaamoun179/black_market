@@ -66,7 +66,7 @@ class InfoWidget extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          '${HomeCubit.get(context).coinsModel?[index].bankPrices?[index + 1].buyPrice ?? ''}',
+                          '${HomeCubit.get(context).coinsModel?[index].bankPrices?[0].buyPrice ?? ''}',
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w700,
@@ -76,7 +76,7 @@ class InfoWidget extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          '${HomeCubit.get(context).coinsModel?[index].bankPrices?[index + 1].sellPrice ?? ''}',
+                          '${HomeCubit.get(context).coinsModel?[index].bankPrices?[0].sellPrice ?? ''}',
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w700,

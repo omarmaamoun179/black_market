@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LanguagesCubit extends Cubit<LanguagesState> {
   LanguagesCubit() : super(LanguagesInitial());
   static LanguagesCubit get(context) => BlocProvider.of(context);
- 
-  String? language ; 
+
+  String? language;
   void changeValue(
     String newValue,
   ) {

@@ -1,4 +1,4 @@
-import 'package:black_market/features/home/presentation/widgets/gold_widget/tab_bar_widget.dart';
+import 'package:black_market/features/notification/data/repositories/nots_imp_repo.dart';
 import 'package:black_market/features/notification/presentation/cubit/notification_cubit.dart';
 import 'package:black_market/features/notification/presentation/cubit/notification_state.dart';
 import 'package:black_market/features/notification/presentation/pages/article_tab.dart';
@@ -13,7 +13,12 @@ class NotifactionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NotificationCubit(),
+      create: (context) => NotificationCubit(
+        NotifactionRepoImp(),
+      )
+        ..getNotifaction()
+        ..getArticels()
+        ..getArticelsDetails(),
       child: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
           var cubit = NotificationCubit.get(context);
@@ -34,21 +39,37 @@ class NotifactionScreen extends StatelessWidget {
                       color: const Color(0xff2A2A2A),
                     ),
                     child: TabBar(
-                      dividerColor: Colors.transparent,
-                      indicatorColor: Colors.transparent,
-                      indicator: const UnderlineTabIndicator(
-                          borderSide: BorderSide.none),
-                      onTap: (index) {
-                        cubit.changeTab(index);
-                      },
-                      tabs: cubit.tabs
-                          .map((e) => GoldTabWidget(
-                                isSelected:
-                                    cubit.currentIndex == cubit.tabs.indexOf(e),
-                                txt: e,
-                              ))
-                          .toList(),
-                    ),
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        dividerColor: Colors.transparent,
+                        indicatorColor: const Color.fromRGBO(254, 220, 0, 1),
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.r),
+                          color: const Color(0xffFEDC00),
+                        ),
+                        unselectedLabelColor: const Color(0xffFFFFFF),
+                        unselectedLabelStyle: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xff0E0E0E),
+                        ),
+                        labelStyle: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xff0E0E0E),
+                        ),
+                        onTap: (index) {
+                          cubit.changeTab(index);
+                        },
+                        tabs: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            child: Text(cubit.tabs[0]),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            child: Text(cubit.tabs[1]),
+                          ),
+                        ]),
                   ),
                   const Expanded(
                     child: TabBarView(

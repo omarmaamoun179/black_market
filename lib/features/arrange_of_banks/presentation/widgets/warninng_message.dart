@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class WarningMessage extends StatelessWidget {
-   WarningMessage({super.key  ,required this.message});
-   String message;
+  WarningMessage({super.key, required this.message});
+  String message;
 
   @override
   Widget build(BuildContext context) {

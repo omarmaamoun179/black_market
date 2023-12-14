@@ -45,6 +45,4 @@ class Coin {
             ? null
             : Price.fromJson(json['price'] as Map<String, dynamic>),
       );
-
-
 }

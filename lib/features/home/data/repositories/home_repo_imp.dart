@@ -95,26 +95,26 @@ class HomeRepoImp implements HomeBaseRepo {
       return Left(RemoteServerFailure(e.toString()));
     }
   }
-@override
-Future<Either<Failure, IngotsModel>> getIngotsData() async {
-  try {
-    var response = await DioHelper.getData(
-      '${Constant.baseUrl}${EndPoints.goldIngot}',
-    );
 
-    IngotsModel model = IngotsModel.fromJson(response.data);
-    print(response.data);
-    if (response.statusCode == 200) {
-      return Right(
-        model,
+  @override
+  Future<Either<Failure, IngotsModel>> getIngotsData() async {
+    try {
+      var response = await DioHelper.getData(
+        '${Constant.baseUrl}${EndPoints.goldIngot}',
       );
-    } else {
-      return Left(RemoteServerFailure(
-          'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
-    }
-  } on Exception catch (e) {
-    return Left(RemoteServerFailure(e.toString()));
-  }
-}
 
+      IngotsModel model = IngotsModel.fromJson(response.data);
+      print(response.data);
+      if (response.statusCode == 200) {
+        return Right(
+          model,
+        );
+      } else {
+        return Left(RemoteServerFailure(
+            'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
+      }
+    } on Exception catch (e) {
+      return Left(RemoteServerFailure(e.toString()));
+    }
+  }
 }

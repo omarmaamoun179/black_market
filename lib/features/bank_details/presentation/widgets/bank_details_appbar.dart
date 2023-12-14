@@ -91,7 +91,7 @@ class BankDetailsAppBar extends StatelessWidget {
               coulmnText3: CoulmnText(
                 text: 'السوق السوداء',
                 text2:
-                    '${HomeCubit.get(context).selectedCoin?.blackMarketPrices?[0].sellPrice ?? ''}',
+                    '${HomeCubit.get(context).selectedCoin?.blackMarketPrices?.isEmpty ?? true ? null : HomeCubit.get(context).selectedCoin?.blackMarketPrices?[0].sellPrice ?? ''}',
                 color2: const Color(0xffBFA500),
               ),
             ),

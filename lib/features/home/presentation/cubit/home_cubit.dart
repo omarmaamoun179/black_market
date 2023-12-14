@@ -93,8 +93,6 @@ class HomeCubit extends Cubit<HomeState> {
     textIndex = index;
     isClicked = !isClicked;
 
-    
-
     print(selectedCompnies?.id);
     print(selectedCompnies?.name);
 

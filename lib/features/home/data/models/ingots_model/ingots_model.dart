@@ -15,6 +15,4 @@ class IngotsModel {
             ?.map((e) => Coin.fromJson(e as Map<String, dynamic>))
             .toList(),
       );
-
-
 }

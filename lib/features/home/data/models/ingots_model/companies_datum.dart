@@ -24,9 +24,9 @@ class CompaniesDatum {
       id: json['id'] as int?,
       companyId: json['company_id'] as int?,
       ingotId: json['ingot_id'] as int?,
-      workmanship: json['workmanship'] ,
-      tax: json['tax'] ,
-      returnFees: json['return_fees'] ,
+      workmanship: json['workmanship'],
+      tax: json['tax'],
+      returnFees: json['return_fees'],
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -35,6 +35,4 @@ class CompaniesDatum {
           : DateTime.parse(json['updated_at'] as String),
     );
   }
-
-
 }

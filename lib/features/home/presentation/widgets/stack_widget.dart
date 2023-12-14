@@ -1,4 +1,6 @@
+import 'package:black_market/features/home/data/models/coins_model/black_market_price.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
+import 'package:black_market/features/home/data/models/coins_model/live_price.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/column_text.dart';
@@ -8,10 +10,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StackWidget extends StatelessWidget {
-  const StackWidget({
+  StackWidget({
     super.key,
+    this.livePrice,
+    this.blackMarketPrice,
   });
 
+  BlackMarketPrice? blackMarketPrice;
+  LivePrice? livePrice;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
@@ -98,7 +104,7 @@ class StackWidget extends StatelessWidget {
                 children: [
                   CoulmnText(
                     text: 'سعر البنك',
-                    text2: '${selectedCoinsModel?.livePrices?[0].price ?? ''}',
+                    text2: '${livePrice?.price ?? ''}',
                     style2: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w800,
@@ -113,8 +119,7 @@ class StackWidget extends StatelessWidget {
                   ),
                   CoulmnText(
                     text: 'السوق السوداء',
-                    text2:
-                        '${selectedCoinsModel?.blackMarketPrices?[0].sellPrice ?? ''}',
+                    text2: '${blackMarketPrice?.sellPrice ?? ''}',
                     color2: const Color(0xff2a2a2a),
                   ),
                 ],

@@ -27,5 +27,4 @@ class Price {
             ? null
             : DateTime.parse(json['updated_at'] as String),
       );
-
 }

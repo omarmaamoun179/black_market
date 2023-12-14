@@ -3,4 +3,5 @@ abstract class LanguagesState {
 }
 
 class LanguagesInitial extends LanguagesState {}
+
 class LanguagesArabic extends LanguagesState {}

@@ -25,6 +25,7 @@ class HomeCurrcinesErrorState extends HomeState {
   final String error;
   HomeCurrcinesErrorState(this.error);
 }
+
 class HomeBankLoadingState extends HomeState {}
 
 class HomeBanksSuccessState extends HomeState {
@@ -80,8 +81,8 @@ class HomeCompaniesErrorState extends HomeState {
 class HomeIngotsSuccessState extends HomeState {
   IngotsModel ingotsModel;
 
-  HomeIngotsSuccessState(this.ingotsModel , 
-  
+  HomeIngotsSuccessState(
+    this.ingotsModel,
   );
 }
 

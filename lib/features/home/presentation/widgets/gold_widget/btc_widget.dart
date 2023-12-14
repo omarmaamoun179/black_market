@@ -11,7 +11,7 @@
 //     return BlocBuilder<HomeCubit, HomeState>(
 //       builder: (context, state) {
 //         var cubit = HomeCubit.get(context);
-//         return 
+//         return
 //       },
 //     );
 //   }

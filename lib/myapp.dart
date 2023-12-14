@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           ..getIngotsData(),
         child: MaterialApp(
           theme: ThemeData(
-        fontFamily: GoogleFonts.almarai().fontFamily,
+            fontFamily: GoogleFonts.almarai().fontFamily,
             scaffoldBackgroundColor: const Color(0xff0D0D0D),
           ),
           localizationsDelegates: context.localizationDelegates,

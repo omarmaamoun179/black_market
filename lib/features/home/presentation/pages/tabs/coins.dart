@@ -1,5 +1,4 @@
 import 'package:black_market/config/router/routes.dart';
-import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/chart_widget.dart';
@@ -10,8 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CoinsScreen extends StatelessWidget {
-  CoinsScreen({super.key});
-  CoinsModel? coinsModel;
+  const CoinsScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
@@ -123,7 +121,26 @@ class CoinsScreen extends StatelessWidget {
                     ),
                     Positioned(
                       top: 265.h,
-                      child: const StackWidget(),
+                      child: StackWidget(
+                        blackMarketPrice: HomeCubit.get(context)
+                                    .selectedCoin
+                                    ?.blackMarketPrices
+                                    ?.isEmpty ??
+                                true
+                            ? null
+                            : HomeCubit.get(context)
+                                .selectedCoin
+                                ?.blackMarketPrices?[0],
+                        livePrice: HomeCubit.get(context)
+                                    .selectedCoin
+                                    ?.livePrices
+                                    ?.isEmpty ??
+                                true
+                            ? null
+                            : HomeCubit.get(context)
+                                .selectedCoin
+                                ?.livePrices?[0],
+                      ),
                     ),
                   ],
                 ),
@@ -184,8 +201,6 @@ class CoinsScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      HomeCubit.get(context).getBanksData();
-
                       // HomeCubit.get(context).getCoinsId(
                       //     HomeCubit.get(context).selectedCoin?.id ?? 3);
                       Navigator.pushNamed(
@@ -196,8 +211,11 @@ class CoinsScreen extends StatelessWidget {
                     },
                     child: BankWidgetGridView(
                       bankPrice: HomeCubit.get(context)
-                          .selectedCoin
-                          ?.bankPrices?[index + 1],
+                              .selectedCoin!
+                              .bankPrices!
+                              .isEmpty
+                          ? null
+                          : HomeCubit.get(context).selectedCoin?.bankPrices?[0],
                       index: index,
                       banksModel: HomeCubit.get(context).banksModel?[index],
                       imagePath:

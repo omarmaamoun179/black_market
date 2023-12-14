@@ -9,4 +9,6 @@ class EndPoints {
   static String gold = 'gold';
   static String companies = 'companies';
   static String goldIngot = 'ingots-coins';
+  static String notifacton = 'notifications';
+  static String articles = 'articles';
 }
