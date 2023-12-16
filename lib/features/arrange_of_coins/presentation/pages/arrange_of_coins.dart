@@ -76,8 +76,8 @@ class _ArrangeCoinsState extends State<ArrangeCoins> {
                         if (oldIndex < newIndex) {
                           newIndex -= 1;
                         }
-                        final item = cubit.banksModel!.removeAt(oldIndex);
-                        cubit.banksModel!.insert(newIndex, item);
+                        final item = cubit.coinsModel!.removeAt(oldIndex);
+                        cubit.coinsModel!.insert(newIndex, item);
                       });
                     },
                     itemBuilder: (context, index) {

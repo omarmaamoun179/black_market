@@ -1,17 +1,17 @@
 import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
+import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListTileBankWidget extends StatelessWidget {
   const ListTileBankWidget({
     super.key,
-    required this.index,
     required this.banksModel,
   });
 
-  final int index;
   final BanksModel banksModel;
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +22,18 @@ class ListTileBankWidget extends StatelessWidget {
         size: 24.sp,
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 8.h),
-      key: ValueKey('${banksModel.hashCode}_$index'),
-      title: Text(
-        banksModel.name!,
-        style: TextStyle(
-          fontSize: 16.sp,
-          color: const Color(0xfffffffff),
-          fontWeight: FontWeight.w700,
-        ),
+      key: ValueKey('${banksModel.hashCode}'),
+      title: Column(
+        children: [
+          Text(
+            banksModel.name!,
+            style: TextStyle(
+              fontSize: 16.sp,
+              color: const Color(0xfffffffff),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
       ),
       leading: CircleAvatar(
         radius: 20.r,

@@ -146,4 +146,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   return currencyCode;
 }
+
+  void updateBanksOrder(List<BanksModel> newOrder) {
+    // Update the order in your cubit or perform any necessary logic
+    // to handle the updated order of banks.
+    banksModel = newOrder;
+    // Notify listeners about the change
+    emit(HomeBanksOrderUpdatedState(newOrder));
+  }
 }

@@ -191,7 +191,7 @@ class CoinsScreen extends StatelessWidget {
               GridView.builder(
                 physics: const PageScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: HomeCubit.get(context).coinsModel?.length ?? 0,
+                itemCount: HomeCubit.get(context).banksModel?.length ?? 0,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10.w,
@@ -201,8 +201,6 @@ class CoinsScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      // HomeCubit.get(context).getCoinsId(
-                      //     HomeCubit.get(context).selectedCoin?.id ?? 3);
                       Navigator.pushNamed(
                         context,
                         Routes.bankDetails,
@@ -210,14 +208,26 @@ class CoinsScreen extends StatelessWidget {
                       );
                     },
                     child: BankWidgetGridView(
-                      bankPrice: HomeCubit.get(context)
-                              .selectedCoin!
-                              .bankPrices!
-                              .isEmpty
-                          ? null
-                          : HomeCubit.get(context).selectedCoin?.bankPrices?[0],
                       index: index,
-                      banksModel: HomeCubit.get(context).banksModel?[index],
+                      blackMarketPrice: HomeCubit.get(context)
+                                  .selectedCoin
+                                  ?.blackMarketPrices
+                                  ?.isEmpty ??
+                              true
+                          ? null
+                          : HomeCubit.get(context)
+                              .selectedCoin
+                              ?.blackMarketPrices?[0],
+                      bankPrice: HomeCubit.get(context)
+                                  .selectedCoin
+                                  ?.bankPrices
+                                  ?.isEmpty ??
+                              true
+                          ? null
+                          : HomeCubit.get(context).selectedCoin?.bankPrices?[index],
+                      banksModel: HomeCubit.get(context).banksModel!.isEmpty
+                          ? null
+                          : HomeCubit.get(context).banksModel?[index],
                       imagePath:
                           HomeCubit.get(context).banksModel?[index].icon ?? '',
                       icon: Icon(

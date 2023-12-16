@@ -86,7 +86,7 @@ class _ArrangeBanksState extends State<ArrangeBanks> {
                         key: ValueKey(
                             '${cubit.banksModel![index].hashCode}_$index'),
                         banksModel: item,
-                        index: index,
+                     
                       );
                     },
                     itemCount: cubit.banksModel!.length,

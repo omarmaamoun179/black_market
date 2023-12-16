@@ -20,6 +20,7 @@ class BankWidgetGridView extends StatelessWidget {
     this.index = 0,
     this.bankPrice,
     this.id,
+    this.blackMarketPrice,
   });
   String? text;
   String? imagePath;
