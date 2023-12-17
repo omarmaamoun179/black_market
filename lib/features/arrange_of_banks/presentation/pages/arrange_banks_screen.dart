@@ -69,27 +69,42 @@ class _ArrangeBanksState extends State<ArrangeBanks> {
                   height: 13.h,
                 ),
                 Expanded(
-                  child: ReorderableListView.builder(
+                  child: ReorderableListView(
                     proxyDecorator: proxyDecorator,
                     onReorder: (oldIndex, newIndex) {
                       setState(() {
+                        print(
+                            cubit.selectedCoin!.bankPrices![oldIndex].buyPrice);
+
                         if (oldIndex < newIndex) {
                           newIndex -= 1;
                         }
-                        final item = cubit.banksModel!.removeAt(oldIndex);
-                        cubit.banksModel!.insert(newIndex, item);
+                        final item = cubit.banksModel?.removeAt(oldIndex);
+                        final blackMarket = cubit
+                            .selectedCoin!.blackMarketPrices
+                            ?.removeAt(oldIndex);
+
+                        final bankprice =
+                            cubit.selectedCoin!.bankPrices?.removeAt(oldIndex);
+                        cubit.banksModel!.insert(newIndex, item!);
+                        cubit.selectedCoin!.blackMarketPrices!
+                            .insert(newIndex, blackMarket!);
+
+                        cubit.selectedCoin!.bankPrices!
+                            .insert(newIndex, bankprice!);
+
+                        print(
+                            cubit.selectedCoin!.bankPrices![newIndex].buyPrice);
                       });
                     },
-                    itemBuilder: (context, index) {
-                      final item = cubit.banksModel![index];
-                      return ListTileBankWidget(
-                        key: ValueKey(
-                            '${cubit.banksModel![index].hashCode}_$index'),
-                        banksModel: item,
-                     
-                      );
-                    },
-                    itemCount: cubit.banksModel!.length,
+                    children: cubit.banksModel!
+                        .map(
+                          (e) => ListTileBankWidget(
+                            key: ValueKey(e.hashCode),
+                            banksModel: e,
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
                 Padding(

@@ -1,7 +1,7 @@
 import 'package:black_market/features/bank_details/presentation/widgets/statics_of_bank.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
-import 'package:black_market/features/home/presentation/widgets/column_text.dart';
+import 'package:black_market/features/home/presentation/widgets/coins_widget/column_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -1,5 +1,5 @@
 import 'package:black_market/core/utils/constant.dart';
-import 'package:black_market/features/home/presentation/widgets/column_text.dart';
+import 'package:black_market/features/home/presentation/widgets/coins_widget/column_text.dart';
 import 'package:black_market/features/notification/data/repositories/nots_imp_repo.dart';
 import 'package:black_market/features/notification/presentation/cubit/notification_cubit.dart';
 import 'package:black_market/features/notification/presentation/cubit/notification_state.dart';

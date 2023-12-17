@@ -3,14 +3,14 @@ import 'package:black_market/features/home/data/models/coins_model/bank_price.da
 import 'package:black_market/features/home/data/models/coins_model/black_market_price.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
-import 'package:black_market/features/home/presentation/widgets/column_text.dart';
+import 'package:black_market/features/home/presentation/widgets/coins_widget/column_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BankWidgetGridView extends StatelessWidget {
-  BankWidgetGridView({
+class BankWidgetItem extends StatelessWidget {
+  BankWidgetItem({
     super.key,
     this.text,
     this.imagePath,
@@ -39,6 +39,8 @@ class BankWidgetGridView extends StatelessWidget {
         if (state is HomeCurrcinesSuccessState) {}
       },
       builder: (context, state) {
+        bool isBankId25 = banksModel?.id == 25;
+
         return Container(
           margin: const EdgeInsets.all(12),
           width: 156.w,
@@ -75,7 +77,7 @@ class BankWidgetGridView extends StatelessWidget {
                       ),
                   CachedNetworkImage(
                     imageUrl:
-                        'http://voipsys.space/storage/${banksModel?.icon}',
+                        'http://voipsys.space/storage/${banksModel?.icon ?? ''}',
                     height: 46.h,
                     width: 46.w,
                     placeholder: (context, url) =>
@@ -122,9 +124,8 @@ class BankWidgetGridView extends StatelessWidget {
                   children: [
                     CoulmnText(
                       text: 'شراء',
-                      text2: index == 0
-                          ? '${blackMarketPrice?.buyPrice ?? '0'}'
-                          : '${bankPrice?.buyPrice ?? '0'}',
+                      text2:
+                          '${isBankId25 ? blackMarketPrice?.buyPrice : bankPrice?.buyPrice ?? '0'}',
                       style2: TextStyle(
                         color: const Color(0xffffffff),
                         fontSize: 10.sp,
@@ -139,9 +140,8 @@ class BankWidgetGridView extends StatelessWidget {
                     CoulmnText(
                       color1: const Color(0xffffffff),
                       text: 'بيع',
-                      text2: index == 0
-                          ? '${blackMarketPrice?.sellPrice ?? '0'}'
-                          : '${bankPrice?.sellPrice ?? '0'}',
+                      text2:
+                          '${isBankId25 ? blackMarketPrice?.sellPrice : bankPrice?.sellPrice ?? '0'}',
                     ),
                   ],
                 ),

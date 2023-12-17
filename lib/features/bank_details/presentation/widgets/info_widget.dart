@@ -20,6 +20,9 @@ class InfoWidget extends StatelessWidget {
         if (state is HomeCurrcinesSuccessState) {}
       },
       builder: (context, state) {
+        bool isBankId25 = banksModel?.id == 25;
+        var cubit = HomeCubit.get(context);
+
         return Container(
           width: 327.w,
           decoration: BoxDecoration(
@@ -33,7 +36,7 @@ class InfoWidget extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             padding: const EdgeInsets.all(10),
-            itemCount: HomeCubit.get(context).coinsModel?.length ?? 0,
+            itemCount: cubit.coinsModel?.length ?? 0,
             itemBuilder: (context, index) {
               bool hasPricesForBank = HomeCubit.get(context)
                       .coinsModel?[index]
@@ -66,7 +69,7 @@ class InfoWidget extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          '${HomeCubit.get(context).coinsModel?[index].bankPrices?[0].buyPrice ?? ''}',
+                          '${isBankId25 ? cubit.coinsModel![index].blackMarketPrices![0].buyPrice : cubit.coinsModel![index].bankPrices![1].buyPrice ?? '0'}',
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w700,
@@ -76,7 +79,7 @@ class InfoWidget extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          '${HomeCubit.get(context).coinsModel?[index].bankPrices?[0].sellPrice ?? ''}',
+                          '${isBankId25 ? cubit.coinsModel![index].blackMarketPrices![0].sellPrice : cubit.coinsModel![index].bankPrices![1].sellPrice ?? '0'}',
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w700,

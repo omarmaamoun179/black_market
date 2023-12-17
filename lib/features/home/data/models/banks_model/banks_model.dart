@@ -47,21 +47,4 @@ class BanksModel {
         updatedAt: json['updated_at'] as String?,
         branches: json['branches'] as List<dynamic>?,
       );
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'banner': banner,
-        'icon': icon,
-        'name': name,
-        'hotline': hotline,
-        'calculate_based_on_bank': calculateBasedOnBank,
-        'sort': sort,
-        'show_network_image': showNetworkImage,
-        'is_virtual': isVirtual,
-        'shortname': shortname,
-        'active': active,
-        'created_at': createdAt,
-        'updated_at': updatedAt,
-        'branches': branches,
-      };
-}
+      }

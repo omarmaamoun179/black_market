@@ -1,6 +1,6 @@
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
-import 'package:black_market/features/home/presentation/widgets/custom_bottom_nav.dart';
+import 'package:black_market/features/home/presentation/widgets/coins_widget/custom_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

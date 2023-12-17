@@ -1,4 +1,5 @@
 import 'package:black_market/features/bank_details/presentation/pages/bank_details.dart';
+import 'package:black_market/features/bank_details/presentation/widgets/dialog_coins_in_bank.dart';
 import 'package:black_market/features/bank_details/presentation/widgets/item_of_clac.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';

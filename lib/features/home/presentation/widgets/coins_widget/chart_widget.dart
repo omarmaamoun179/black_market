@@ -36,7 +36,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
             spots: const [
               FlSpot(0, 3),
               FlSpot(2.6, 2),
-              FlSpot(4.9, 5),
+              FlSpot(4.9, 4),
               FlSpot(6.8, 3.1),
               FlSpot(7, 4),
               FlSpot(7, 3),
@@ -49,7 +49,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
             barWidth: 4,
             isStrokeCapRound: true,
             dotData: const FlDotData(
-              show: false,
+              show: true,
             ),
             belowBarData: BarAreaData(
               show: true,

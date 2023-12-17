@@ -3,7 +3,6 @@ import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/gold_widget/first_tab_widget.dart';
 import 'package:black_market/features/home/presentation/widgets/gold_widget/gold_app_bar_widget.dart';
 import 'package:black_market/features/home/presentation/widgets/gold_widget/sec_tab_widget.dart';
-import 'package:black_market/features/home/presentation/widgets/gold_widget/tab_bar_widget.dart';
 import 'package:black_market/features/home/presentation/widgets/gold_widget/third_tab_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,22 +39,41 @@ class GoldsScreen extends StatelessWidget {
                           color: const Color(0xff2A2A2A),
                         ),
                         child: TabBar(
+                          padding: EdgeInsets.symmetric(vertical: 8.h),
                           dividerColor: Colors.transparent,
-                          indicatorColor: Colors.transparent,
-                          indicator: const UnderlineTabIndicator(
-                              borderSide: BorderSide.none),
+                          indicatorColor: const Color.fromRGBO(254, 220, 0, 1),
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.r),
+                            color: const Color(0xffFEDC00),
+                          ),
+                          unselectedLabelColor: const Color(0xffFFFFFF),
+                          unselectedLabelStyle: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xff0E0E0E),
+                          ),
+                          labelStyle: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xff0E0E0E),
+                          ),
                           onTap: (index) {
                             cubit.changeTab(index);
                           },
-                          tabs: cubit.tabs
-                              .map(
-                                (e) => GoldTabWidget(
-                                  isSelected: cubit.selectedIndex ==
-                                      cubit.tabs.indexOf(e),
-                                  txt: e,
-                                ),
-                              )
-                              .toList(),
+                          tabs: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: Text(cubit.tabs[0]),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: Text(cubit.tabs[1]),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: Text(cubit.tabs[2]),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(

@@ -104,7 +104,6 @@ class HomeRepoImp implements HomeBaseRepo {
       );
 
       IngotsModel model = IngotsModel.fromJson(response.data);
-      print(response.data);
       if (response.statusCode == 200) {
         return Right(
           model,

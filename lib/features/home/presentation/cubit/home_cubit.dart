@@ -6,7 +6,7 @@ import 'package:black_market/features/home/data/models/ingots_model/ingot.dart';
 import 'package:black_market/features/home/data/models/ingots_model/ingots_model.dart';
 import 'package:black_market/features/home/data/repositories/home_base_repo.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
-import 'package:black_market/features/home/presentation/pages/tabs/coins.dart';
+import 'package:black_market/features/home/presentation/pages/tabs/coins_screen.dart';
 import 'package:black_market/features/home/presentation/pages/tabs/fav.dart';
 import 'package:black_market/features/home/presentation/pages/tabs/golds.dart';
 import 'package:black_market/features/home/presentation/pages/tabs/profile.dart';
@@ -29,7 +29,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
   List<Widget> screens = [
-    CoinsScreen(),
+    const CoinsScreen(),
     const GoldsScreen(),
     const FavoriteScreen(),
     const ProfileScreen(),
@@ -137,15 +137,16 @@ class HomeCubit extends Cubit<HomeState> {
       ));
     });
   }
+
   String getCurrencyCode(String originalText) {
-  // Splitting the original text by '/'
-  List<String> parts = originalText.split('/');
+    // Splitting the original text by '/'
+    List<String> parts = originalText.split('/');
 
-  // Getting the last part of the split text (which should be 'USD' in this case)
-  String currencyCode = parts.last;
+    // Getting the last part of the split text (which should be 'USD' in this case)
+    String currencyCode = parts.last;
 
-  return currencyCode;
-}
+    return currencyCode;
+  }
 
   void updateBanksOrder(List<BanksModel> newOrder) {
     // Update the order in your cubit or perform any necessary logic
@@ -154,4 +155,6 @@ class HomeCubit extends Cubit<HomeState> {
     // Notify listeners about the change
     emit(HomeBanksOrderUpdatedState(newOrder));
   }
+
+
 }
