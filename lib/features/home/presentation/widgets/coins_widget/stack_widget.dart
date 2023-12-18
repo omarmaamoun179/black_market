@@ -1,3 +1,6 @@
+import 'package:black_market/core/local/save_coins.dart';
+import 'package:black_market/core/utils/constant.dart';
+import 'package:black_market/features/home/data/models/coins_model/bank_price.dart';
 import 'package:black_market/features/home/data/models/coins_model/black_market_price.dart';
 import 'package:black_market/features/home/data/models/coins_model/live_price.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
@@ -14,12 +17,16 @@ class StackWidget extends StatelessWidget {
     super.key,
     this.livePrice,
     this.blackMarketPrice,
+    this.bankPrice,
   });
 
   BlackMarketPrice? blackMarketPrice;
   LivePrice? livePrice;
+  BankPrice? bankPrice;
   @override
   Widget build(BuildContext context) {
+    var savedCoins = LocaleCoinsService.getCoins();
+
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var h = MediaQuery.of(context).size.height;
@@ -49,7 +56,7 @@ class StackWidget extends StatelessWidget {
                       ),
                       CachedNetworkImage(
                         imageUrl:
-                            'http://voipsys.space/storage/${selectedCoinsModel?.icon ?? ''}',
+                            '${Constant.storage}${selectedCoinsModel?.icon ?? ''}',
                         width: 20.5.w,
                         height: 20.5.h,
                         fit: BoxFit.cover,
@@ -79,7 +86,7 @@ class StackWidget extends StatelessWidget {
                     children: [
                       CoulmnText(
                         text: 'سعر البنك',
-                        text2: '${livePrice?.price ?? ''}',
+                        text2: '${bankPrice?.sellPrice ?? ''}',
                         style2: TextStyle(
                           fontSize: 10.sp,
                           fontWeight: FontWeight.w800,
@@ -108,4 +115,3 @@ class StackWidget extends StatelessWidget {
     );
   }
 }
-

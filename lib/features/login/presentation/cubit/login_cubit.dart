@@ -9,18 +9,8 @@ class LoginCubit extends Cubit<LoginState> {
     this.loginBaseRepo,
   ) : super(LoginInitial());
   LoginRepoImpl loginBaseRepo;
-  bool isVisible = false;
-  Icon suffixIcon = const Icon(Icons.lock, color: Color(0xffFFFFFF));
+  bool isVisible = true;
   void changeVisibility() {
-    suffixIcon = isVisible
-        ? const Icon(
-            Icons.lock_open,
-            color: Color(0xffFFFFFF),
-          )
-        : const Icon(
-            Icons.lock,
-            color: Color(0xffFFFFFF),
-          );
     emit(ChangeVisibilityState());
     isVisible = !isVisible;
     emit(ChangeVisibilityState());

@@ -1,11 +1,23 @@
+import 'package:hive/hive.dart';
+part 'bank_price.g.dart';
+
+@HiveType(typeId: 5)
 class BankPrice {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   int? bankId;
+  @HiveField(2)
   int? currencyId;
+  @HiveField(3)
   double? buyPrice;
+  @HiveField(4)
   double? sellPrice;
+  @HiveField(5)
   String? date;
+  @HiveField(6)
   String? createdAt;
+  @HiveField(7)
   String? updatedAt;
 
   BankPrice({

@@ -1,18 +1,37 @@
-class BanksModel {
+import 'package:hive/hive.dart';
+part 'banks_model.g.dart';
+
+@HiveType(typeId: 0)
+class BanksModel  {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   dynamic banner;
+  @HiveField(2)
   String? icon;
+  @HiveField(3)
   String? name;
+  @HiveField(4)
   dynamic hotline;
+  @HiveField(5)
   int? calculateBasedOnBank;
+  @HiveField(6)
   int? sort;
+  @HiveField(7)
   int? showNetworkImage;
+  @HiveField(8)
   int? isVirtual;
+  @HiveField(9)
   String? shortname;
+  @HiveField(10)
   int? active;
+  @HiveField(11)
   String? createdAt;
+  @HiveField(12)
   String? updatedAt;
+  @HiveField(13)
   List<dynamic>? branches;
+  
 
   BanksModel({
     this.id,
@@ -47,4 +66,4 @@ class BanksModel {
         updatedAt: json['updated_at'] as String?,
         branches: json['branches'] as List<dynamic>?,
       );
-      }
+}

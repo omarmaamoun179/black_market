@@ -1,4 +1,5 @@
 import 'package:black_market/config/router/routes.dart';
+import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/core/widget/custom_app_bar.dart';
 import 'package:black_market/core/widget/custom_text_field.dart';
 import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:black_market/features/login/presentation/widgets/forget_password
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 
 class LogingScreen extends StatelessWidget {
   const LogingScreen({super.key});
@@ -16,6 +18,11 @@ class LogingScreen extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
+          var box = Hive.openBox<String>('user');
+          box.then((value) {
+            value.put(Constant.accessToken, state.loginModel.accessToken!);
+          });
+
           Navigator.pushNamed(context, Routes.home);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -45,7 +52,9 @@ class LogingScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(20.0),
                       child: CustomAppBar(
                         icon: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           icon: Icon(
                             Icons.arrow_back,
                             color: Colors.white,
@@ -73,18 +82,9 @@ class LogingScreen extends StatelessWidget {
                           SizedBox(
                             height: 50.h,
                           ),
-                          // Text(
-                          //   textDirection: TextDirection.rtl,
-                          //   'البريد الالكتروني ',
-                          //   style: TextStyle(
-                          //       fontSize: 14.sp,
-                          //       fontWeight: FontWeight.w700,
-                          //       color: Colors.white),
-                          // ),
                           SizedBox(
                             height: 12.h,
                           ),
-
                           CustomTextFormField(
                             suffixIcon: const Icon(
                               Icons.email,
@@ -111,7 +111,12 @@ class LogingScreen extends StatelessWidget {
                             suffixIcon: IconButton(
                               onPressed:
                                   LoginCubit.get(context).changeVisibility,
-                              icon: LoginCubit.get(context).suffixIcon,
+                              icon: Icon(
+                                LoginCubit.get(context).isVisible
+                                    ? Icons.lock_outline
+                                    : Icons.lock_open_outlined,
+                                color: const Color(0xffFFFFFF),
+                              ),
                             ),
                             keyBoardType: TextInputType.text,
                             obscureText: LoginCubit.get(context).isVisible,
@@ -191,47 +196,6 @@ class LogingScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          // SizedBox(
-                          //   height: 30.h,
-                          // ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Container(
-                          //       width: 134.w,
-                          //       height: 2.h,
-                          //       color: const Color(0xff2A2A2A),
-                          //     ),
-                          //     Text(
-                          //       textDirection: TextDirection.rtl,
-                          //       'أو ',
-                          //       style: TextStyle(
-                          //         fontSize: 12.sp,
-                          //         fontWeight: FontWeight.w700,
-                          //         color: const Color(0xff666666),
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       width: 134.w,
-                          //       height: 2.h,
-                          //       color: const Color(0xff2A2A2A),
-                          //     ),
-                          //   ],
-                          // ),
-                          // SizedBox(
-                          //   height: 15.h,
-                          // ),
-                          // Align(
-                          //   alignment: Alignment.topCenter,
-                          //   child: IconButton(
-                          //     onPressed: () {},
-                          //     icon: Image.asset(
-                          //       'assets/images/google.png',
-                          //       width: 50.w,
-                          //       height: 50.h,
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

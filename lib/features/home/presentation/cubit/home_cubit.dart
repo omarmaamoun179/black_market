@@ -1,3 +1,4 @@
+import 'package:black_market/core/local/save_banks.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
@@ -32,7 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
     const CoinsScreen(),
     const GoldsScreen(),
     const FavoriteScreen(),
-    const ProfileScreen(),
+     ProfileScreen(),
   ];
   List<String> tabs = ['الذهب', 'السبائك', 'العملات'];
   int selectedIndex = 0;

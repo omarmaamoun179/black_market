@@ -1,3 +1,4 @@
+import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/data/models/coins_model/bank_price.dart';
 import 'package:black_market/features/home/data/models/coins_model/black_market_price.dart';
@@ -76,8 +77,7 @@ class BankWidgetItem extends StatelessWidget {
                         child: icon ?? const Text(''),
                       ),
                   CachedNetworkImage(
-                    imageUrl:
-                        'http://voipsys.space/storage/${banksModel?.icon ?? ''}',
+                    imageUrl: '${Constant.storage}${banksModel?.icon ?? ' '}',
                     height: 46.h,
                     width: 46.w,
                     placeholder: (context, url) =>

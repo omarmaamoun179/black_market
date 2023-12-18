@@ -1,21 +1,38 @@
+import 'package:hive/hive.dart';
+
 import 'bank_price.dart';
 import 'black_market_price.dart';
 import 'live_price.dart';
-
+part 'coins_model.g.dart';
+@HiveType(typeId: 2)
 class CoinsModel {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   dynamic banner;
+  @HiveField(2)
   String? icon;
+  @HiveField(3)
   String? name;
+  @HiveField(4)
   String? code;
+  @HiveField(5)
   int? canBeMain;
+  @HiveField(6)
   int? sort;
+  @HiveField(7)
   int? showNetworkImage;
+  @HiveField(8)
   DateTime? lastUpdate;
+  @HiveField(9)
   dynamic createdAt;
+  @HiveField(10)
   DateTime? updatedAt;
+  @HiveField(11) 
   List<LivePrice>? livePrices;
+  @HiveField(12)
   List<BlackMarketPrice>? blackMarketPrices;
+  @HiveField(13)
   List<BankPrice>? bankPrices;
 
   CoinsModel({

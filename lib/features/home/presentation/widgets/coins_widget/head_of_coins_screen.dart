@@ -109,13 +109,16 @@ class HeadOfCoinsScreen extends StatelessWidget {
               Positioned(
                 top: 265.h,
                 child: StackWidget(
+                  bankPrice: cubit.selectedCoin?.bankPrices?.isEmpty ?? true
+                      ? null
+                      : cubit.selectedCoin?.bankPrices?[1],
                   blackMarketPrice:
                       cubit.selectedCoin?.blackMarketPrices?.isEmpty ?? true
                           ? null
                           : cubit.selectedCoin?.blackMarketPrices?[0],
-                  livePrice: cubit.selectedCoin?.livePrices?.isEmpty ?? true
-                      ? null
-                      : cubit.selectedCoin?.livePrices?[0],
+                  // livePrice: cubit.selectedCoin?.livePrices?.isEmpty ?? true
+                  //     ? null
+                  //     : cubit.selectedCoin?.livePrices?[0],
                 ),
               ),
             ],

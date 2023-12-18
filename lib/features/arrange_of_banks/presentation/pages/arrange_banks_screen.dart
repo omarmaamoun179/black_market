@@ -1,3 +1,4 @@
+import 'package:black_market/core/local/save_banks.dart';
 import 'package:black_market/core/widget/custom_app_bar.dart';
 import 'package:black_market/features/arrange_of_banks/presentation/widgets/list_tile_bank_widget.dart';
 import 'package:black_market/features/arrange_of_banks/presentation/widgets/proxy_decorater.dart';
@@ -22,6 +23,7 @@ class ArrangeBanks extends StatefulWidget {
 class _ArrangeBanksState extends State<ArrangeBanks> {
   @override
   Widget build(BuildContext context) {
+    var savedBanks = LocaleBankService.getBanks();
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
@@ -73,9 +75,6 @@ class _ArrangeBanksState extends State<ArrangeBanks> {
                     proxyDecorator: proxyDecorator,
                     onReorder: (oldIndex, newIndex) {
                       setState(() {
-                        print(
-                            cubit.selectedCoin!.bankPrices![oldIndex].buyPrice);
-
                         if (oldIndex < newIndex) {
                           newIndex -= 1;
                         }
@@ -89,7 +88,6 @@ class _ArrangeBanksState extends State<ArrangeBanks> {
                         cubit.banksModel!.insert(newIndex, item!);
                         cubit.selectedCoin!.blackMarketPrices!
                             .insert(newIndex, blackMarket!);
-
                         cubit.selectedCoin!.bankPrices!
                             .insert(newIndex, bankprice!);
 
@@ -117,7 +115,23 @@ class _ArrangeBanksState extends State<ArrangeBanks> {
                         borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      // Assuming HomeCubit is accessible from the context
+                      var cubit = HomeCubit.get(context);
+
+                      // Assuming banksModel is not null, otherwise, handle accordingly
+                      if (cubit.banksModel != null) {
+                        // Save the new arrangement to local storage
+                        await LocaleBankService.saveBanks(cubit.banksModel!);
+
+                        // Optionally, you can show a message or perform any other actions
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('تم حفظ الترتيب بنجاح'),
+                          ),
+                        );
+                      }
+                    },
                     child: Text(
                       'حفظ الترتيب',
                       style: TextStyle(

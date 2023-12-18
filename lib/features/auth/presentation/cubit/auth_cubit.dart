@@ -37,30 +37,6 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  // void updatePassword({
-  //   required String email,
-  //   required String otp,
-  //   required String pass,
-  //   required String confrimPass,
-  // }) {
-  //   emit(AuthLoading());
-  //   Dio().post("https://voipsys.space/api/update_forgotten_password", data: {
-  //     "password": pass,
-  //     // "ahmedA0+",
-  //     "password_confirmation": confrimPass,
-  //     // "ahmedA0+",
-  //     "otp": otp,
-  //     // "7682",
-  //     "email": email,
-  //     // "0ahmed0fayez@gmail.com"
-  //   }).then((value) {
-  //     emit(UpdatePassSuccess(
-  //       value.data,
-  //     ));
-  //   }).catchError((e) {
-  //     emit(UpdatePassError(e.toString()));
-  //   });
-  // }
   updatePassword(
     String email,
   ) async {

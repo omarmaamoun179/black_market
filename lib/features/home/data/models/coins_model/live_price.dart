@@ -1,10 +1,21 @@
+
+import 'package:hive/hive.dart';
+part 'live_price.g.dart';
+
+@HiveType(typeId: 3)
 class LivePrice {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   int? currencyId;
+  @HiveField(2)
   String? date;
+  @HiveField(3)
   int? hour;
   double? price;
+  @HiveField(4)
   DateTime? createdAt;
+  @HiveField(5)
   DateTime? updatedAt;
 
   LivePrice({

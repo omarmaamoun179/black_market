@@ -79,7 +79,7 @@ class BankDetailsAppBar extends StatelessWidget {
               coulmnText1: CoulmnText(
                 text: 'البنك',
                 text2:
-                    '${HomeCubit.get(context).selectedCoin?.livePrices?[0].price ?? ''}',
+                    '${HomeCubit.get(context).selectedCoin?.bankPrices?[0].sellPrice ?? ''}',
                 color2: const Color(0xff2a2a2a),
               ),
               coulmnText2: CoulmnText(

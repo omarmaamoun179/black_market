@@ -1,3 +1,5 @@
+import 'package:black_market/core/local/save_coins.dart';
+import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,29 +14,26 @@ class DialogCoinsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var savedCoins = LocaleCoinsService.getCoins();
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) => ListView.builder(
         shrinkWrap: true,
-        itemCount: HomeCubit.get(context).coinsModel?.length ?? 0,
+        itemCount: savedCoins.length,
         itemBuilder: (context, index) {
-          // Check if the current coin has prices for the current bank
-
-          // Display the coin only if it has prices for the current bank
-
           return Padding(
             padding: const EdgeInsets.all(15.0),
             child: InkWell(
               onTap: () {
                 HomeCubit.get(context).updateSelectedCoin(
-                    HomeCubit.get(context).coinsModel?[index]);
+                  savedCoins[index],
+                );
                 Navigator.pop(context);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    HomeCubit.get(context).coinsModel?[index].name ??
-                        'الدولار الأمريكي',
+                    savedCoins[index].name ?? 'الدولار الأمريكي',
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w700,
@@ -42,8 +41,7 @@ class DialogCoinsWidget extends StatelessWidget {
                     ),
                   ),
                   CachedNetworkImage(
-                    imageUrl:
-                        'http://voipsys.space/storage/${HomeCubit.get(context).coinsModel?[index].icon}',
+                    imageUrl: '${Constant.storage}${savedCoins[index].icon}',
                     width: 26.5.w,
                     height: 26.5.h,
                     fit: BoxFit.cover,

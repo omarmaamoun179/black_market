@@ -36,42 +36,7 @@ class CoinsScreen extends StatelessWidget {
                 height: 303.5.h,
                 child: const LineChartSample2(),
               ),
-              // DefaultTabController(
-              //   length: 6,
-              //   child: TabBar(
-              //     indicatorColor: Colors.transparent,
-              //     dividerColor: Colors.transparent,
-              //     labelColor: const Color(0xffFEDC00),
-              //     labelStyle: TextStyle(
-              //       fontSize: 14.sp,
-              //       fontWeight: FontWeight.w700,
-              //     ),
-              //     labelPadding: EdgeInsets.symmetric(horizontal: 24.w),
-              //     tabAlignment: TabAlignment.center,
-              //     unselectedLabelStyle: TextStyle(
-              //       fontSize: 12.sp,
-              //       fontWeight: FontWeight.w400,
-              //     ),
-              //     unselectedLabelColor: const Color(0xffB1BCCD),
-              //     onTap: (index) {
-              //       cubit.getHomeData();
-              //     },
-              //     indicator: const BoxDecoration(),
-              //     isScrollable: true,
-              //     tabs: const [
-              //       Text(
-              //         'سبت',
-              //       ),
-              //       Text('أحد'),
-              //       Text('إثنين'),
-              //       Text('ثلاثاء'),
-              //       Text('أربعاء'),
-              //       Text(
-              //         'خميس',
-              //       ),
-              //     ],
-              //   ),
-              // ),
+             
               GridViewWidget(cubit: cubit),
             ],
           ),

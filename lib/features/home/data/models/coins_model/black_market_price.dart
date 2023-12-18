@@ -1,11 +1,23 @@
+import 'package:hive/hive.dart';
+part 'black_market_price.g.dart';
+
+@HiveType(typeId: 4)
 class BlackMarketPrice {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   int? currencyId;
+  @HiveField(2)
   double? buyPrice;
+  @HiveField(3)
   double? sellPrice;
+  @HiveField(4)
   String? date;
+  @HiveField(5)
   int? hour;
+  @HiveField(6)
   DateTime? createdAt;
+  @HiveField(7)
   DateTime? updatedAt;
 
   BlackMarketPrice({

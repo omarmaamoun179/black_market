@@ -1,4 +1,6 @@
 import 'package:black_market/config/router/routes.dart';
+import 'package:black_market/core/local/save_banks.dart';
+import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/widgets/coins_widget/bank_widget_item.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ class GridViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<BanksModel> savedBanks = LocaleBankService.getBanks();
+
     return GridView.builder(
       physics: const PageScrollPhysics(),
       shrinkWrap: true,
@@ -25,10 +29,10 @@ class GridViewWidget extends StatelessWidget {
         mainAxisSpacing: 10.h,
       ),
       itemBuilder: (context, index) {
-        var currentBank = cubit.banksModel?[index];
+        var currentBank = savedBanks[index];
 
         // Check if the current bank's id is 25
-        if (currentBank?.id == 25) {
+        if (currentBank.id == 25) {
           return InkWell(
             onTap: () {
               Navigator.pushNamed(
@@ -44,13 +48,13 @@ class GridViewWidget extends StatelessWidget {
                       : cubit.selectedCoin?.blackMarketPrices?[0],
 
               banksModel: currentBank, // Use the current bank's data
-              imagePath: currentBank?.icon ?? '',
+              imagePath: currentBank.icon ?? '',
               icon: Icon(
                 Icons.favorite_border,
                 size: 12.sp,
                 color: const Color(0xffF1F0FA),
               ),
-              text: currentBank?.name ?? '',
+              text: currentBank.name ?? '',
             ),
           );
         } else {
@@ -69,13 +73,13 @@ class GridViewWidget extends StatelessWidget {
                   ? null
                   : cubit.selectedCoin?.bankPrices?[index],
               banksModel: currentBank,
-              imagePath: currentBank?.icon ?? '',
+              imagePath: currentBank.icon ?? '',
               icon: Icon(
                 Icons.favorite_border,
                 size: 12.sp,
                 color: const Color(0xffF1F0FA),
               ),
-              text: currentBank?.name ?? '',
+              text: currentBank.name ?? '',
             ),
           );
         }

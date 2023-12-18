@@ -1,3 +1,4 @@
+import 'package:black_market/core/local/save_coins.dart';
 import 'package:black_market/core/widget/custom_app_bar.dart';
 import 'package:black_market/features/arrange_of_banks/presentation/widgets/proxy_decorater.dart';
 import 'package:black_market/features/arrange_of_banks/presentation/widgets/warninng_message.dart';
@@ -102,7 +103,9 @@ class _ArrangeCoinsState extends State<ArrangeCoins> {
                         borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      LocaleCoinsService.saveCoins(cubit.coinsModel!);
+                    },
                     child: Text(
                       'حفظ الترتيب',
                       style: TextStyle(

@@ -1,6 +1,7 @@
 import 'package:black_market/config/router/routes.dart';
 import 'package:black_market/core/widget/custom_app_bar.dart';
 import 'package:black_market/features/home/presentation/pages/tabs/profile.dart';
+import 'package:black_market/features/home/presentation/widgets/profie/profile_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -1,4 +1,3 @@
-import 'package:black_market/features/bank_details/presentation/pages/bank_details.dart';
 import 'package:black_market/features/bank_details/presentation/widgets/dialog_coins_in_bank.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
@@ -72,7 +71,7 @@ class CurrciensInBank extends StatelessWidget {
               text: 'شراء',
               color1: const Color(0xff0E0E0E),
               text2:
-                  '${isBankId25 ? cubit.selectedCoin?.blackMarketPrices![0].buyPrice : cubit.selectedCoin?.bankPrices![0].buyPrice ?? '0'}',
+                  '${isBankId25 ? cubit.selectedCoin?.blackMarketPrices![0].buyPrice ?? 0 : cubit.selectedCoin?.bankPrices![0].buyPrice ?? '0'}',
               style2: TextStyle(
                 fontSize: 10.sp,
                 fontWeight: FontWeight.w800,
