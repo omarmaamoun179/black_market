@@ -4,7 +4,7 @@ class DatumArticles {
   String? banner;
   String? title;
   String? shortDescription;
-DateTime? createdAt;
+  DateTime? createdAt;
 
   DatumArticles({
     this.id,
@@ -21,6 +21,8 @@ DateTime? createdAt;
         banner: json['banner'] as String?,
         title: json['title'] as String?,
         shortDescription: json['short_description'] as String?,
-        createdAt: json['created_at'] ==null?null:DateTime.parse(json['created_at']),
+        createdAt: json['created_at'] == null
+            ? null
+            : DateTime.parse(json['created_at']),
       );
 }

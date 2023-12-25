@@ -1,16 +1,21 @@
 import 'package:black_market/config/router/routes.dart';
+import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/coins_widget/stack_widget.dart';
+import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 
 class HeadOfCoinsScreen extends StatelessWidget {
   const HeadOfCoinsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box<String>('user');
+    var token = box.get(Constant.accessToken);
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
@@ -55,7 +60,10 @@ class HeadOfCoinsScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'عمر مأمون',
+                        token == null
+                            ? ''
+                            : LoginCubit.get(context).loginModel?.user?.name ??
+                                '',
                         style: TextStyle(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w700,
@@ -109,6 +117,9 @@ class HeadOfCoinsScreen extends StatelessWidget {
               Positioned(
                 top: 265.h,
                 child: StackWidget(
+                  // livePrice: cubit.selectedCoin?.livePrices?.isEmpty ?? true
+                  //     ? null
+                  //     : cubit.selectedCoin?.livePrices?[0],
                   bankPrice: cubit.selectedCoin?.bankPrices?.isEmpty ?? true
                       ? null
                       : cubit.selectedCoin?.bankPrices?[1],

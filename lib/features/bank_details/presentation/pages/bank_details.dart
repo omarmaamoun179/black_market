@@ -5,8 +5,6 @@ import 'package:black_market/features/bank_details/presentation/widgets/info_wid
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
-import 'package:black_market/features/home/presentation/widgets/coins_widget/column_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -80,7 +78,6 @@ class BankDetails extends StatelessWidget {
                         ),
                       ),
                       InfoWidget(
-                   
                         banksModel: banksModel!,
                       ),
                     ],
@@ -150,5 +147,3 @@ class HeadOfInfoWidget extends StatelessWidget {
     );
   }
 }
-
-

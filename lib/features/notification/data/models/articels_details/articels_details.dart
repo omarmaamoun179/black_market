@@ -38,5 +38,4 @@ class ArticelsDetails {
       to: json['to'] as int?,
     );
   }
-
 }

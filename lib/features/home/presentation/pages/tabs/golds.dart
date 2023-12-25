@@ -62,15 +62,15 @@ class GoldsScreen extends StatelessWidget {
                           },
                           tabs: [
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              padding: EdgeInsets.symmetric(horizontal: 12.w),
                               child: Text(cubit.tabs[0]),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              padding: EdgeInsets.symmetric(horizontal: 12.w),
                               child: Text(cubit.tabs[1]),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              padding: EdgeInsets.symmetric(horizontal: 12.w),
                               child: Text(cubit.tabs[2]),
                             ),
                           ],

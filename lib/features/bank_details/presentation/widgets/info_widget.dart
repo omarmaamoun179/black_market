@@ -1,3 +1,4 @@
+import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
@@ -20,7 +21,6 @@ class InfoWidget extends StatelessWidget {
         if (state is HomeCurrcinesSuccessState) {}
       },
       builder: (context, state) {
-        bool isBankId25 = banksModel?.id == 25;
         var cubit = HomeCubit.get(context);
 
         return Container(
@@ -38,61 +38,68 @@ class InfoWidget extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             itemCount: cubit.coinsModel?.length ?? 0,
             itemBuilder: (context, index) {
-              bool hasPricesForBank = HomeCubit.get(context)
-                      .coinsModel?[index]
-                      .bankPrices
-                      ?.any((price) => price.bankId == banksModel?.id) ??
-                  false;
-              if (hasPricesForBank) {
-                return Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl:
-                            'http://voipsys.space/storage/${HomeCubit.get(context).coinsModel?[index].icon ?? ''}',
-                        height: 22.h,
-                        width: 22.w,
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          HomeCubit.get(context).coinsModel?[index].name ?? '',
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xffFFFFFF),
+              List<Widget> widget = [];
+              Set<int> uniqueBankIds = <int>{};
+              for (var e in cubit.coinsModel![index].bankPrices!) {
+                if (e.bankId == banksModel!.id &&
+                    uniqueBankIds.add(e.bankId!)) {
+                  widget.add(
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl:
+                                '${Constant.storage}${HomeCubit.get(context).coinsModel?[index].icon ?? ''}',
+                            height: 22.h,
+                            width: 22.w,
                           ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          '${isBankId25 ? cubit.coinsModel![index].blackMarketPrices![0].buyPrice : cubit.coinsModel![index].bankPrices![1].buyPrice ?? '0'}',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xffFEDC00),
+                          SizedBox(
+                            width: 10.w,
                           ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          '${isBankId25 ? cubit.coinsModel![index].blackMarketPrices![0].sellPrice : cubit.coinsModel![index].bankPrices![1].sellPrice ?? '0'}',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xffFEDC00),
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              HomeCubit.get(context).coinsModel?[index].name ??
+                                  '',
+                              style: TextStyle(
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xffFFFFFF),
+                              ),
+                            ),
                           ),
-                        ),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              '${e.sellPrice ?? '0'}',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xffFEDC00),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              '${e.buyPrice ?? '0'}',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xffFEDC00),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              } else {
-                return Container();
+                    ),
+                  );
+                }
               }
+              return Column(
+                children: widget,
+              );
             },
           ),
         );

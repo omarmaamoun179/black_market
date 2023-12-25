@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 part 'banks_model.g.dart';
 
 @HiveType(typeId: 0)
-class BanksModel  {
+class BanksModel {
   @HiveField(0)
   int? id;
   @HiveField(1)
@@ -31,7 +31,6 @@ class BanksModel  {
   String? updatedAt;
   @HiveField(13)
   List<dynamic>? branches;
-  
 
   BanksModel({
     this.id,

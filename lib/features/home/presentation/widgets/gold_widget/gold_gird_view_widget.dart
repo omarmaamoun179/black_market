@@ -64,7 +64,7 @@ class GoldWidgetGridView extends StatelessWidget {
                       ),
                   CachedNetworkImage(
                     imageUrl:
-                        'http://voipsys.space/storage/${goldsModel?.icon}',
+                        'https://voipsys.space/storage/${goldsModel?.icon}',
                     height: 46.h,
                     width: 46.w,
                     placeholder: (context, url) =>

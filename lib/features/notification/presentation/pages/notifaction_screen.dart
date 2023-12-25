@@ -17,8 +17,7 @@ class NotifactionScreen extends StatelessWidget {
         NotifactionRepoImp(),
       )
         ..getNotifaction()
-        ..getArticels()
-        ,
+        ..getArticels(),
       child: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
           var cubit = NotificationCubit.get(context);

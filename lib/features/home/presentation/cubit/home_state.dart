@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
+import 'package:black_market/features/home/data/models/chart_model/chart_model.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
 import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
@@ -36,11 +39,6 @@ class HomeBanksSuccessState extends HomeState {
 class HomeBanksErrorState extends HomeState {
   final String error;
   HomeBanksErrorState(this.error);
-}
-
-class HomeLiveErrorState extends HomeState {
-  final String error;
-  HomeLiveErrorState(this.error);
 }
 
 class HomeStackWidgetSuccessState extends HomeState {
@@ -97,11 +95,22 @@ class HomeUpdateCompniesState extends HomeState {
   );
 }
 
-class HomeBanksOrderUpdatedState extends HomeState {
-  final List<BanksModel> updatedOrder;
+class HomeLiveSuccessState extends HomeState {
+  ChartModel? chartModel;
 
-  HomeBanksOrderUpdatedState(this.updatedOrder);
+  HomeLiveSuccessState(
+    this.chartModel,
+  );
+}
 
-  @override
-  List<Object?> get props => [updatedOrder];
+class HomeLiveErrorState extends HomeState {
+  final String error;
+  HomeLiveErrorState(this.error);
+}
+
+class HomeUpdateBankState extends HomeState {
+  List<BanksModel>? selectedBank;
+  HomeUpdateBankState(
+    this.selectedBank,
+  );
 }

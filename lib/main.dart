@@ -22,8 +22,9 @@ void main() async {
   Hive.registerAdapter(LivePriceAdapter());
   Hive.registerAdapter(BankPriceAdapter());
   Hive.registerAdapter(BlackMarketPriceAdapter());
-  await Hive.openBox<String>(
-      'user'); // Open the Hive box for storing the token
+  await Hive.openBox<String>('user'); 
+  // Open the Hive box for storing the token
+  await Hive.openBox<String>('NewBanksID');
 
   await LocaleBankService.init();
   await LocaleCoinsService.init();

@@ -75,19 +75,24 @@ class _ArrangeBanksState extends State<ArrangeBanks> {
                     proxyDecorator: proxyDecorator,
                     onReorder: (oldIndex, newIndex) {
                       setState(() {
+                        for (var e in cubit.banksModel!) {
+                          for (var i in cubit.selectedCoin!.bankPrices!) {
+                            if (e.id == i.bankId) {}
+                          }
+                        }
                         if (oldIndex < newIndex) {
                           newIndex -= 1;
                         }
                         final item = cubit.banksModel?.removeAt(oldIndex);
-                        final blackMarket = cubit
-                            .selectedCoin!.blackMarketPrices
-                            ?.removeAt(oldIndex);
+                        // final blackMarket = cubit
+                        //     .selectedCoin!.blackMarketPrices
+                        //     ?.removeAt(oldIndex);
 
                         final bankprice =
                             cubit.selectedCoin!.bankPrices?.removeAt(oldIndex);
                         cubit.banksModel!.insert(newIndex, item!);
-                        cubit.selectedCoin!.blackMarketPrices!
-                            .insert(newIndex, blackMarket!);
+                        // cubit.selectedCoin!.blackMarketPrices!
+                        //     .insert(newIndex, blackMarket!);
                         cubit.selectedCoin!.bankPrices!
                             .insert(newIndex, bankprice!);
 
@@ -122,7 +127,7 @@ class _ArrangeBanksState extends State<ArrangeBanks> {
                       // Assuming banksModel is not null, otherwise, handle accordingly
                       if (cubit.banksModel != null) {
                         // Save the new arrangement to local storage
-                        await LocaleBankService.saveBanks(cubit.banksModel!);
+                        LocaleBankService.saveBanks(cubit.banksModel!);
 
                         // Optionally, you can show a message or perform any other actions
                         ScaffoldMessenger.of(context).showSnackBar(

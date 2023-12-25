@@ -1,3 +1,4 @@
+import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/widgets/coins_widget/column_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -39,8 +40,7 @@ class StatictsOfBank extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CachedNetworkImage(
-                      imageUrl:
-                          'http://voipsys.space/storage/${banksModel?.icon ?? ''}',
+                      imageUrl: '${Constant.storage}${banksModel?.icon ?? ''}',
                       fit: BoxFit.cover,
                       width: 25.5.w,
                       height: 25.h.h,

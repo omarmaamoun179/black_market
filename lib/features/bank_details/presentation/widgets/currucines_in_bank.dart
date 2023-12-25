@@ -1,3 +1,4 @@
+import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/bank_details/presentation/widgets/dialog_coins_in_bank.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
@@ -40,7 +41,7 @@ class CurrciensInBank extends StatelessWidget {
             ),
             CachedNetworkImage(
               imageUrl:
-                  'http://voipsys.space/storage/${HomeCubit.get(context).selectedCoin?.icon}',
+                  '${Constant.storage}${HomeCubit.get(context).selectedCoin?.icon}',
               width: 20.5.w,
               height: 20.5.h,
               fit: BoxFit.cover,

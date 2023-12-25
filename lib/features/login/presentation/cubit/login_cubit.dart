@@ -1,4 +1,5 @@
 import 'package:black_market/features/login/data/models/login_data.dart';
+import 'package:black_market/features/login/data/models/login_model/login_model.dart';
 import 'package:black_market/features/login/data/repositories/login_impl.dart';
 import 'package:black_market/features/login/presentation/cubit/login_state.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(
     this.loginBaseRepo,
   ) : super(LoginInitial());
+  LoginModel? loginModel;
   LoginRepoImpl loginBaseRepo;
   bool isVisible = true;
   void changeVisibility() {
@@ -33,6 +35,7 @@ class LoginCubit extends Cubit<LoginState> {
     result.fold((l) {
       emit(LoginError(l.toString()));
     }, (r) {
+      loginModel = r;
       emit(LoginSuccess(r));
     });
   }

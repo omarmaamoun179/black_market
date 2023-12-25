@@ -3,6 +3,7 @@ import 'package:black_market/core/api/end_points.dart';
 import 'package:black_market/core/error/failures.dart';
 import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
+import 'package:black_market/features/home/data/models/chart_model/chart_model.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
 import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
@@ -104,6 +105,38 @@ class HomeRepoImp implements HomeBaseRepo {
       );
 
       IngotsModel model = IngotsModel.fromJson(response.data);
+      if (response.statusCode == 200) {
+        return Right(
+          model,
+        );
+      } else {
+        return Left(RemoteServerFailure(
+            'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
+      }
+    } on Exception catch (e) {
+      return Left(RemoteServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ChartModel>> getChartData(id) async {
+    try {
+      DateTime currentDate = DateTime.now();
+
+      // Calculate the start date by subtracting 5 days from the current date
+      DateTime startDate = currentDate.subtract(const Duration(days: 4));
+      var response = await DioHelper.getData(
+        '${Constant.currencies}${EndPoints.historical}',
+        // 'https://voipsys.space/api/currencies/historical?currency_id=$id&type=live&start_date=2023-12-8',
+        query: {
+          "currency_id": id,
+          "type": "live",
+          "start_date": "${startDate.year}-${startDate.month}-${startDate.day}"
+        },
+      );
+
+      ChartModel model = ChartModel.fromJson(response.data, id);
+
       if (response.statusCode == 200) {
         return Right(
           model,

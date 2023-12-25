@@ -37,7 +37,7 @@ class GoldThirdTabWidget extends StatelessWidget {
                       children: [
                         CachedNetworkImage(
                           imageUrl:
-                              'http://voipsys.space/storage/${cubit.compniesModel[index].image}',
+                              'https://voipsys.space/storage/${cubit.compniesModel[index].image}',
                           imageBuilder: (context, imageProvider) => Container(
                             width: 65.w,
                             height: 65.h,

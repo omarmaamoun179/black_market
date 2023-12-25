@@ -1,5 +1,6 @@
-import 'package:black_market/core/local/save_banks.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
+import 'package:black_market/features/home/data/models/chart_model/chart_model.dart';
+import 'package:black_market/features/home/data/models/chart_model/currency_id.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
 import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
@@ -27,13 +28,14 @@ class HomeCubit extends Cubit<HomeState> {
   IngotsModel? ingotsModel;
   CompniesModel? selectedCompnies;
   List<Ingot> btcIngotInfo = [];
-
+  ChartModel? chartModel;
+  List<CurrencyId>? currencyId;
   static HomeCubit get(context) => BlocProvider.of(context);
   List<Widget> screens = [
     const CoinsScreen(),
     const GoldsScreen(),
     const FavoriteScreen(),
-     ProfileScreen(),
+    const ProfileScreen(),
   ];
   List<String> tabs = ['الذهب', 'السبائك', 'العملات'];
   int selectedIndex = 0;
@@ -61,7 +63,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeCurrcinesErrorState(l.toString()));
     }, (r) {
       coinsModel = r;
-      print(r[1].bankPrices?[1].bankId);
+      // print(r[1].bankPrices?[1].bankId);
       selectedCoin = r[1];
 
       emit(HomeCurrcinesSuccessState(
@@ -84,7 +86,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void updateSelectedCoin(CoinsModel? selectedCoin) {
     this.selectedCoin = selectedCoin;
-    print(selectedCoin?.livePrices?[2].price);
+    // print(selectedCoin?.id);
     emit(HomeStackWidgetSuccessState(selectedCoin));
   }
 // void to update about select compines
@@ -94,8 +96,8 @@ class HomeCubit extends Cubit<HomeState> {
     textIndex = index;
     isClicked = !isClicked;
 
-    print(selectedCompnies?.id);
-    print(selectedCompnies?.name);
+    // print(selectedCompnies?.id);
+    // print(selectedCompnies?.name);
 
     emit(HomeUpdateCompniesState(
       selecetCompines,
@@ -149,13 +151,17 @@ class HomeCubit extends Cubit<HomeState> {
     return currencyCode;
   }
 
-  void updateBanksOrder(List<BanksModel> newOrder) {
-    // Update the order in your cubit or perform any necessary logic
-    // to handle the updated order of banks.
-    banksModel = newOrder;
-    // Notify listeners about the change
-    emit(HomeBanksOrderUpdatedState(newOrder));
+  getChartData(int id) async {
+    emit(HomeLoadingState());
+    var result = await homeBaseRepo.getChartData(selectedCoin?.id ?? 19);
+
+    result.fold((l) {
+      emit(HomeLiveErrorState(l.message.toString()));
+    }, (r) {
+      chartModel = r;
+      currencyId = r.livePrices?.currcenyId;
+      print(currencyId?[0].price);
+      emit(HomeLiveSuccessState(r));
+    });
   }
-
-
 }

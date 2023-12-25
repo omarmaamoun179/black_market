@@ -36,8 +36,7 @@ class CoinsScreen extends StatelessWidget {
                 height: 303.5.h,
                 child: const LineChartSample2(),
               ),
-             
-              GridViewWidget(cubit: cubit),
+              const GridViewWidget(),
             ],
           ),
         );

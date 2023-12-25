@@ -56,5 +56,4 @@ class Comment {
         replyingToUser: json['replying_to_user'] as dynamic,
         latestReply: json['latest_reply'] as dynamic,
       );
-
 }

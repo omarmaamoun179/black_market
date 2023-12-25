@@ -1,6 +1,8 @@
 import 'package:black_market/config/router/routes.dart';
 import 'package:black_market/features/home/data/repositories/home_repo_imp.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
+import 'package:black_market/features/login/data/repositories/login_impl.dart';
+import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +17,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      builder: (context, child) => BlocProvider(
-        create: (context) => HomeCubit(
-          HomeRepoImp(),
-        )
-          ..getBanksData()
-          ..getHomeData()
-          ..getGoldData()
-          ..getCompniesData()
-          ..getIngotsData(),
+      builder: (context, child) => MultiBlocProvider(
+        providers: [
+          BlocProvider<HomeCubit>(
+              create: (context) => HomeCubit(
+                    HomeRepoImp(),
+                  )
+                    ..getBanksData()
+                    ..getHomeData()
+                    ..getGoldData()
+                    ..getCompniesData()
+                    ..getIngotsData()
+                    ..getChartData(19)),
+          BlocProvider<LoginCubit>(
+            create: (context) => LoginCubit(
+              LoginRepoImpl(),
+            ),
+          ),
+        ],
         child: MaterialApp(
           useInheritedMediaQuery: true,
           theme: ThemeData(

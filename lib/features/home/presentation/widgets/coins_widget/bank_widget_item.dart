@@ -11,18 +11,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BankWidgetItem extends StatelessWidget {
-  BankWidgetItem({
-    super.key,
-    this.text,
-    this.imagePath,
-    this.icon,
-    this.container,
-    this.banksModel,
-    this.index = 0,
-    this.bankPrice,
-    this.id,
-    this.blackMarketPrice,
-  });
+  BankWidgetItem(
+      {super.key,
+      this.text,
+      this.container,
+      this.banksModel,
+      this.index = 0,
+      this.bankPrice,
+      this.id,
+      this.blackMarketPrice,
+      this.icon});
   String? text;
   String? imagePath;
   Widget? icon;
@@ -40,7 +38,7 @@ class BankWidgetItem extends StatelessWidget {
         if (state is HomeCurrcinesSuccessState) {}
       },
       builder: (context, state) {
-        bool isBankId25 = banksModel?.id == 25;
+        // bool isBankId25 = banksModel?.id == 25;
 
         return Container(
           margin: const EdgeInsets.all(12),
@@ -124,8 +122,7 @@ class BankWidgetItem extends StatelessWidget {
                   children: [
                     CoulmnText(
                       text: 'شراء',
-                      text2:
-                          '${isBankId25 ? blackMarketPrice?.buyPrice : bankPrice?.buyPrice ?? '0'}',
+                      text2: '${bankPrice?.buyPrice ?? '0'}',
                       style2: TextStyle(
                         color: const Color(0xffffffff),
                         fontSize: 10.sp,
@@ -140,8 +137,7 @@ class BankWidgetItem extends StatelessWidget {
                     CoulmnText(
                       color1: const Color(0xffffffff),
                       text: 'بيع',
-                      text2:
-                          '${isBankId25 ? blackMarketPrice?.sellPrice : bankPrice?.sellPrice ?? '0'}',
+                      text2: '${bankPrice?.sellPrice ?? '0'}',
                     ),
                   ],
                 ),

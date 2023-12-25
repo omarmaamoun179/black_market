@@ -1,3 +1,4 @@
+import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -52,7 +53,7 @@ class DialogBankCoins extends StatelessWidget {
                     ),
                     CachedNetworkImage(
                       imageUrl:
-                          'http://voipsys.space/storage/${HomeCubit.get(context).coinsModel?[index].icon}',
+                          '${Constant.storage}${HomeCubit.get(context).coinsModel?[index].icon}',
                       width: 26.5.w,
                       height: 26.5.h,
                       fit: BoxFit.cover,

@@ -4,6 +4,7 @@ import 'bank_price.dart';
 import 'black_market_price.dart';
 import 'live_price.dart';
 part 'coins_model.g.dart';
+
 @HiveType(typeId: 2)
 class CoinsModel {
   @HiveField(0)
@@ -28,7 +29,7 @@ class CoinsModel {
   dynamic createdAt;
   @HiveField(10)
   DateTime? updatedAt;
-  @HiveField(11) 
+  @HiveField(11)
   List<LivePrice>? livePrices;
   @HiveField(12)
   List<BlackMarketPrice>? blackMarketPrices;
