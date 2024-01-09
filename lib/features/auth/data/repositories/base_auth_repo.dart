@@ -6,7 +6,7 @@ import 'package:black_market/features/auth/data/models/update_pass_data.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class BaseAuthRepo {
-  Future<Either<Failure, ForgetPassModel>> forgetPassword(EmailData email);
+  Future<Either<Failure, ForgetPassModel>> forgetPassword(String email);
   Future<Either<Failure, UpdatePassModel>> updatePassword(
     UpdatePassData updatePassData,
   );

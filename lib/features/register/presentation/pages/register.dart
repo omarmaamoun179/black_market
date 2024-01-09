@@ -1,4 +1,5 @@
 import 'package:black_market/config/router/routes.dart';
+import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/core/widget/custom_app_bar.dart';
 import 'package:black_market/core/widget/custom_text_field.dart';
 import 'package:black_market/features/login/presentation/pages/login_page.dart';
@@ -7,26 +8,31 @@ import 'package:black_market/features/register/presentation/cubit/register_state
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 
 class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
-          RegisterCubit.get(context).register();
+          var box = Hive.openBox<String>('user');
+          box.then((value) {
+            value.put(Constant.accessToken, state.registerModel.accessToken!);
+          });
+
           Navigator.pushNamed(context, Routes.home);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('success'),
+            ),
+          );
         } else if (state is RegisterError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message.toString()),
+            const SnackBar(
+              content: Text('there something error'),
             ),
           );
           print(state.message.toString());
@@ -150,13 +156,6 @@ class RegisterScreen extends StatelessWidget {
                                 height: 55.h,
                               ),
                               CustomTextFormField(
-                                validator: (value) {
-                                  if (passwordController.text !=
-                                      confirmPasswordController.text) {
-                                    return 'passwords do not match';
-                                  }
-                                  return null;
-                                },
                                 textInputAction: TextInputAction.next,
                                 controller: RegisterCubit.get(context)
                                     .confirmPasswordController,

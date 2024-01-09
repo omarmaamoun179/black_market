@@ -6,6 +6,7 @@ import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/coins_widget/column_text.dart';
 import 'package:black_market/features/home/presentation/widgets/coins_widget/dialog_coins_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,7 +83,7 @@ class StackWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         CoulmnText(
-                          text: 'سعر البنك',
+                          text: "سعر البنك".tr(),
                           text2: '${bankPrice?.sellPrice ?? ''}',
                           style2: TextStyle(
                             fontSize: 10.sp,
@@ -95,9 +96,9 @@ class StackWidget extends StatelessWidget {
                           thickness: .4,
                         ),
                         CoulmnText(
-                          text: 'أخر تحديث',
+                          text: "اخر تحديث".tr(),
                           text2:
-                              'منذ ${selectedCoinsModel?.updatedAt?.minute ?? ''} دقيقة ',
+                              '${"منذ دقيقة".tr()} ${selectedCoinsModel?.updatedAt?.minute ?? ''}',
                           color2: const Color(0xff2a2a2a),
                         ),
                         const VerticalDivider(
@@ -107,7 +108,7 @@ class StackWidget extends StatelessWidget {
                         CoulmnText(
                           text: HomeCubit.get(context).selectedCoin?.id == 17
                               ? ''
-                              : 'سعر السوق السوداء',
+                              : "سعر السوق السوداء".tr(),
                           text2: '${blackMarketPrice?.sellPrice ?? ''}',
                           color2: const Color(0xff2a2a2a),
                         ),

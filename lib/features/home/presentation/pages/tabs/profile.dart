@@ -6,21 +6,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  late Box<String> box;
+  late String? token;
+
+  @override
+  void initState() {
+    super.initState();
+    box = Hive.box<String>('user');
+    token = box.get(Constant.accessToken);
+  }
+
+  void updateLoginState() {
+    setState(() {
+      token = box.get(Constant.accessToken);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var box = Hive.box<String>('user');
-    String? token = box.get(Constant.accessToken);
-    return token == null ? const NotLoginWidget() : const AlreadyLoginWidget();
+    return token == null
+        ? const NotLoginWidget()
+        : AlreadyLoginWidget(
+            updateLoginState: updateLoginState,
+          );
   }
 }
 
 class AlreadyLoginWidget extends StatelessWidget {
   const AlreadyLoginWidget({
     super.key,
+    required this.updateLoginState,
   });
+  final VoidCallback updateLoginState;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +152,9 @@ class AlreadyLoginWidget extends StatelessWidget {
                       backgroundColor: const Color(0xff2A2A2A),
                       context: context,
                       builder: (BuildContext context) {
-                        return const LogOutBottomSheet();
+                        return LogOutBottomSheet(
+                          updateLoginState: updateLoginState,
+                        );
                       });
                 },
                 child: Text(

@@ -5,6 +5,7 @@ import 'package:black_market/core/widget/custom_text_field.dart';
 import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
 import 'package:black_market/features/login/presentation/cubit/login_state.dart';
 import 'package:black_market/features/login/presentation/widgets/forget_password_widget.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -108,32 +109,31 @@ class LogingScreen extends StatelessWidget {
                             height: 52.h,
                           ),
                           CustomTextFormField(
-                            suffixIcon: IconButton(
-                              onPressed:
-                                  LoginCubit.get(context).changeVisibility,
-                              icon: Icon(
-                                LoginCubit.get(context).isVisible
-                                    ? Icons.lock_outline
-                                    : Icons.lock_open_outlined,
-                                color: const Color(0xffFFFFFF),
+                              suffixIcon: IconButton(
+                                onPressed:
+                                    LoginCubit.get(context).changeVisibility,
+                                icon: Icon(
+                                  LoginCubit.get(context).isVisible
+                                      ? Icons.lock_outline_sharp
+                                      : Icons.lock_open_outlined,
+                                  color: const Color(0xffFFFFFF),
+                                ),
                               ),
-                            ),
-                            keyBoardType: TextInputType.text,
-                            obscureText: LoginCubit.get(context).isVisible,
-                            textInputAction: TextInputAction.done,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter your password';
-                              } else if (!value.isValidPassword()) {
-                                return 'invalid password';
-                              }
+                              keyBoardType: TextInputType.text,
+                              obscureText: LoginCubit.get(context).isVisible,
+                              textInputAction: TextInputAction.done,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'please enter your password';
+                                } else if (!value.isValidPassword()) {
+                                  return 'invalid password';
+                                }
 
-                              return null;
-                            },
-                            controller:
-                                LoginCubit.get(context).passwordController,
-                            lableText: 'البريد الالكتروني',
-                          ),
+                                return null;
+                              },
+                              controller:
+                                  LoginCubit.get(context).passwordController,
+                              lableText: 'كلمة المرور'),
                           const ForgetPasswordWidget(),
                           SizedBox(
                             height: 30.h,
@@ -152,8 +152,9 @@ class LogingScreen extends StatelessWidget {
                                 if (LoginCubit.get(context)
                                     .formKey
                                     .currentState!
-                                    .validate()) {
-                                  LoginCubit.get(context).login();
+                                    .validate()  ) {
+                                  LoginCubit.get(context).login(); 
+                          
                                 }
                               },
                               child: Text(
@@ -172,6 +173,15 @@ class LogingScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Text(
+                                textDirection: TextDirection.rtl,
+                                'ليس لديك حساب؟ ',
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xff666666),
+                                ),
+                              ),
                               TextButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, Routes.register);
@@ -183,15 +193,6 @@ class LogingScreen extends StatelessWidget {
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w700,
                                       color: const Color(0xffFFF4B0)),
-                                ),
-                              ),
-                              Text(
-                                textDirection: TextDirection.rtl,
-                                'ليس لديك حساب؟ ',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xff666666),
                                 ),
                               ),
                             ],

@@ -13,5 +13,6 @@ abstract class HomeBaseRepo {
   Future<Either<Failure, List<GoldsModel>>> getGoldsData();
   Future<Either<Failure, List<CompniesModel>>> getCompaniesData();
   Future<Either<Failure, IngotsModel>> getIngotsData();
-  Future<Either<Failure, ChartModel>> getChartData(int id);
+  Future<Either<Failure, ChartModel>> getChartData(
+      int id, String type, DateTime date);
 }

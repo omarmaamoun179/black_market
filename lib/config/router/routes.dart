@@ -81,7 +81,7 @@ class AppRoutes {
                     AuthRepoImpl(),
                   ),
                   child: OtpScreen(
-                    email: settings.arguments as String,
+                    email: settings.arguments as String
                   ),
                 ));
       // case (Routes.confirmPass):

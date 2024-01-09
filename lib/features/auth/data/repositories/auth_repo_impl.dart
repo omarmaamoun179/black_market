@@ -2,7 +2,6 @@ import 'package:black_market/core/api/api_manager.dart';
 import 'package:black_market/core/api/end_points.dart';
 import 'package:black_market/core/error/failures.dart';
 import 'package:black_market/core/utils/constant.dart';
-import 'package:black_market/features/auth/data/models/email.dart';
 import 'package:black_market/features/auth/data/models/forget_pass_model.dart';
 import 'package:black_market/features/auth/data/models/update_pass/update_pass.dart';
 import 'package:black_market/features/auth/data/models/update_pass_data.dart';
@@ -12,14 +11,12 @@ import 'package:dio/dio.dart';
 
 class AuthRepoImpl implements BaseAuthRepo {
   @override
-  Future<Either<Failure, ForgetPassModel>> forgetPassword(
-      EmailData email) async {
+  Future<Either<Failure, ForgetPassModel>> forgetPassword(String email) async {
     try {
       Response response = await DioHelper.postData(
+        
           '${Constant.baseUrl}${EndPoints.forgetPassword}',
-          data: {
-            'email': email.email,
-          });
+          data: {'email': email});
 
       if (response.statusCode == 200) {
         return Right(ForgetPassModel());

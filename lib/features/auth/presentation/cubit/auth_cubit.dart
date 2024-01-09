@@ -1,4 +1,3 @@
-import 'package:black_market/features/auth/data/models/email.dart';
 import 'package:black_market/features/auth/data/models/forget_pass_model.dart';
 import 'package:black_market/features/auth/data/models/update_pass/update_pass.dart';
 import 'package:black_market/features/auth/data/models/update_pass_data.dart';
@@ -19,11 +18,11 @@ class AuthCubit extends Cubit<AuthState> {
   var otpController = TextEditingController();
 
   static AuthCubit get(context) => BlocProvider.of(context);
-  Future<void> forgetPassword() async {
+  Future<void> forgetPassword(
+    String email,
+  ) async {
     emit(AuthLoading());
-    EmailData email = EmailData(
-      email: emailController.text,
-    );
+    print('ForgetPaasword$email');
     final response = await baseAuthRepo.forgetPassword(email);
     response.fold(
       (l) {

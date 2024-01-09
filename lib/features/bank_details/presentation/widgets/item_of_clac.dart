@@ -36,6 +36,8 @@ class ItemOfCalculator extends StatelessWidget {
             width: sizedBox,
           ),
           Text(
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
             text,
             style: TextStyle(
               fontSize: 10.sp,

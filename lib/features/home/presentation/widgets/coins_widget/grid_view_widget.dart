@@ -34,10 +34,44 @@ class GridViewWidget extends StatelessWidget {
                       : cubit.selectedCoin?.blackMarketPrices?[0],
               bankPrice: i,
               banksModel: e,
-              icon: Icon(
-                Icons.favorite_border,
-                size: 12.sp,
-                color: const Color(0xffF1F0FA),
+              icon: IconButton(
+                onPressed: () {
+                  print('clicked');
+
+                  cubit.saveFavBank(e, i, cubit.selectedCoin!);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'تم اضافة ${e.name} الي المفضلة',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xffFFC700).withOpacity(.8),
+                        ),
+                      ),
+                      backgroundColor: const Color(0xff0D0D0D),
+                      action: SnackBarAction(
+                        label: 'تراجع',
+                        textColor: const Color(0xffFFC700),
+                        onPressed: () {
+                          cubit.deleteBank(e);
+                        },
+                      ),
+                    ),
+                  );
+                },
+                icon: CircleAvatar(
+                  maxRadius: 12.r,
+                  backgroundColor: cubit.favoriteBankIds.contains(e.id) &&
+                          cubit.favoriteCoinIds.contains(i.currencyId)
+                      ? const Color(0xffFFC700)
+                      : const Color(0xff0D0D0D).withOpacity(.3),
+                  child: Icon(
+                    Icons.favorite_outline_sharp,
+                    size: 12.sp,
+                    color: const Color(0xffF1F0FA),
+                  ),
+                ),
               ),
               text: e.name ?? '',
             ));
@@ -74,15 +108,15 @@ class GridViewWidget extends StatelessWidget {
               itemCount: widget.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 1,
-                childAspectRatio: 1,
+                crossAxisSpacing: .95,
+                childAspectRatio: .95,
                 mainAxisSpacing: 10.h,
               ),
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, Routes.bankDetails,
-                          arguments:  widget[index].banksModel);
+                          arguments: widget[index].banksModel);
                     },
                     child: widget[index]);
               })
@@ -92,8 +126,8 @@ class GridViewWidget extends StatelessWidget {
               itemCount: saveBankswidget.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 1,
-                childAspectRatio: 1,
+                crossAxisSpacing: .95,
+                childAspectRatio: .95,
                 mainAxisSpacing: 10.h,
               ),
               itemBuilder: (context, index) {
@@ -105,87 +139,6 @@ class GridViewWidget extends StatelessWidget {
                     },
                     child: saveBankswidget[index]);
               });
-
-      // return HomeCubit.get(context).selectedCoin?.bankPrices?.isEmpty ?? true
-      //     ? const Center(
-      //         child: CircularProgressIndicator(),
-      //       )
-      //     : GridView.builder(
-      //         physics: const PageScrollPhysics(),
-      //         shrinkWrap: true,
-      //         itemCount: widget.length,
-      //         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      //           crossAxisCount: 2,
-      //           crossAxisSpacing: 1,
-      //           childAspectRatio: 1,
-      //           mainAxisSpacing: 10.h,
-      //         ),
-      //         itemBuilder: (context, index) {
-      //           // for (var e in cubit.banksModel!) {
-      //           //   for (var i in cubit.selectedCoin!.bankPrices!) {
-      //           //     if (e.id == i.bankId && uniqueBankIds.add(e.id!)) {
-      //           //       if (savedBanks.isEmpty ||
-      //           //           savedBanks.length < cubit.banksModel!.length) {}
-      //           //       widget.add(BankWidgetItem(
-      //           //         blackMarketPrice:
-      //           //             cubit.selectedCoin?.blackMarketPrices?.isEmpty ??
-      //           //                     true
-      //           //                 ? null
-      //           //                 : cubit.selectedCoin?.blackMarketPrices?[0],
-      //           //         bankPrice: i,
-      //           //         banksModel: e,
-      //           //         icon: Icon(
-      //           //           Icons.favorite_border,
-      //           //           size: 12.sp,
-      //           //           color: const Color(0xffF1F0FA),
-      //           //         ),
-      //           //         text: e.name ?? '',
-      //           //       ));
-      //           //     }
-      //           //   }
-      //           // }
-
-      //           // if (index >= widget.length) {
-      //           //   // stop scrolling
-      //           //   return const SizedBox();
-      //           // }
-
-      //           if (savedBanks.isEmpty || index >= savedBanks.length) {
-      //             // if (cubit.banksModel?[index].id == 25) {
-      //             return InkWell(
-      //                 onTap: () {
-      //                   Navigator.pushNamed(context, Routes.bankDetails,
-      //                       arguments: cubit.banksModel?[index]);
-      //                 },
-      //                 child: widget[index]);
-      //             // } else {
-      //             // return InkWell(
-      //             //     onTap: () {
-      //             //       Navigator.pushNamed(context, Routes.bankDetails,
-      //             //           arguments: cubit.banksModel?[index]);
-      //             //     },
-      //             //     child: widget[index]);
-      //             // }
-      //           } else {
-      //             // if (savedBanks[index].id == 25) {
-      //             return InkWell(
-      //                 onTap: () {
-      //                   Navigator.pushNamed(context, Routes.bankDetails,
-      //                       arguments: savedBanks[index]);
-      //                   print('object');
-      //                 },
-      //                 child: saveBankswidget[index]);
-      //             // } else {
-      //             //   return InkWell(
-      //             //       onTap: () {
-      //             //         Navigator.pushNamed(context, Routes.bankDetails,
-      //             //             arguments: savedBanks[index]);
-      //             //         print('object');
-      //             //       },
-      //             //       child: saveBankswidget[index]);
-      //             // }
-      //           }
-      //         });
     });
   }
 }

@@ -6,6 +6,7 @@ import 'package:black_market/features/auth/presentation/widgets/otp_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:otp_timer_button/otp_timer_button.dart';
 
 class OtpScreen extends StatelessWidget {
   OtpScreen({
@@ -30,6 +31,17 @@ class OtpScreen extends StatelessWidget {
             ),
           );
         } else if (state is UpdatePassError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.error),
+            ),
+          );
+          print(state.error.toString());
+        } else if (state is AuthSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('تم إرسال رمز التحقق بنجاح'),
+          ));
+        } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.error),
@@ -101,14 +113,6 @@ class OtpScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "(40 ثانية) إعادة إرسال الرمز",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: const Color(0xffFEDC00),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Text(
                         " لم تتلق الرمز",
                         style: TextStyle(
                           fontSize: 14.sp,
@@ -116,6 +120,30 @@ class OtpScreen extends StatelessWidget {
                           color: const Color(0xffE0E0E0),
                         ),
                       ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      OtpTimerButton(
+                          buttonType: ButtonType.outlined_button,
+                          backgroundColor:
+                              const Color(0xffFFFFFF).withOpacity(.17),
+                          loadingIndicator: const CircularProgressIndicator(
+                            color: Color(0xffFEDC00),
+                          ),
+                          onPressed: () {
+                            AuthCubit.get(context).forgetPassword(
+                              email!,
+                            );
+                          },
+                          text: Text(
+                            " إعادة إرسال الرمز ",
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: const Color(0xffFEDC00),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          duration: 40),
                     ],
                   ),
                   SizedBox(

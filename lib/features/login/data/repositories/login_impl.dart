@@ -26,6 +26,13 @@ class LoginRepoImpl implements LoginBaseRepo {
       } else {
         return Left(RemoteServerFailure('error'));
       }
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(
+          RemoteServerFailure.fromDioError(e),
+        );
+      }
+      return Left(RemoteServerFailure(e.toString()));
     } catch (e) {
       return Left(RemoteServerFailure(e.toString()));
     }

@@ -18,7 +18,6 @@ class RigsterRepoImpl implements RegisterBaseRepo {
           'email': registerData.email,
           'password': registerData.password,
           'password_confirmation': registerData.passwordConfirmation,
-          'phone': registerData.phone ?? '',
         },
       );
       RegisterModel registerModel = RegisterModel.fromJson(response.data);
@@ -27,7 +26,12 @@ class RigsterRepoImpl implements RegisterBaseRepo {
       } else {
         return Left(RemoteServerFailure('error'));
       }
-    } catch (e) {
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(
+          RemoteServerFailure.fromDioError(e),
+        );
+      }
       return Left(RemoteServerFailure(e.toString()));
     }
   }

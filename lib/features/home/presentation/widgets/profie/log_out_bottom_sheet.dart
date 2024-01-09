@@ -1,4 +1,3 @@
-import 'package:black_market/core/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
@@ -6,12 +5,13 @@ import 'package:hive/hive.dart';
 class LogOutBottomSheet extends StatelessWidget {
   const LogOutBottomSheet({
     super.key,
+    required this.updateLoginState,
   });
+  final VoidCallback updateLoginState;
 
   @override
   Widget build(BuildContext context) {
     var box = Hive.box<String>('user');
-    String? token = box.get(Constant.accessToken);
     return SizedBox(
       height: 374.h,
       width: 375.w,
@@ -62,6 +62,7 @@ class LogOutBottomSheet extends StatelessWidget {
                 onTap: () {
                   box.clear();
                   Navigator.pop(context);
+                  updateLoginState();
                 },
                 child: Container(
                   alignment: Alignment.center,

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/data/models/chart_model/chart_model.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
@@ -114,3 +112,17 @@ class HomeUpdateBankState extends HomeState {
     this.selectedBank,
   );
 }
+
+class HomeSaveFavLoadingState extends HomeState {}
+
+class HomeDeleteFavSuccessState extends HomeState {}
+
+class HomeSaveFavSuccessState extends HomeState {
+}
+
+class HomeSaveFavErrorState extends HomeState {
+  String error;
+  HomeSaveFavErrorState(this.error);
+}
+
+class HomeRemoveFavSuccess extends HomeState {}

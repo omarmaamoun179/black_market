@@ -27,8 +27,13 @@ class DialogCoinsWidget extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   HomeCubit.get(context)
-                      .getChartData(cubit.selectedCoin?.id ?? 19);
-                  HomeCubit.get(context).updateSelectedCoin(cubit.selectedCoin);
+                      .updateSelectedCoin(cubit.coinsModel?[index]);
+                  HomeCubit.get(context).getChartData(
+                    cubit.selectedCoin?.id ?? 19,
+                  );
+                  HomeCubit.get(context).getChartDataForBlack(
+                    cubit.selectedCoin?.id ?? 19,
+                  );
 
                   Navigator.pop(context);
                 },
@@ -67,8 +72,13 @@ class DialogCoinsWidget extends StatelessWidget {
                   HomeCubit.get(context).updateSelectedCoin(
                     savedCoins[index],
                   );
-                  HomeCubit.get(context)
-                      .getChartData(cubit.selectedCoin?.id ?? 19);
+                  HomeCubit.get(context).getChartData(
+                    cubit.selectedCoin?.id ?? 19,
+                  );
+                  HomeCubit.get(context).getChartDataForBlack(
+                    cubit.selectedCoin?.id ?? 19,
+                  );
+
                   Navigator.pop(context);
                 },
                 child: Row(

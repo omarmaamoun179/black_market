@@ -5,11 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class GoldThirdTabWidget extends StatelessWidget {
+class GoldThirdTabWidget extends StatefulWidget {
   const GoldThirdTabWidget({
     super.key,
   });
 
+  @override
+  State<GoldThirdTabWidget> createState() => _GoldThirdTabWidgetState();
+}
+
+class _GoldThirdTabWidgetState extends State<GoldThirdTabWidget> {
+  int selectTile = -1;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
@@ -85,25 +91,50 @@ class GoldThirdTabWidget extends StatelessWidget {
                       print(e.name);
                       RelatedToBCompany.add(
                         Container(
+                          margin: EdgeInsets.symmetric(horizontal: 12.w),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 3.w,
+                          ),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
+                            border: Border.all(
+                              color: const Color(0xffFEDC00),
+                              width: .5.w,
+                            ),
+                            borderRadius: BorderRadius.circular(8.r),
                             color: const Color(0xff2A2A2A),
                           ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            child: ExpansionTile(
-                              collapsedIconColor: const Color(0xffFFFFFF),
-                              title: Text(
-                                e.name ?? '',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xffFFFFFF),
-                                ),
+                          child: ExpansionTile(
+                            key: UniqueKey(),
+                            initiallyExpanded: selectTile == index,
+                            onExpansionChanged: (value) {
+                              if (value) {
+                                setState(() {
+                                  selectTile = index;
+                                });
+                              } else {
+                                setState(() {
+                                  selectTile = -1;
+                                });
+                              }
+                            },
+                            childrenPadding: const EdgeInsets.all(7),
+                            expandedCrossAxisAlignment:
+                                CrossAxisAlignment.start,
+                            collapsedIconColor: const Color(0xffFFFFFF),
+                            title: Text(
+                              e.name ?? '',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xffFFFFFF),
                               ),
-                              iconColor: const Color(0xffFFFFFF),
-                              children: [
-                                Column(
+                            ),
+                            iconColor: const Color(0xffFFFFFF),
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12.w, vertical: 3.h),
+                                child: Column(
                                   children: [
                                     Row(
                                       mainAxisAlignment:
@@ -162,7 +193,8 @@ class GoldThirdTabWidget extends StatelessWidget {
                                                   .withOpacity(0.9)),
                                         ),
                                         Text(
-                                          '${i.tax * e.weight}',
+                                          (i.tax! * e.weight!)
+                                              .toStringAsFixed(0),
                                           style: TextStyle(
                                               fontSize: 14.sp,
                                               fontWeight: FontWeight.w400,
@@ -176,15 +208,18 @@ class GoldThirdTabWidget extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'السعر الكلي',
+                                          'السعر الكلي شامل الضريبة والمصنعية',
                                           style: TextStyle(
                                               fontSize: 14.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xffFFFFFF)
+                                              fontWeight: FontWeight.w700,
+                                              color: const Color(0xffFEDC00)
                                                   .withOpacity(0.9)),
                                         ),
                                         Text(
-                                          '${e.price!.sellPrice! * e.weight! + i.tax * e.weight! + i.workmanship!}',
+                                          (e.price!.sellPrice! * e.weight! +
+                                                  i.tax! * e.weight! +
+                                                  i.workmanship!)
+                                              .toStringAsFixed(0),
                                           style: TextStyle(
                                               fontSize: 14.sp,
                                               fontWeight: FontWeight.w400,
@@ -228,7 +263,7 @@ class GoldThirdTabWidget extends StatelessWidget {
                                                   .withOpacity(0.9)),
                                         ),
                                         Text(
-                                          '${i.workmanship - i.returnFees!}',
+                                          '${i.workmanship! - i.returnFees!}',
                                           style: TextStyle(
                                               fontSize: 14.sp,
                                               fontWeight: FontWeight.w400,
@@ -239,8 +274,8 @@ class GoldThirdTabWidget extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       );

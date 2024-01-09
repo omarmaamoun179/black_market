@@ -15,19 +15,16 @@ class GoldFirstTabWidget extends StatelessWidget {
       itemCount: cubit.goldsModel.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 10.w,
-        childAspectRatio: 7 / 8,
+        crossAxisSpacing: 1,
+        childAspectRatio: 1,
         mainAxisSpacing: 10.h,
       ),
       itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () {},
-          child: GoldWidgetGridView(
-            container: Padding(
-                padding: EdgeInsets.only(left: 25.w), child: const Text('')),
-            imagePath: cubit.goldsModel[index].icon,
-            goldsModel: cubit.goldsModel[index],
-          ),
+        return GoldWidgetGridView(
+          container: Padding(
+              padding: EdgeInsets.only(left: 25.w), child: const Text('')),
+          imagePath: cubit.goldsModel[index].icon,
+          goldsModel: cubit.goldsModel[index],
         );
       },
     );

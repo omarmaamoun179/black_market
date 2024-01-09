@@ -111,7 +111,8 @@ class GoldWidgetGridView extends StatelessWidget {
                   children: [
                     CoulmnText(
                       text: 'شراء',
-                      text2: '${goldsModel?.price?.buyPrice ?? '15'}',
+                      text2: goldsModel?.price?.buyPrice?.toStringAsFixed(0) ??
+                          '15',
                       style2: TextStyle(
                         color: const Color(0xffffffff),
                         fontSize: 10.sp,
@@ -126,7 +127,8 @@ class GoldWidgetGridView extends StatelessWidget {
                     CoulmnText(
                         color1: const Color(0xffffffff),
                         text: 'بيع',
-                        text2: '${goldsModel?.price?.price ?? '15'}'),
+                        text2: goldsModel?.price?.price?.toStringAsFixed(0) ??
+                            '15'),
                   ],
                 ),
               ),

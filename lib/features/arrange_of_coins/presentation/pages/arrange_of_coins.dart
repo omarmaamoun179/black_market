@@ -85,9 +85,9 @@ class _ArrangeCoinsState extends State<ArrangeCoins> {
                       final item = cubit.coinsModel![index];
                       return ListTileCoinsWidget(
                         key: ValueKey(
-                            '${cubit.coinsModel![index].hashCode}_$index'),
+                            '${cubit.coinsModel![index ].hashCode}_$index'),
                         coinsModel: item,
-                        index: index,
+                        index: index ,
                       );
                     },
                     itemCount: cubit.coinsModel!.length,

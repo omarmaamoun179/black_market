@@ -31,13 +31,14 @@ class BanksModelAdapter extends TypeAdapter<BanksModel> {
       createdAt: fields[11] as String?,
       updatedAt: fields[12] as String?,
       branches: (fields[13] as List?)?.cast<dynamic>(),
+      isFav: fields[14] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, BanksModel obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -65,7 +66,9 @@ class BanksModelAdapter extends TypeAdapter<BanksModel> {
       ..writeByte(12)
       ..write(obj.updatedAt)
       ..writeByte(13)
-      ..write(obj.branches);
+      ..write(obj.branches)
+      ..writeByte(14)
+      ..write(obj.isFav);
   }
 
   @override

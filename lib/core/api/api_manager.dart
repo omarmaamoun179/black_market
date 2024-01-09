@@ -21,11 +21,7 @@ class DioHelper {
         validateStatus: (status) {
           return status! < 500;
         });
-    dio.options.headers = {
-      // 'Authorization': Constant.token ?? '',
-      // 'lang': 'en',
-      'Content-Type': 'application/json',
-    };
+    dio.options.headers = {};
     return await dio.post(
       path,
       data: data ?? {},

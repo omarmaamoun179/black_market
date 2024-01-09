@@ -1,6 +1,9 @@
+import 'package:black_market/core/local/save_fav.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/data/models/chart_model/chart_model.dart';
 import 'package:black_market/features/home/data/models/chart_model/currency_id.dart';
+import 'package:black_market/features/home/data/models/chart_model/currency_id_blackm.dart';
+import 'package:black_market/features/home/data/models/coins_model/bank_price.dart';
 import 'package:black_market/features/home/data/models/coins_model/coins_model.dart';
 import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
 import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
@@ -30,7 +33,17 @@ class HomeCubit extends Cubit<HomeState> {
   List<Ingot> btcIngotInfo = [];
   ChartModel? chartModel;
   List<CurrencyId>? currencyId;
+  List<CurrencyIdBlack>? currencyIdBlack;
+
+  Set<int> favoriteBankIds = {};
+
+  Set<int> favoriteCoinIds = {};
+
+  List favBank = [];
+  List<BankFavItemWidget> loadedFavItems = [];
+
   static HomeCubit get(context) => BlocProvider.of(context);
+
   List<Widget> screens = [
     const CoinsScreen(),
     const GoldsScreen(),
@@ -38,13 +51,15 @@ class HomeCubit extends Cubit<HomeState> {
     const ProfileScreen(),
   ];
   List<String> tabs = ['الذهب', 'السبائك', 'العملات'];
+
   int selectedIndex = 0;
-  late TabController tabController;
   int textIndex = 0;
   bool isClicked = false;
 
   int currentIndex = 0;
   int index = 0;
+  DateTime? startDate;
+
   changeBottomNav(int index) {
     currentIndex = index;
     emit(HomeChangeBottomNavState());
@@ -60,7 +75,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeLoadingState());
     var result = await homeBaseRepo.getHomeData();
     result.fold((l) {
-      emit(HomeCurrcinesErrorState(l.toString()));
+      emit(HomeCurrcinesErrorState(l.message));
     }, (r) {
       coinsModel = r;
       // print(r[1].bankPrices?[1].bankId);
@@ -76,7 +91,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeLoadingState());
     var result = await homeBaseRepo.getBanksData();
     result.fold((l) {
-      emit(HomeBanksErrorState(l.message.toString()));
+      emit(HomeBanksErrorState(l.message));
     }, (r) {
       banksModel = r.map((e) => e).toList();
 
@@ -104,11 +119,18 @@ class HomeCubit extends Cubit<HomeState> {
     ));
   }
 
+  updateSelectGold(GoldsModel model) {
+    for (var element in goldsModel) {
+      element.karat = model.karat;
+      print(element.karat);
+    }
+  }
+
   getGoldData() async {
     emit(HomeLoadingState());
     var result = await homeBaseRepo.getGoldsData();
     result.fold((l) {
-      emit(HomeGoldsErrorState(l.message.toString()));
+      emit(HomeGoldsErrorState(l.message));
     }, (r) {
       goldsModel = r;
       emit(HomeGoldsSuccessState(r));
@@ -119,7 +141,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeLoadingState());
     var result = await homeBaseRepo.getCompaniesData();
     result.fold((l) {
-      emit(HomeCompaniesErrorState(l.message.toString()));
+      emit(HomeCompaniesErrorState(l.message));
     }, (r) {
       compniesModel = r;
       selectedCompnies = r[0];
@@ -131,7 +153,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeLoadingState());
     var result = await homeBaseRepo.getIngotsData();
     result.fold((l) {
-      emit(HomeIngotsErrorState(l.message.toString()));
+      emit(HomeIngotsErrorState(l.message));
     }, (r) {
       ingotsModel = r;
 
@@ -151,17 +173,92 @@ class HomeCubit extends Cubit<HomeState> {
     return currencyCode;
   }
 
-  getChartData(int id) async {
+  getChartData(
+    int id,
+  ) async {
     emit(HomeLoadingState());
-    var result = await homeBaseRepo.getChartData(selectedCoin?.id ?? 19);
+    var result = await homeBaseRepo.getChartData(
+        selectedCoin?.id ?? 19,
+        "live",
+        DateTime.tryParse(
+                '${startDate?.year}-${startDate?.month}-${startDate?.day}') ??
+            DateTime.now().subtract(const Duration(days: 3)));
 
     result.fold((l) {
-      emit(HomeLiveErrorState(l.message.toString()));
+      emit(HomeLiveErrorState(l.message));
     }, (r) {
       chartModel = r;
       currencyId = r.livePrices?.currcenyId;
-      print(currencyId?[0].price);
+      print(currencyId?[1].date);
+      print(currencyId?[1].price);
       emit(HomeLiveSuccessState(r));
     });
+  }
+
+  getChartDataForBlack(
+    int id,
+  ) async {
+    print("startDate $startDate");
+    emit(HomeLoadingState());
+    var result = await homeBaseRepo.getChartData(selectedCoin?.id ?? 19,
+        "black", startDate ?? DateTime.now().subtract(const Duration(days: 1)));
+    result.fold((l) {
+      emit(HomeLiveErrorState(l.message));
+    }, (r) {
+      chartModel = r;
+      currencyIdBlack = r.blackprices?.currcenyIdBlack;
+      print("startDate $startDate");
+
+      print(currencyIdBlack?[1].price);
+      print(currencyIdBlack?[1].date);
+
+      emit(HomeLiveSuccessState(r));
+    });
+  }
+
+  clacAvgBuyPrice() {
+    var result = selectedCoin?.bankPrices
+        ?.map((e) => e.buyPrice)
+        .reduce((a, b) => a! + b!);
+
+    if (result == null) {
+      return;
+    }
+    var avg = result / (selectedCoin?.bankPrices?.length ?? 0);
+    return avg.toStringAsFixed(2);
+  }
+
+  clacAvgSellPrice() {
+    var result = selectedCoin?.bankPrices
+        ?.map((e) => e.sellPrice)
+        .reduce((a, b) => a! + b!);
+    if (result == null) {
+      return;
+    }
+    var avg = result / (selectedCoin?.bankPrices?.length ?? 0);
+    return avg.toStringAsFixed(2);
+  }
+
+  saveFavBank(BanksModel bankId, BankPrice bankPrice, CoinsModel coinId) {
+    emit(HomeSaveFavLoadingState());
+    SaveBankFavorite.saveFavorite(bankId);
+    SaveBankPriceFavorite.saveFavorite(bankPrice);
+    SaveCoinIdFavorite.saveFavorite(
+      coinId,
+    );
+    favoriteCoinIds.add(coinId.id!);
+
+    emit(HomeSaveFavSuccessState());
+  }
+
+  deleteBank(BanksModel? banksModel) {
+    emit(HomeSaveFavLoadingState());
+
+    SaveBankFavorite.favoriteBox.delete(banksModel?.id);
+    favoriteBankIds.remove(banksModel?.id);
+    favBank.removeWhere((element) => element.e == banksModel);
+    // loadedFavItems.add(BankFavItemWidget(e: bankId, j: coinId, i: bankPrice));
+
+    emit(HomeDeleteFavSuccessState());
   }
 }

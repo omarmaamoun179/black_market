@@ -4,6 +4,7 @@ import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/coins_widget/stack_widget.dart';
 import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,7 +53,7 @@ class HeadOfCoinsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'مرحبا',
+                        'مرحبا'.tr(),
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w700,
@@ -107,7 +108,7 @@ class HeadOfCoinsScreen extends StatelessWidget {
               Positioned(
                 bottom: 70.h,
                 child: Text(
-                  ' بكام في السوق السوداء ؟',
+                  "بكام في السوق السوداء ؟".tr(),
                   style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w700,

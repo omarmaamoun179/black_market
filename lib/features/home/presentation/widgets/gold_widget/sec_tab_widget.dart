@@ -5,11 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class GoldSecTabWidget extends StatelessWidget {
+class GoldSecTabWidget extends StatefulWidget {
   const GoldSecTabWidget({
     super.key,
   });
 
+  @override
+  State<GoldSecTabWidget> createState() => _GoldSecTabWidgetState();
+}
+
+class _GoldSecTabWidgetState extends State<GoldSecTabWidget> {
+  int selectTile = -1;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
@@ -85,25 +91,47 @@ class GoldSecTabWidget extends StatelessWidget {
                       print(e.name);
                       RelatedToBCompany.add(
                         Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 3.w, vertical: 2.h),
+                          margin: EdgeInsets.symmetric(
+                              vertical: 5.h, horizontal: 10.w),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
+                            border: Border.all(
+                              color: const Color(0xffFEDC00),
+                              width: .5.w,
+                            ),
+                            borderRadius: BorderRadius.circular(8.r),
                             color: const Color(0xff2A2A2A),
                           ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            child: ExpansionTile(
-                              collapsedIconColor: const Color(0xffFFFFFF),
-                              title: Text(
-                                e.name ?? '',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xffFFFFFF),
-                                ),
+                          child: ExpansionTile(
+                            initiallyExpanded: selectTile == index,
+                            key: UniqueKey(),
+                            onExpansionChanged: (value) {
+                              if (value) {
+                                setState(() {
+                                  selectTile = index;
+                                });
+                              } else {
+                                setState(() {
+                                  selectTile = -1;
+                                });
+                              }
+                            },
+                            collapsedIconColor: const Color(0xffFFFFFF),
+                            title: Text(
+                              e.name ?? '',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xffFFFFFF),
                               ),
-                              iconColor: const Color(0xffFFFFFF),
-                              children: [
-                                Column(
+                            ),
+                            iconColor: const Color(0xffFFFFFF),
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12.w, vertical: 3.h),
+                                child: Column(
                                   children: [
                                     Row(
                                       mainAxisAlignment:
@@ -118,7 +146,8 @@ class GoldSecTabWidget extends StatelessWidget {
                                                   .withOpacity(0.9)),
                                         ),
                                         Text(
-                                          '${e.price!.sellPrice!}',
+                                          e.price!.sellPrice!
+                                              .toStringAsFixed(0),
                                           style: TextStyle(
                                               fontSize: 14.sp,
                                               fontWeight: FontWeight.w400,
@@ -162,7 +191,8 @@ class GoldSecTabWidget extends StatelessWidget {
                                                   .withOpacity(0.9)),
                                         ),
                                         Text(
-                                          '${i.tax * e.weight}',
+                                          (i.tax! * e.weight!)
+                                              .toStringAsFixed(1),
                                           style: TextStyle(
                                               fontSize: 14.sp,
                                               fontWeight: FontWeight.w400,
@@ -176,15 +206,18 @@ class GoldSecTabWidget extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'السعر الكلي',
+                                          'السعر الكلي شامل الضريبة والمصنعية',
                                           style: TextStyle(
                                               fontSize: 14.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xffFFFFFF)
+                                              fontWeight: FontWeight.w700,
+                                              color: const Color(0xffFEDC00)
                                                   .withOpacity(0.9)),
                                         ),
                                         Text(
-                                          '${e.price!.sellPrice! * e.weight! + i.tax * e.weight! + i.workmanship!}',
+                                          (e.price!.sellPrice! * e.weight! +
+                                                  i.tax! * e.weight! +
+                                                  i.workmanship!)
+                                              .toStringAsFixed(0),
                                           style: TextStyle(
                                               fontSize: 14.sp,
                                               fontWeight: FontWeight.w400,
@@ -228,7 +261,7 @@ class GoldSecTabWidget extends StatelessWidget {
                                                   .withOpacity(0.9)),
                                         ),
                                         Text(
-                                          '${i.workmanship - i.returnFees!}',
+                                          '${i.workmanship! - i.returnFees!}',
                                           style: TextStyle(
                                               fontSize: 14.sp,
                                               fontWeight: FontWeight.w400,
@@ -239,8 +272,8 @@ class GoldSecTabWidget extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       );

@@ -2,9 +2,9 @@ class CompaniesDatum {
   int? id;
   int? companyId;
   int? ingotId;
-  dynamic? workmanship;
-  dynamic? tax;
-  dynamic? returnFees;
+  dynamic workmanship;
+  num? tax;
+  dynamic returnFees;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -25,7 +25,7 @@ class CompaniesDatum {
       companyId: json['company_id'] as int?,
       ingotId: json['ingot_id'] as int?,
       workmanship: json['workmanship'],
-      tax: json['tax'],
+      tax: (json['tax'] as num?)?.toDouble(),
       returnFees: json['return_fees'],
       createdAt: json['created_at'] == null
           ? null

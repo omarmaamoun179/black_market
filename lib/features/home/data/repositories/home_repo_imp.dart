@@ -29,6 +29,11 @@ class HomeRepoImp implements HomeBaseRepo {
             'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
       }
     } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(
+          RemoteServerFailure.fromDioError(e),
+        );
+      }
       return Left(RemoteServerFailure(e.toString()));
     }
   }
@@ -50,6 +55,11 @@ class HomeRepoImp implements HomeBaseRepo {
             'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
       }
     } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(
+          RemoteServerFailure.fromDioError(e),
+        );
+      }
       return Left(RemoteServerFailure(e.toString()));
     }
   }
@@ -71,6 +81,11 @@ class HomeRepoImp implements HomeBaseRepo {
             'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
       }
     } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(
+          RemoteServerFailure.fromDioError(e),
+        );
+      }
       return Left(RemoteServerFailure(e.toString()));
     }
   }
@@ -93,6 +108,11 @@ class HomeRepoImp implements HomeBaseRepo {
             'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
       }
     } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(
+          RemoteServerFailure.fromDioError(e),
+        );
+      }
       return Left(RemoteServerFailure(e.toString()));
     }
   }
@@ -114,28 +134,37 @@ class HomeRepoImp implements HomeBaseRepo {
             'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
       }
     } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(
+          RemoteServerFailure.fromDioError(e),
+        );
+      }
       return Left(RemoteServerFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, ChartModel>> getChartData(id) async {
+  Future<Either<Failure, ChartModel>> getChartData(id, type, date) async {
     try {
-      DateTime currentDate = DateTime.now();
+      // DateTime currentDate = DateTime.now();
 
       // Calculate the start date by subtracting 5 days from the current date
-      DateTime startDate = currentDate.subtract(const Duration(days: 4));
+      // DateTime startDate = currentDate.subtract(const Duration(days: 4));
+
       var response = await DioHelper.getData(
         '${Constant.currencies}${EndPoints.historical}',
         // 'https://voipsys.space/api/currencies/historical?currency_id=$id&type=live&start_date=2023-12-8',
         query: {
           "currency_id": id,
-          "type": "live",
-          "start_date": "${startDate.year}-${startDate.month}-${startDate.day}"
+          "type": type,
+          "start_date": "${date.year}-${date.month}-${date.day}",
         },
       );
 
-      ChartModel model = ChartModel.fromJson(response.data, id);
+      ChartModel model = ChartModel.fromJson(
+        response.data,
+        id,
+      );
 
       if (response.statusCode == 200) {
         return Right(
@@ -146,6 +175,11 @@ class HomeRepoImp implements HomeBaseRepo {
             'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
       }
     } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(
+          RemoteServerFailure.fromDioError(e),
+        );
+      }
       return Left(RemoteServerFailure(e.toString()));
     }
   }

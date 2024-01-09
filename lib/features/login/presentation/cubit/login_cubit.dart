@@ -33,7 +33,7 @@ class LoginCubit extends Cubit<LoginState> {
       loginData,
     );
     result.fold((l) {
-      emit(LoginError(l.toString()));
+      emit(LoginError(l.message));
     }, (r) {
       loginModel = r;
       emit(LoginSuccess(r));

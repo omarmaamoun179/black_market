@@ -7,7 +7,7 @@ class Ingot {
   dynamic icon;
   String? name;
   String? karat;
-  double? weight;
+  num? weight;
   int? sort;
   String? createdAt;
   String? updatedAt;

@@ -1,4 +1,3 @@
-import 'package:black_market/features/bank_details/presentation/pages/bank_details.dart';
 import 'package:black_market/features/bank_details/presentation/widgets/dialog_coins_in_bank.dart';
 import 'package:black_market/features/bank_details/presentation/widgets/item_of_clac.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
@@ -8,18 +7,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CalculaterWidget extends StatelessWidget {
+class CalculaterWidget extends StatefulWidget {
   CalculaterWidget({
     super.key,
     this.banksModel,
   });
 
   BanksModel? banksModel;
+
+  @override
+  State<CalculaterWidget> createState() => _CalculaterWidgetState();
+}
+
+class _CalculaterWidgetState extends State<CalculaterWidget> {
+  TextEditingController? priceController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        var cub = HomeCubit.get(context);
+        var cubit = HomeCubit.get(context);
+        double usdToEgpExchangeRate =
+            cubit.selectedCoin?.livePrices?.isEmpty ?? true
+                ? 0
+                : cubit.selectedCoin?.livePrices?[1].price ?? 0;
+        double blackMarketToEgpExchangeRate =
+            cubit.selectedCoin?.blackMarketPrices?.isEmpty ?? true
+                ? 0
+                : cubit.selectedCoin?.blackMarketPrices?[1].buyPrice ?? 0;
+
+        var displayTextForBankPrice =
+            (priceController == null || priceController!.text.isEmpty)
+                ? (cubit.selectedCoin?.livePrices?.isEmpty ?? true)
+                    ? 0
+                    : (cubit.selectedCoin?.livePrices?[1].price ?? 0)
+                : double.parse(priceController!.text) * usdToEgpExchangeRate;
+        var displayTextForBlackBankPrice =
+            (priceController == null || priceController!.text.isEmpty)
+                ? (cubit.selectedCoin?.blackMarketPrices?.isEmpty ?? true)
+                    ? 0
+                    : (cubit.selectedCoin?.blackMarketPrices?[1].buyPrice ?? 0)
+                : double.parse(priceController!.text) *
+                    blackMarketToEgpExchangeRate;
+
         return Column(
           children: [
             Padding(
@@ -49,7 +79,7 @@ class CalculaterWidget extends StatelessWidget {
                           builder: (context) {
                             return Dialog(
                                 child: DialogBankCoins(
-                              banksModel: banksModel,
+                              banksModel: widget.banksModel,
                             ));
                           });
                     },
@@ -58,7 +88,8 @@ class CalculaterWidget extends StatelessWidget {
                       height: 18.h,
                       color: const Color(0xffFFFFFF),
                       borderRadius: BorderRadius.circular(4.r),
-                      text: cub.getCurrencyCode(cub.selectedCoin!.name ?? ''),
+                      text:
+                          cubit.getCurrencyCode(cubit.selectedCoin!.name ?? ''),
                       sizedBox: 2.w,
                     ),
                   ),
@@ -83,12 +114,23 @@ class CalculaterWidget extends StatelessWidget {
 
             Container(
               width: 147.w,
-              height: 26.h,
+              height: 27.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7.r),
               ),
-              child: TextField(
-                cursorHeight: 25.h,
+              child: TextFormField(
+                inputFormatters: const [],
+                controller: priceController,
+                onChanged: (value) {
+                  setState(() {
+                    displayTextForBankPrice =
+                        double.parse(value) * usdToEgpExchangeRate;
+                    displayTextForBlackBankPrice =
+                        double.parse(value) * blackMarketToEgpExchangeRate;
+                  });
+                },
+                cursorWidth: .5.w,
+                cursorHeight: 22.h,
                 textAlign: TextAlign.start,
                 cursorColor: const Color(0xffFEDC00),
                 maxLines: 1,
@@ -99,6 +141,7 @@ class CalculaterWidget extends StatelessWidget {
                   color: const Color(0xffE7D2D2),
                 ),
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 5.w, bottom: 7.h),
                   suffixIcon: Container(
                     alignment: Alignment.bottomLeft,
                     width: 37.w,
@@ -130,6 +173,8 @@ class CalculaterWidget extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(7.r),
                   ),
+                  helperMaxLines: 1,
+                  hintMaxLines: 1,
                   hintText: 'أدخل القيمة',
                   hintStyle: TextStyle(
                     fontSize: 8.sp,
@@ -145,15 +190,27 @@ class CalculaterWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ItemOfCalculator(
+                Container(
+                  alignment: Alignment.center,
                   width: 101.w,
                   height: 22.h,
-                  color: const Color(0xffFFFFFF),
-                  borderRadius: BorderRadius.circular(
-                    4.r,
+                  decoration: BoxDecoration(
+                    color: const Color(0xffFFFFFF),
+                    borderRadius: BorderRadius.circular(
+                      4.r,
+                    ),
                   ),
-                  text: '${cub.selectedCoin?.livePrices?[0].price ?? 0}',
-                  sizedBox: 2.w,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    displayTextForBankPrice.toStringAsFixed(2) ?? '0',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xff0E0E0E),
+                    ),
+                  ),
                 ),
                 const ImageIcon(
                   AssetImage(
@@ -161,15 +218,27 @@ class CalculaterWidget extends StatelessWidget {
                   ),
                   color: Color(0xffFEDC00),
                 ),
-                ItemOfCalculator(
+                Container(
+                  alignment: Alignment.center,
                   width: 101.w,
                   height: 22.h,
-                  color: const Color(0xffFFFFFF),
-                  borderRadius: BorderRadius.circular(
-                    4.r,
+                  decoration: BoxDecoration(
+                    color: const Color(0xffFFFFFF),
+                    borderRadius: BorderRadius.circular(
+                      4.r,
+                    ),
                   ),
-                  text: '${cub.selectedCoin?.livePrices?[1].price ?? 0}',
-                  sizedBox: 2.w,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    displayTextForBlackBankPrice.toStringAsFixed(2) ?? '0',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xff0E0E0E),
+                    ),
+                  ),
                 ),
               ],
             ),

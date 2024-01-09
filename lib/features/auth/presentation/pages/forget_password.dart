@@ -14,7 +14,7 @@ class ForgetPassword extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
-          Navigator.pushNamed(context, Routes.otp,
+          Navigator.pushReplacementNamed(context, Routes.otp,
               arguments: AuthCubit.get(context).emailController.text);
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -33,6 +33,7 @@ class ForgetPassword extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: const Color(0xff0D0D0D),
           body: SafeArea(
             child: Padding(
@@ -109,26 +110,30 @@ class ForgetPassword extends StatelessWidget {
                   const Spacer(),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24.w),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(327.w, 52.h),
-                        backgroundColor: const Color(0xffFEDC00),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                      ),
-                      onPressed: () {
-                        AuthCubit.get(context).forgetPassword();
-                      },
-                      child: Text(
-                        ' إرسال ',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xff0D0D0D),
-                        ),
-                      ),
-                    ),
+                    child: state is AuthSuccess || state is AuthLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(327.w, 53.h),
+                              backgroundColor: const Color(0xffFEDC00),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                            ),
+                            onPressed: () {
+                              AuthCubit.get(context).forgetPassword(
+                                  AuthCubit.get(context).emailController.text
+                              );
+                            },
+                            child: Text(
+                              ' إرسال ',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xff0D0D0D),
+                              ),
+                            ),
+                          ),
                   ),
                 ],
               ),

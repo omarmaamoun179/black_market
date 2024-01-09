@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return Scaffold(
+          
           backgroundColor: const Color(0xff0D0D0D),
           bottomNavigationBar: ClipRRect(
             borderRadius: BorderRadius.only(

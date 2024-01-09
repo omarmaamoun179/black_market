@@ -31,6 +31,8 @@ class BanksModel {
   String? updatedAt;
   @HiveField(13)
   List<dynamic>? branches;
+  @HiveField(14)
+  bool isFav;
 
   BanksModel({
     this.id,
@@ -47,6 +49,7 @@ class BanksModel {
     this.createdAt,
     this.updatedAt,
     this.branches,
+    this.isFav = false,
   });
 
   factory BanksModel.fromJson(Map<String, dynamic> json) => BanksModel(
