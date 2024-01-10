@@ -162,7 +162,7 @@ class CoinsScreen extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                             color: const Color(0xff362727),
                           ),
-                          text2: '${cubit.clacAvgBuyPrice()}',
+                          text2: '${cubit.clacAvgBuyPrice() ?? 0}' ?? '0',
                           style2: TextStyle(
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w700,
@@ -179,7 +179,7 @@ class CoinsScreen extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                             color: const Color(0xff362727),
                           ),
-                          text2: '${cubit.clacAvgSellPrice()}',
+                          text2: '${cubit.clacAvgSellPrice() ?? 0}' ?? '',
                           style2: TextStyle(
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w700,

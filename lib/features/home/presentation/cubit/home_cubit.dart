@@ -58,7 +58,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   int currentIndex = 0;
   int index = 0;
-  DateTime? startDate;
+  DateTime startDate = DateTime.now();
 
   changeBottomNav(int index) {
     currentIndex = index;
@@ -178,19 +178,17 @@ class HomeCubit extends Cubit<HomeState> {
   ) async {
     emit(HomeLoadingState());
     var result = await homeBaseRepo.getChartData(
-        selectedCoin?.id ?? 19,
-        "live",
-        DateTime.tryParse(
-                '${startDate?.year}-${startDate?.month}-${startDate?.day}') ??
-            DateTime.now().subtract(const Duration(days: 3)));
+        selectedCoin?.id ?? 19, "live", startDate);
 
     result.fold((l) {
       emit(HomeLiveErrorState(l.message));
     }, (r) {
       chartModel = r;
       currencyId = r.livePrices?.currcenyId;
-      print(currencyId?[1].date);
-      print(currencyId?[1].price);
+      if (currencyId != null && currencyId!.length > 1) {
+        print(currencyId?[1].date);
+        print(currencyId?[1].price);
+      }
       emit(HomeLiveSuccessState(r));
     });
   }
@@ -200,8 +198,8 @@ class HomeCubit extends Cubit<HomeState> {
   ) async {
     print("startDate $startDate");
     emit(HomeLoadingState());
-    var result = await homeBaseRepo.getChartData(selectedCoin?.id ?? 19,
-        "black", startDate ?? DateTime.now().subtract(const Duration(days: 1)));
+    var result = await homeBaseRepo.getChartData(
+        selectedCoin?.id ?? 19, "black", startDate);
     result.fold((l) {
       emit(HomeLiveErrorState(l.message));
     }, (r) {
@@ -217,26 +215,33 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   clacAvgBuyPrice() {
-    var result = selectedCoin?.bankPrices
-        ?.map((e) => e.buyPrice)
-        .reduce((a, b) => a! + b!);
+    var result =
+        selectedCoin?.bankPrices != null && selectedCoin!.bankPrices!.isNotEmpty
+            ? selectedCoin!.bankPrices!
+                .map((e) => e.buyPrice)
+                .reduce((a, b) => a! + b!)
+            : null;
 
-    if (result == null) {
-      return;
-    }
-    var avg = result / (selectedCoin?.bankPrices?.length ?? 0);
-    return avg.toStringAsFixed(2);
+    var avg = result != null
+        ? result / (selectedCoin?.bankPrices?.length ?? 0)
+        : null;
+
+    return avg?.toStringAsFixed(2) ?? '0';
   }
 
   clacAvgSellPrice() {
-    var result = selectedCoin?.bankPrices
-        ?.map((e) => e.sellPrice)
-        .reduce((a, b) => a! + b!);
-    if (result == null) {
-      return;
-    }
-    var avg = result / (selectedCoin?.bankPrices?.length ?? 0);
-    return avg.toStringAsFixed(2);
+    var result =
+        selectedCoin?.bankPrices != null && selectedCoin!.bankPrices!.isNotEmpty
+            ? selectedCoin!.bankPrices!
+                .map((e) => e.sellPrice)
+                .reduce((a, b) => a! + b!)
+            : null;
+
+    var avg = result != null
+        ? result / (selectedCoin?.bankPrices?.length ?? 0)
+        : null;
+
+    return avg?.toStringAsFixed(2) ?? '0';
   }
 
   saveFavBank(BanksModel bankId, BankPrice bankPrice, CoinsModel coinId) {

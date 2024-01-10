@@ -1,6 +1,8 @@
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
+import 'package:black_market/features/home/presentation/widgets/coins_widget/chart_widget.dart';
 import 'package:black_market/features/home/presentation/widgets/coins_widget/chart_widget_blackm.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -85,7 +87,7 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                       ),
                       child: Tab(
                         child: Text(
-                          'سعر سوق السوداء',
+                          "سعر السوق السوداء".tr(),
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w700,
@@ -106,7 +108,7 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                       ),
                       child: Tab(
                         child: Text(
-                          'سعر البنك ',
+                          'سعر البنك'.tr(),
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w700,
@@ -126,95 +128,148 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                   children: [
                     if (tabController.index == 0 && tabController2.index == 0)
                       const LineChartSample1(),
-                    // Center(
-                    //   child: Text(
-                    //     'data of tabBarone index 0 and tabBarTwo index 0',
-                    //     style: TextStyle(
-                    //       color: Colors.white,
-                    //       fontSize: 25.sp,
-                    //     ),
-                    //   ),
-                    // ),
                     if (tabController.index == 0 && tabController2.index == 1)
                       const LineChartSample1(),
-
                     if (tabController.index == 0 && tabController2.index == 2)
                       const LineChartSample1(),
-                    // Center(
-                    //   child: Text(
-                    //     'data of tabBarone index 0 and tabBarTwo index 2',
-                    //     style: TextStyle(
-                    //       color: Colors.white,
-                    //       fontSize: 25.sp,
-                    //     ),
-                    //   ),
-                    // ),
                     if (tabController.index == 1 && tabController2.index == 0)
-                      Center(
-                        child: Text(
-                          'data of tabBarone index 1 and tabBarTwo index 0',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.sp,
-                          ),
-                        ),
-                      ),
+                      const LineChartSample2(),
                     if (tabController.index == 1 && tabController2.index == 1)
-                      Center(
-                        child: Text(
-                          'data of tabBarone index 1 and tabBarTwo index 1',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.sp,
-                          ),
-                        ),
-                      ),
+                      const LineChartSample2(),
                     if (tabController.index == 1 && tabController2.index == 2)
-                      Center(
-                        child: Text(
-                          'data of tabBarone index 1 and tabBarTwo index 2',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.sp,
-                          ),
-                        ),
-                      ),
+                      const LineChartSample2(),
                   ],
                 ),
               ),
-              TabBar(
-                onTap: (index) {
-                  tabController2.index = index;
-
-                  if (tabController2.index == 0) {
-                    cubit.startDate = DateTime.now();
-                    cubit.getChartDataForBlack(cubit.selectedCoin?.id ?? 19);
-                  } else if (tabController2.index == 1) {
-                    cubit.startDate =
-                        DateTime.now().subtract(const Duration(days: 4));
-                    cubit.getChartDataForBlack(cubit.selectedCoin?.id ?? 19);
-
-                    print(cubit.startDate);
-                  } else if (tabController2.index == 2) {
-                    cubit.startDate =
-                        DateTime.now().subtract(const Duration(days: 365));
-                
-                  }
-
-                  setState(() {});
-                },
-                tabs: const [
-                  Tab(
-                    text: 'يوم',
+              Container(
+                height: 50.h,
+                margin: EdgeInsets.symmetric(
+                  horizontal: 24.w,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7.r),
+                  color: const Color(0xffFEDC00),
+                ),
+                child: TabBar(
+                  padding: EdgeInsets.symmetric(vertical: 8.h),
+                  dividerColor: Colors.transparent,
+                  indicatorColor: const Color.fromRGBO(254, 220, 0, 1),
+                  indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.r),
+                    color: const Color(0xffFEDC00),
                   ),
-                  Tab(
-                    text: 'شهر',
+                  unselectedLabelColor: const Color(0xffFFFFFF),
+                  unselectedLabelStyle: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xff0E0E0E),
                   ),
-                  Tab(
-                    text: 'سنة',
+                  labelStyle: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xff0E0E0E),
                   ),
-                ],
-                controller: tabController2,
+                  onTap: (index) {
+                    tabController2.index = index;
+
+                    if (tabController.index == 0 && tabController2.index == 0) {
+                      cubit.startDate = DateTime.now();
+                      cubit.getChartDataForBlack(cubit.selectedCoin?.id ?? 19);
+                    } else if (tabController.index == 0 &&
+                        tabController2.index == 1) {
+                      cubit.startDate =
+                          DateTime.now().subtract(const Duration(days: 4));
+                      cubit.getChartDataForBlack(cubit.selectedCoin?.id ?? 19);
+
+                      print(cubit.startDate);
+                    } else if (tabController.index == 0 &&
+                        tabController2.index == 2) {
+                      cubit.startDate =
+                          DateTime.now().subtract(const Duration(days: 365));
+                      cubit.getChartDataForBlack(cubit.selectedCoin?.id ?? 19);
+                    } else if (tabController.index == 1 &&
+                        tabController2.index == 0) {
+                      cubit.startDate = DateTime.now();
+                      cubit.getChartData(cubit.selectedCoin?.id ?? 19);
+                    } else if (tabController.index == 1 &&
+                        tabController2.index == 1) {
+                      cubit.startDate =
+                          DateTime.now().subtract(const Duration(days: 4));
+                      cubit.getChartData(cubit.selectedCoin?.id ?? 19);
+                    } else if (tabController.index == 1 &&
+                        tabController2.index == 2) {
+                      cubit.startDate =
+                          DateTime.now().subtract(const Duration(days: 365));
+                      cubit.getChartData(cubit.selectedCoin?.id ?? 19);
+                    }
+                  },
+                  tabs: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r),
+                        color: tabController2.index == 0
+                            ? const Color(0xff0E0E0E)
+                            : Colors.transparent,
+                      ),
+                      child: Tab(
+                        child: Text(
+                          'اليوم'.tr(),
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w700,
+                            color: tabController2.index == 0
+                                ? const Color(0xffFEDC00)
+                                : const Color(0xff0E0E0E),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r),
+                        color: tabController2.index == 1
+                            ? const Color(0xff0E0E0E)
+                            : Colors.transparent,
+                      ),
+                      child: Tab(
+                        child: Text(
+                          'شهر'.tr(),
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w700,
+                            color: tabController2.index == 1
+                                ? const Color(0xffFEDC00)
+                                : const Color(0xff0E0E0E),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r),
+                        color: tabController2.index == 2
+                            ? const Color(0xff0E0E0E)
+                            : Colors.transparent,
+                      ),
+                      child: Tab(
+                        child: Text(
+                          'سنة'.tr(),
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w700,
+                            color: tabController2.index == 2
+                                ? const Color(0xffFEDC00)
+                                : const Color(0xff0E0E0E),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                  controller: tabController2,
+                ),
               ),
             ],
           ),

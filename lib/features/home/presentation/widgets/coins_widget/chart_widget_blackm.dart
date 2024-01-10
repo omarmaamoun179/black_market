@@ -15,6 +15,11 @@ class LineChartSample1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      DateTime startDate = HomeCubit.get(context).startDate ?? DateTime.now();
+      DateTime now = DateTime.now();
+      bool isToday = DateTime(startDate.year, startDate.month, startDate.day) ==
+          DateTime(now.year, now.month, now.day);
+      print("Start Date: ${HomeCubit.get(context).startDate}");
       List<CurrencyIdBlack> currencyData =
           HomeCubit.get(context).currencyIdBlack ?? [];
 
@@ -71,14 +76,22 @@ class LineChartSample1 extends StatelessWidget {
             // //Hide the axis line of x-axis
             // axisLine: const AxisLine(width: 0),
             labelAlignment: LabelAlignment.start,
+
             axisLabelFormatter: (value) {
-              // Format the date here using the intl package
-              DateTime dateTime = DateTime.parse(value.text);
-              return ChartAxisLabel(
-                  DateFormat('MMM dd').format(
-                    dateTime,
-                  ),
-                  value.textStyle);
+              // Convert the timestamp to a DateTime
+              DateTime dateTime = isToday
+                  ? DateTime(DateTime.now().year, DateTime.now().month,
+                      DateTime.now().day, value.value.toInt() % 24)
+                  : DateTime.parse(value.text);
+
+              return isToday
+                  ? ChartAxisLabel(
+                      DateFormat(
+                        'h:mm a',
+                      ).format(dateTime),
+                      value.textStyle)
+                  : ChartAxisLabel(
+                      DateFormat("yMMMd").format(dateTime), value.textStyle);
             },
           ),
 
@@ -87,9 +100,13 @@ class LineChartSample1 extends StatelessWidget {
               color: const Color(0xffF0E703).withOpacity(0.5),
 
               // Bind data source
-              dataSource: filteredData,
+              dataSource: isToday
+                  ? HomeCubit.get(context).currencyIdBlack ?? []
+                  : filteredData,
 
-              xValueMapper: (CurrencyIdBlack currencies, _) => currencies.date,
+              xValueMapper: (CurrencyIdBlack currencies, _) {
+                return isToday ? currencies.hour : currencies.date;
+              },
               yValueMapper: (CurrencyIdBlack currencies, _) => currencies.price,
               dataLabelSettings: DataLabelSettings(
                   useSeriesColor: true,
