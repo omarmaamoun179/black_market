@@ -15,10 +15,10 @@ class RemoteServerFailure extends Failure {
       case DioExceptionType.sendTimeout:
         return RemoteServerFailure('Send Timeout');
       case DioExceptionType.receiveTimeout:
+        return RemoteServerFailure('Receive Timeout');
+      case DioExceptionType.badResponse:
         return RemoteServerFailure.fromResponse(
             dioException.response?.statusCode);
-      case DioExceptionType.badResponse:
-        return RemoteServerFailure('Response Error');
       case DioExceptionType.cancel:
         return RemoteServerFailure('Request to API server was cancelled');
       case DioExceptionType.unknown:
@@ -32,8 +32,8 @@ class RemoteServerFailure extends Failure {
     switch (statusCode) {
       case 400:
         return RemoteServerFailure('Bad Request');
-      case 401:
-        return RemoteServerFailure('Unauthorized');
+      case 422:
+        return RemoteServerFailure('invaild email or password');
       case 403:
         return RemoteServerFailure('Forbidden');
       case 404:

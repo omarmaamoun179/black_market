@@ -12,40 +12,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FavoriteScreen extends StatelessWidget {
+class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
+
+  @override
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
+}
+
+class _FavoriteScreenState extends State<FavoriteScreen> {
+  late List<BanksModel> favBank;
+  late List<BankPrice> favBankPrice;
+  late List<CoinsModel> favCoinId;
+  @override
+  void initState() {
+    super.initState();
+    favBank = SaveBankFavorite.getFavorites();
+    favBankPrice = SaveBankPriceFavorite.getFavorites();
+    favCoinId = SaveCoinIdFavorite.getFavorites();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
+        cubit.favBank.clear();
 
-        var favBank = SaveBankFavorite.getFavorites();
-        var favBankPrice = SaveBankPriceFavorite.getFavorites();
-        var favCoinId = SaveCoinIdFavorite.getFavorites();
         for (var e in favBank) {
           for (var i in favBankPrice) {
             for (var j in favCoinId) {
-              if (e.id == i.bankId &&
-                  i.currencyId == j.id &&
-                  cubit.favoriteBankIds.add(e.id!)) {
-                cubit.favBank.add(
-                  BankFavItemWidget(
-                    e: e,
-                    i: i,
-                    j: j,
-                    onDelete: (BanksModel e) {
-                      cubit.deleteBank(e);
-                    },
-                  ),
-                  // onDelete: (BanksModel e) {
-                  //   SaveBankFavorite.favoriteBox.delete(e.id);
-                  //   cubit.favoriteBankIds.remove(e.id);
-                  //   cubit.favBank.removeWhere((element) => element.e == e);
-                  //   setState(() {});
-                  // }),
-                );
+              if (i.bankId == e.id && i.currencyId == j.id) {
+                cubit.favBank.add(BankFavItemWidget(
+                  e: e,
+                  i: i,
+                  j: j,
+                  onDelete: (e, i, j) {
+                    cubit.deleteBank(e , i , j);
+                    setState(() {
+                      favBank = SaveBankFavorite.getFavorites();
+                      favBankPrice = SaveBankPriceFavorite.getFavorites();
+                      favCoinId = SaveCoinIdFavorite.getFavorites();
+                    });
+                  },
+                ));
+
+                // Break out of the inner loop once the condition is met
               }
             }
           }
@@ -85,6 +96,8 @@ class BankFavItemWidget extends StatefulWidget {
   final CoinsModel? j;
   final Function(
     BanksModel,
+    BankPrice, 
+    CoinsModel,
   ) onDelete;
   @override
   State<BankFavItemWidget> createState() => _BankFavItemWidgetState();
@@ -127,7 +140,7 @@ class _BankFavItemWidgetState extends State<BankFavItemWidget> {
                 child: IconButton(
                   onPressed: () {
                     print('clicked22');
-                    widget.e != null ? widget.onDelete(widget.e!) : null;
+                    widget.e != null ? widget.onDelete(widget.e! , widget.i!,widget.j! ) : null;
                   },
                   icon: Icon(
                     Icons.favorite,

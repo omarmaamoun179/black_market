@@ -9,9 +9,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
   void changeValue(
     String newValue,
   ) {
-
     language = newValue;
-          
 
     emit(LanguagesArabic());
   }

@@ -41,239 +41,264 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
 
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        return DefaultTabController(
-          initialIndex: 0,
-          length: 1,
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.r),
-                  color: const Color(0xffFEDC00),
+        return state is HomeLoadingState
+            ? SizedBox(
+                height: 200.h,
+                width: double.infinity,
+                child: Center(
+                  child: Text(
+                    '......جاري التحميل',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
-                child: TabBar(
-                  onTap: (index) {
-                    tabController.index = index;
-                    setState(() {});
-                  },
-                  controller: tabController,
-                  padding: EdgeInsets.symmetric(vertical: 8.h),
-                  dividerColor: Colors.transparent,
-                  indicatorColor: const Color.fromRGBO(254, 220, 0, 1),
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.r),
-                    color: const Color(0xffFEDC00),
-                  ),
-                  unselectedLabelColor: const Color(0xffFFFFFF),
-                  unselectedLabelStyle: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xff0E0E0E),
-                  ),
-                  labelStyle: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xff0E0E0E),
-                  ),
-                  tabs: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.r),
-                        color: tabController.index == 0
-                            ? const Color(0xff0E0E0E)
-                            : Colors.transparent,
-                      ),
-                      child: Tab(
-                        child: Text(
-                          "سعر السوق السوداء".tr(),
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            color: tabController.index == 0
-                                ? const Color(0xffFEDC00)
-                                : const Color(0xff0E0E0E),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.r),
-                        color: tabController.index == 1
-                            ? const Color(0xff0E0E0E)
-                            : Colors.transparent,
-                      ),
-                      child: Tab(
-                        child: Text(
-                          'سعر البنك'.tr(),
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            color: tabController.index == 1
-                                ? const Color(0xffFEDC00)
-                                : const Color(0xff0E0E0E),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 240.5.h,
-                child: TabBarView(
+              )
+            : DefaultTabController(
+                initialIndex: 0,
+                length: 1,
+                child: Column(
                   children: [
-                    if (tabController.index == 0 && tabController2.index == 0)
-                      const LineChartSample1(),
-                    if (tabController.index == 0 && tabController2.index == 1)
-                      const LineChartSample1(),
-                    if (tabController.index == 0 && tabController2.index == 2)
-                      const LineChartSample1(),
-                    if (tabController.index == 1 && tabController2.index == 0)
-                      const LineChartSample2(),
-                    if (tabController.index == 1 && tabController2.index == 1)
-                      const LineChartSample2(),
-                    if (tabController.index == 1 && tabController2.index == 2)
-                      const LineChartSample2(),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: 24.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r),
+                        color: const Color(0xffFEDC00),
+                      ),
+                      child: TabBar(
+                        onTap: (index) {
+                          tabController.index = index;
+                          setState(() {});
+                        },
+                        controller: tabController,
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        dividerColor: Colors.transparent,
+                        indicatorColor: const Color.fromRGBO(254, 220, 0, 1),
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.r),
+                          color: const Color(0xffFEDC00),
+                        ),
+                        unselectedLabelColor: const Color(0xffFFFFFF),
+                        unselectedLabelStyle: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xff0E0E0E),
+                        ),
+                        labelStyle: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xff0E0E0E),
+                        ),
+                        tabs: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.r),
+                              color: tabController.index == 0
+                                  ? const Color(0xff0E0E0E)
+                                  : Colors.transparent,
+                            ),
+                            child: Tab(
+                              child: Text(
+                                "سعر السوق السوداء".tr(),
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: tabController.index == 0
+                                      ? const Color(0xffFEDC00)
+                                      : const Color(0xff0E0E0E),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.r),
+                              color: tabController.index == 1
+                                  ? const Color(0xff0E0E0E)
+                                  : Colors.transparent,
+                            ),
+                            child: Tab(
+                              child: Text(
+                                'سعر البنك'.tr(),
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: tabController.index == 1
+                                      ? const Color(0xffFEDC00)
+                                      : const Color(0xff0E0E0E),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 240.5.h,
+                      child: TabBarView(
+                        children: [
+                          if (tabController.index == 0 &&
+                              tabController2.index == 0)
+                            const LineChartSample1(),
+                          if (tabController.index == 0 &&
+                              tabController2.index == 1)
+                            const LineChartSample1(),
+                          if (tabController.index == 0 &&
+                              tabController2.index == 2)
+                            const LineChartSample1(),
+                          if (tabController.index == 1 &&
+                              tabController2.index == 0)
+                            const LineChartSample2(),
+                          if (tabController.index == 1 &&
+                              tabController2.index == 1)
+                            const LineChartSample2(),
+                          if (tabController.index == 1 &&
+                              tabController2.index == 2)
+                            const LineChartSample2(),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 50.h,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 24.w,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7.r),
+                        color: const Color(0xffFEDC00),
+                      ),
+                      child: TabBar(
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        dividerColor: Colors.transparent,
+                        indicatorColor: const Color.fromRGBO(254, 220, 0, 1),
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.r),
+                          color: const Color(0xffFEDC00),
+                        ),
+                        unselectedLabelColor: const Color(0xffFFFFFF),
+                        unselectedLabelStyle: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xff0E0E0E),
+                        ),
+                        labelStyle: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xff0E0E0E),
+                        ),
+                        onTap: (index) {
+                          tabController2.index = index;
+
+                          if (tabController.index == 0 &&
+                              tabController2.index == 0) {
+                            cubit.startDate = DateTime.now();
+                            cubit.getChartDataForBlack(
+                                cubit.selectedCoin?.id ?? 19);
+                          } else if (tabController.index == 0 &&
+                              tabController2.index == 1) {
+                            cubit.startDate = DateTime.now()
+                                .subtract(const Duration(days: 4));
+                            cubit.getChartDataForBlack(
+                                cubit.selectedCoin?.id ?? 19);
+
+                            print(cubit.startDate);
+                          } else if (tabController.index == 0 &&
+                              tabController2.index == 2) {
+                            cubit.startDate = DateTime.now()
+                                .subtract(const Duration(days: 365));
+                            cubit.getChartDataForBlack(
+                                cubit.selectedCoin?.id ?? 19);
+                          } else if (tabController.index == 1 &&
+                              tabController2.index == 0) {
+                            cubit.startDate = DateTime.now();
+                            cubit.getChartData(cubit.selectedCoin?.id ?? 19);
+                          } else if (tabController.index == 1 &&
+                              tabController2.index == 1) {
+                            cubit.startDate = DateTime.now()
+                                .subtract(const Duration(days: 4));
+                            cubit.getChartData(cubit.selectedCoin?.id ?? 19);
+                          } else if (tabController.index == 1 &&
+                              tabController2.index == 2) {
+                            cubit.startDate = DateTime.now()
+                                .subtract(const Duration(days: 365));
+                            cubit.getChartData(cubit.selectedCoin?.id ?? 19);
+                          }
+                        },
+                        tabs: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.r),
+                              color: tabController2.index == 0
+                                  ? const Color(0xff0E0E0E)
+                                  : Colors.transparent,
+                            ),
+                            child: Tab(
+                              child: Text(
+                                'يوم'.tr(),
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: tabController2.index == 0
+                                      ? const Color(0xffFEDC00)
+                                      : const Color(0xff0E0E0E),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.r),
+                              color: tabController2.index == 1
+                                  ? const Color(0xff0E0E0E)
+                                  : Colors.transparent,
+                            ),
+                            child: Tab(
+                              child: Text(
+                                'شهر'.tr(),
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: tabController2.index == 1
+                                      ? const Color(0xffFEDC00)
+                                      : const Color(0xff0E0E0E),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.r),
+                              color: tabController2.index == 2
+                                  ? const Color(0xff0E0E0E)
+                                  : Colors.transparent,
+                            ),
+                            child: Tab(
+                              child: Text(
+                                'سنة'.tr(),
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: tabController2.index == 2
+                                      ? const Color(0xffFEDC00)
+                                      : const Color(0xff0E0E0E),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                        controller: tabController2,
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              Container(
-                height: 50.h,
-                margin: EdgeInsets.symmetric(
-                  horizontal: 24.w,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7.r),
-                  color: const Color(0xffFEDC00),
-                ),
-                child: TabBar(
-                  padding: EdgeInsets.symmetric(vertical: 8.h),
-                  dividerColor: Colors.transparent,
-                  indicatorColor: const Color.fromRGBO(254, 220, 0, 1),
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.r),
-                    color: const Color(0xffFEDC00),
-                  ),
-                  unselectedLabelColor: const Color(0xffFFFFFF),
-                  unselectedLabelStyle: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xff0E0E0E),
-                  ),
-                  labelStyle: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xff0E0E0E),
-                  ),
-                  onTap: (index) {
-                    tabController2.index = index;
-
-                    if (tabController.index == 0 && tabController2.index == 0) {
-                      cubit.startDate = DateTime.now();
-                      cubit.getChartDataForBlack(cubit.selectedCoin?.id ?? 19);
-                    } else if (tabController.index == 0 &&
-                        tabController2.index == 1) {
-                      cubit.startDate =
-                          DateTime.now().subtract(const Duration(days: 4));
-                      cubit.getChartDataForBlack(cubit.selectedCoin?.id ?? 19);
-
-                      print(cubit.startDate);
-                    } else if (tabController.index == 0 &&
-                        tabController2.index == 2) {
-                      cubit.startDate =
-                          DateTime.now().subtract(const Duration(days: 365));
-                      cubit.getChartDataForBlack(cubit.selectedCoin?.id ?? 19);
-                    } else if (tabController.index == 1 &&
-                        tabController2.index == 0) {
-                      cubit.startDate = DateTime.now();
-                      cubit.getChartData(cubit.selectedCoin?.id ?? 19);
-                    } else if (tabController.index == 1 &&
-                        tabController2.index == 1) {
-                      cubit.startDate =
-                          DateTime.now().subtract(const Duration(days: 4));
-                      cubit.getChartData(cubit.selectedCoin?.id ?? 19);
-                    } else if (tabController.index == 1 &&
-                        tabController2.index == 2) {
-                      cubit.startDate =
-                          DateTime.now().subtract(const Duration(days: 365));
-                      cubit.getChartData(cubit.selectedCoin?.id ?? 19);
-                    }
-                  },
-                  tabs: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.r),
-                        color: tabController2.index == 0
-                            ? const Color(0xff0E0E0E)
-                            : Colors.transparent,
-                      ),
-                      child: Tab(
-                        child: Text(
-                          'اليوم'.tr(),
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            color: tabController2.index == 0
-                                ? const Color(0xffFEDC00)
-                                : const Color(0xff0E0E0E),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.r),
-                        color: tabController2.index == 1
-                            ? const Color(0xff0E0E0E)
-                            : Colors.transparent,
-                      ),
-                      child: Tab(
-                        child: Text(
-                          'شهر'.tr(),
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            color: tabController2.index == 1
-                                ? const Color(0xffFEDC00)
-                                : const Color(0xff0E0E0E),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.r),
-                        color: tabController2.index == 2
-                            ? const Color(0xff0E0E0E)
-                            : Colors.transparent,
-                      ),
-                      child: Tab(
-                        child: Text(
-                          'سنة'.tr(),
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            color: tabController2.index == 2
-                                ? const Color(0xffFEDC00)
-                                : const Color(0xff0E0E0E),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                  controller: tabController2,
-                ),
-              ),
-            ],
-          ),
-        );
+              );
       },
     );
   }

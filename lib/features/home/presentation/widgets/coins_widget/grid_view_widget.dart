@@ -37,8 +37,10 @@ class GridViewWidget extends StatelessWidget {
               icon: IconButton(
                 onPressed: () {
                   print('clicked');
+                  
 
                   cubit.saveFavBank(e, i, cubit.selectedCoin!);
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -54,7 +56,7 @@ class GridViewWidget extends StatelessWidget {
                         label: 'تراجع',
                         textColor: const Color(0xffFFC700),
                         onPressed: () {
-                          cubit.deleteBank(e);
+                          cubit.deleteBank(e , i , cubit.selectedCoin!);
                         },
                       ),
                     ),
@@ -62,10 +64,7 @@ class GridViewWidget extends StatelessWidget {
                 },
                 icon: CircleAvatar(
                   maxRadius: 12.r,
-                  backgroundColor: cubit.favoriteBankIds.contains(e.id) &&
-                          cubit.favoriteCoinIds.contains(i.currencyId)
-                      ? const Color(0xffFFC700)
-                      : const Color(0xff0D0D0D).withOpacity(.3),
+                  backgroundColor: const Color(0xff0D0D0D).withOpacity(.3),
                   child: Icon(
                     Icons.favorite_outline_sharp,
                     size: 12.sp,

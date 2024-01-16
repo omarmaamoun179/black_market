@@ -72,7 +72,7 @@ class LangugaeScreen extends StatelessWidget {
                         trailing: Radio(
                           activeColor: const Color(0xffFEDC00),
                           value: 'ar',
-                          groupValue: cubit.language,
+                          groupValue: context.locale.languageCode,
                           onChanged: (value) {
                             final locale = Locale(value!, "SA");
                             context.setLocale(locale);
@@ -104,7 +104,7 @@ class LangugaeScreen extends StatelessWidget {
                         trailing: Radio(
                           activeColor: const Color(0xffFEDC00),
                           value: 'en',
-                          groupValue: cubit.language,
+                          groupValue: context.locale.languageCode,
                           onChanged: (value) {
                             final locale = Locale(value!, 'US');
                             context.setLocale(locale);

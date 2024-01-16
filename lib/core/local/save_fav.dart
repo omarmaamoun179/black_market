@@ -11,6 +11,7 @@ class SaveBankFavorite {
   }
 
   static Future<void> saveFavorite(BanksModel bankId) async {
+    print(bankId.name);
     // Generate a unique key for each item, for example, use the bankId as the key
     await favoriteBox.put(bankId.id, bankId);
   }
@@ -19,7 +20,6 @@ class SaveBankFavorite {
     // Retrieve all items using the values property
     return favoriteBox.values.toList();
   }
-
 }
 
 class SaveBankPriceFavorite {
@@ -30,6 +30,7 @@ class SaveBankPriceFavorite {
   }
 
   static Future<void> saveFavorite(BankPrice coinId) async {
+    print(coinId.bankId);
     // Generate a unique key for each item, for example, use the coinId as the key
     await favoriteBox.put(coinId.id, coinId);
   }
@@ -48,6 +49,7 @@ class SaveCoinIdFavorite {
   }
 
   static Future<void> saveFavorite(CoinsModel coinId) async {
+    print(coinId.name);
     // Generate a unique key for each item, for example, use the coinId as the key
     await favoriteBox.put(coinId.id, coinId);
   }

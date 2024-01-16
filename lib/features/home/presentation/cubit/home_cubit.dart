@@ -37,8 +37,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   Set<int> favoriteBankIds = {};
 
-  Set<int> favoriteCoinIds = {};
-
   List favBank = [];
   List<BankFavItemWidget> loadedFavItems = [];
 
@@ -251,18 +249,18 @@ class HomeCubit extends Cubit<HomeState> {
     SaveCoinIdFavorite.saveFavorite(
       coinId,
     );
-    favoriteCoinIds.add(coinId.id!);
 
     emit(HomeSaveFavSuccessState());
   }
 
-  deleteBank(BanksModel? banksModel) {
+  deleteBank(BanksModel? banksModel, BankPrice bankPrice, CoinsModel coinId) {
     emit(HomeSaveFavLoadingState());
 
     SaveBankFavorite.favoriteBox.delete(banksModel?.id);
-    favoriteBankIds.remove(banksModel?.id);
+    SaveBankFavorite.favoriteBox.clear();
+    SaveBankPriceFavorite.favoriteBox.clear();
+    SaveCoinIdFavorite.favoriteBox.clear();
     favBank.removeWhere((element) => element.e == banksModel);
-    // loadedFavItems.add(BankFavItemWidget(e: bankId, j: coinId, i: bankPrice));
 
     emit(HomeDeleteFavSuccessState());
   }

@@ -38,6 +38,7 @@ void main() async {
   runApp(EasyLocalization(
     startLocale: const Locale(
       'ar',
+      'SA' 
     ),
     saveLocale: true,
     supportedLocales: const [

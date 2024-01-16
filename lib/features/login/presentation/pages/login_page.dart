@@ -5,7 +5,6 @@ import 'package:black_market/core/widget/custom_text_field.dart';
 import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
 import 'package:black_market/features/login/presentation/cubit/login_state.dart';
 import 'package:black_market/features/login/presentation/widgets/forget_password_widget.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,8 +31,8 @@ class LogingScreen extends StatelessWidget {
           );
         } else if (state is LoginError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('invalid email or password'),
+            SnackBar(
+              content: Text(state.error),
             ),
           );
         }
@@ -152,9 +151,8 @@ class LogingScreen extends StatelessWidget {
                                 if (LoginCubit.get(context)
                                     .formKey
                                     .currentState!
-                                    .validate()  ) {
-                                  LoginCubit.get(context).login(); 
-                          
+                                    .validate()) {
+                                  LoginCubit.get(context).login();
                                 }
                               },
                               child: Text(

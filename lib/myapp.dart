@@ -19,17 +19,20 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MultiBlocProvider(
         providers: [
           BlocProvider<HomeCubit>(
-            create: (context) => HomeCubit(
-              HomeRepoImp(),
-            )
-              ..getBanksData()
-              ..getHomeData()
-              ..getGoldData()
-              ..getCompniesData()
-              ..getIngotsData()
-              ..getChartData(19,
-                  ) ..getChartDataForBlack(19)// 19 is the id of the selected coin and black is the type of the chart (black or white)),
-          ),
+              create: (context) => HomeCubit(
+                    HomeRepoImp(),
+                  )
+                    ..getBanksData()
+                    ..getHomeData()
+                    ..getGoldData()
+                    ..getCompniesData()
+                    ..getIngotsData()
+                    ..getChartData(
+                      19,
+                    )
+                    ..getChartDataForBlack(19)
+                    // 19 is the id of the selected coin and black is the type of the chart (black or white)),
+              ),
           BlocProvider<LoginCubit>(
             create: (context) => LoginCubit(
               LoginRepoImpl(),
