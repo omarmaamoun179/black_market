@@ -1,3 +1,36 @@
+[![MasterHead](https://miro.medium.com/v2/resize:fit:1400/format:webp/0*xewrUMcciDB8Ytdk.png)]
+<h1 align="center">Hi 👋, I'm omar maamoun</h1>
+<h3 align="center">flutter developer from egypt</h3>
+img align="right" alt="Coding" width="400" src="https://camo.githubusercontent.com/10b2d4e80487e1d9cd086ce8619e15740a1bd22c6462f6be13df93ee684deb7b/68747470733a2f2f616e616c7974696373696e6469616d61672e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031382f31322f646576656c6f7065722d6472696262626c652e676966"
+
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=omarmaamoun179&label=Profile%20views&color=0e75b6&style=flat" alt="omarmaamoun179" /> </p>
+
+<p align="left"> <a href="https://twitter.com/" target="blank"><img src="https://img.shields.io/twitter/follow/?logo=twitter&style=for-the-badge" alt="" /></a> </p>
+
+- 🔭 I’m currently working on **Black market**
+
+- 🌱 I’m currently learning **Andriod**
+
+- 💬 Ask me about **Flutter**
+
+- 📫 How to reach me **omarmaamoun6@gmail.com**
+
+- ⚡ Fun fact **I think I'm funny**
+
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+<a href="https://linkedin.com/in/omar-maamoun-05b085238" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="omar-maamoun-05b085238" height="30" width="40" /></a>
+<a href="https://fb.com/omar.osama.35977" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="omar.osama.35977" height="30" width="40" /></a>
+</p>
+
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://developer.android.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original-wordmark.svg" alt="android" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://dart.dev" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" alt="dart" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://flutter.dev" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" alt="flutter" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> </p>
+
+<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=omarmaamoun179&show_icons=true&locale=en&layout=compact" alt="omarmaamoun179" /></p>
+
+<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=omarmaamoun179&show_icons=true&locale=en" alt="omarmaamoun179" /></p>
+
+<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=omarmaamoun179&" alt="omarmaamoun179" /></p>
 # Black Market
 
 Welcome to the Black Market Flutter project!
