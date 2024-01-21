@@ -1,3 +1,4 @@
+import 'package:black_market/core/services/awesome_notication.dart';
 import 'package:black_market/core/widget/custom_app_bar.dart';
 import 'package:black_market/features/languages/presentation/cubit/languages_cubit.dart';
 import 'package:black_market/features/languages/presentation/cubit/languages_state.dart';
@@ -109,6 +110,13 @@ class LangugaeScreen extends StatelessWidget {
                             final locale = Locale(value!, 'US');
                             context.setLocale(locale);
                             cubit.changeValue(value);
+                            NotificationService.showNotification(
+                              title: 'title'.tr(),
+                              body: 'body'.tr(),
+                              payload: {
+                                'navigate': 'true',
+                              },
+                            );
                           },
                         ),
                       ),

@@ -19,12 +19,14 @@ class LineChartSample1 extends StatelessWidget {
       DateTime now = DateTime.now();
       bool isToday = DateTime(startDate.year, startDate.month, startDate.day) ==
           DateTime(now.year, now.month, now.day);
+      // bool isWithinLastThreeHours =
+      //     startDate.isAfter(DateTime.now().subtract(const Duration(hours: 12)));
       print("Start Date: ${HomeCubit.get(context).startDate}");
       List<CurrencyIdBlack> currencyData =
           HomeCubit.get(context).currencyIdBlack ?? [];
 
       List<CurrencyIdBlack> filteredData =
-          currencyData.where((e) => e.hour == 0).toList();
+          currencyData.where((e) => e.hour == 0 && e.hour! > 5).toList();
 
       return Padding(
         padding: const EdgeInsets.all(10),

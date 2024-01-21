@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
                       19,
                     )
                     ..getChartDataForBlack(19)
-                    // 19 is the id of the selected coin and black is the type of the chart (black or white)),
+              // 19 is the id of the selected coin and black is the type of the chart (black or white)),
               ),
           BlocProvider<LoginCubit>(
             create: (context) => LoginCubit(
