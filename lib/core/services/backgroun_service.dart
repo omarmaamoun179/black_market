@@ -34,7 +34,6 @@ class BackGroundService {
   static onStart(ServiceInstance service) async {
     DartPluginRegistrant.ensureInitialized();
 
-
     if (service is AndroidServiceInstance) {
       service.on('setAsForeground').listen((event) {
         service.setAsForegroundService();
@@ -54,7 +53,7 @@ class BackGroundService {
     await notificationCubit.getNotifaction();
     // Fetch notification data
 
-    timer = Timer.periodic(const Duration(seconds: 60), (timer) async {
+    timer = Timer.periodic(const Duration(seconds: 600), (timer) async {
       await notificationCubit.getNotifaction();
       if (service is AndroidServiceInstance) {
         // Use the notification data from the Cubit
