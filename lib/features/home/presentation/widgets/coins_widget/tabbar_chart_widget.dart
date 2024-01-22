@@ -63,8 +63,8 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: 24.w, vertical: 10.h),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.r),
                         color: const Color(0xffFEDC00),
@@ -129,7 +129,9 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                         ),
                         tabs: [
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15.w,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16.r),
                               color: tabController.index == 0
@@ -150,7 +152,9 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15.w,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16.r),
                               color: tabController.index == 1
@@ -201,7 +205,7 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                     Container(
                       height: 50.h,
                       margin: EdgeInsets.symmetric(
-                        horizontal: 24.w,
+                        horizontal: 50.w,
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7.r),

@@ -1,5 +1,6 @@
 import 'package:black_market/config/router/routes.dart';
 import 'package:black_market/core/local/save_banks.dart';
+import 'package:black_market/core/local/save_fav.dart';
 import 'package:black_market/features/home/data/models/banks_model/banks_model.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
@@ -17,6 +18,9 @@ class GridViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
       List<BanksModel>? savedBanks = LocaleBankService.getBanks();
+      var favBank = SaveBankFavorite.getFavorites();
+      var favBankPrice = SaveBankPriceFavorite.getFavorites();
+      var favCoinId = SaveCoinIdFavorite.getFavorites();
       Set<int> uniqueBankIds = <int>{};
       List widget = [];
       Set<int> uniqueSaveBankIds = <int>{};
@@ -37,9 +41,12 @@ class GridViewWidget extends StatelessWidget {
               icon: IconButton(
                 onPressed: () {
                   print('clicked');
-                  
 
-                  cubit.saveFavBank(e, i, cubit.selectedCoin!);
+                  favCoinId.contains(cubit.selectedCoin) &&
+                          favBank.contains(e) &&
+                          favBankPrice.contains(i)
+                      ? cubit.deleteBank(e, i, cubit.selectedCoin!)
+                      : cubit.saveFavBank(e, i, cubit.selectedCoin!);
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -56,7 +63,7 @@ class GridViewWidget extends StatelessWidget {
                         label: 'تراجع',
                         textColor: const Color(0xffFFC700),
                         onPressed: () {
-                          cubit.deleteBank(e , i , cubit.selectedCoin!);
+                          cubit.deleteBank(e, i, cubit.selectedCoin!);
                         },
                       ),
                     ),
@@ -64,7 +71,11 @@ class GridViewWidget extends StatelessWidget {
                 },
                 icon: CircleAvatar(
                   maxRadius: 12.r,
-                  backgroundColor: const Color(0xff0D0D0D).withOpacity(.3),
+                  backgroundColor: favCoinId.contains(cubit.selectedCoin) &&
+                          favBank.contains(e) &&
+                          favBankPrice.contains(i)
+                      ? const Color(0xffFFC700)
+                      : const Color(0xff0D0D0D).withOpacity(.3),
                   child: Icon(
                     Icons.favorite_outline_sharp,
                     size: 12.sp,
@@ -88,10 +99,27 @@ class GridViewWidget extends StatelessWidget {
                       : cubit.selectedCoin?.blackMarketPrices?[0],
               bankPrice: i,
               banksModel: e,
-              icon: Icon(
-                Icons.favorite_border,
-                size: 12.sp,
-                color: const Color(0xffF1F0FA),
+              icon: IconButton(
+                onPressed: () {
+                  favCoinId.contains(cubit.selectedCoin) &&
+                          favBank.contains(e) &&
+                          favBankPrice.contains(i)
+                      ? cubit.deleteBank(e, i, cubit.selectedCoin!)
+                      : cubit.saveFavBank(e, i, cubit.selectedCoin!);
+                },
+                icon: CircleAvatar(
+                  maxRadius: 12.r,
+                  backgroundColor: favCoinId.contains(cubit.selectedCoin) &&
+                          favBank.contains(e) &&
+                          favBankPrice.contains(i)
+                      ? const Color(0xffFFC700)
+                      : const Color(0xff0D0D0D).withOpacity(.3),
+                  child: Icon(
+                    Icons.favorite_outline_sharp,
+                    size: 12.sp,
+                    color: const Color(0xffF1F0FA),
+                  ),
+                ),
               ),
               text: e.name ?? '',
             ));
