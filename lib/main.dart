@@ -18,8 +18,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  NotificationService.initializeNotification();
   BackGroundService.initilaizseService();
+  // FlutterBackgroundServiceAndroid().start();
+  NotificationService.initializeNotification();
+
   Bloc.observer = MyBlocObserver();
   await EasyLocalization.ensureInitialized();
   await Hive.initFlutter();

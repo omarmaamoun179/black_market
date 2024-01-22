@@ -11,7 +11,9 @@ import 'package:flutter_background_service_android/flutter_background_service_an
 
 class BackGroundService {
   static NotifactionModel notifactionModel = NotifactionModel();
+  static Timer? timer;
   static Future<void> initilaizseService() async {
+    print('onStart0');
     final service = FlutterBackgroundService();
 
     await service.configure(
@@ -26,10 +28,12 @@ class BackGroundService {
       ),
     );
     service.startService();
+    print('onStart2');
   }
 
   static onStart(ServiceInstance service) async {
     DartPluginRegistrant.ensureInitialized();
+
 
     if (service is AndroidServiceInstance) {
       service.on('setAsForeground').listen((event) {
@@ -39,9 +43,10 @@ class BackGroundService {
         service.setAsBackgroundService();
       });
     }
-    service.on('stopService').listen((event) {
-      service.stopSelf();
-    });
+    // service.on('stopService').listen((event) {
+    //   timer?.cancel();
+    //   service.stopSelf();
+    // });
     DioHelper.initDio();
     final notificationCubit = NotificationCubit(
       NotifactionRepoImp(),
@@ -49,7 +54,8 @@ class BackGroundService {
     await notificationCubit.getNotifaction();
     // Fetch notification data
 
-    Timer.periodic(const Duration(minutes: 20), (timer) async {
+    timer = Timer.periodic(const Duration(seconds: 60), (timer) async {
+      await notificationCubit.getNotifaction();
       if (service is AndroidServiceInstance) {
         // Use the notification data from the Cubit
         final notifactionModel = notificationCubit.notifactionModel;
@@ -61,12 +67,12 @@ class BackGroundService {
         }
       }
 
-      // service.invoke(
-      //   'update',
-      //   {
-      //     "current_date": DateTime.now().toIso8601String(),
-      //   },
-      // );
+      service.invoke(
+        'update',
+        {
+          "current_date": DateTime.now().toIso8601String(),
+        },
+      );
     });
   }
 }

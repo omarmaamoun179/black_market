@@ -38,7 +38,7 @@ class LineChartSample2 extends StatelessWidget {
             tooltipSettings: const InteractiveTooltip(
               enable: true,
               color: Colors.white,
-              format: 'point.y',
+              format: 'point.y point.x',
               borderWidth: 0,
               borderColor: Colors.transparent,
               textStyle: TextStyle(
@@ -57,6 +57,7 @@ class LineChartSample2 extends StatelessWidget {
           // Initialize category axis
           primaryYAxis: NumericAxis(
             interval: 3,
+
             isVisible: true,
             decimalPlaces: 2,
             labelFormat:
@@ -95,36 +96,47 @@ class LineChartSample2 extends StatelessWidget {
           ),
 
           series: <CartesianSeries>[
-            AreaSeries<CurrencyId, dynamic>(
-              color: const Color(0xffF0E703).withOpacity(0.5),
-
+            LineSeries<CurrencyId, dynamic>(
+              width: 3.5.w,
               // Bind data source
-              dataSource: filteredData,
+              enableTooltip: true,
+              dataSource: isToday
+                  ? currencyData
+                  : filteredData.isNotEmpty
+                      ? filteredData
+                      : currencyData,
 
               xValueMapper: (CurrencyId currencies, _) {
                 return isToday ? currencies.hour : currencies.date;
               },
               yValueMapper: (CurrencyId currencies, _) => currencies.price,
-              dataLabelSettings: DataLabelSettings(
-                  useSeriesColor: true,
-                  labelAlignment: ChartDataLabelAlignment.middle,
-                  isVisible: true,
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                  ),
-                  builder: (dynamic data, dynamic point, dynamic series,
-                      int pointIndex, int seriesIndex) {
-                    return SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: Icon(
-                        Icons.circle,
-                        color: Colors.yellow,
-                        size: 10.sp,
-                      ),
-                    );
-                  }),
+              pointColorMapper: (CurrencyId currencies, _) {
+                final maxprice = currencyData.first.price;
+                print("Price: $maxprice!");
+                return currencies.price! > maxprice!
+                    ? Colors.green.withOpacity(0.8)
+                    : Colors.red.withOpacity(0.5);
+              },
+              //   dataLabelSettings: DataLabelSettings(
+              //       useSeriesColor: true,
+              //       labelAlignment: ChartDataLabelAlignment.middle,
+              //       isVisible: true,
+              //       textStyle: const TextStyle(
+              //         color: Colors.black,
+              //         fontSize: 12,
+              //       ),
+              //       builder: (dynamic data, dynamic point, dynamic series,
+              //           int pointIndex, int seriesIndex) {
+              //         return SizedBox(
+              //           height: 30,
+              //           width: 30,
+              //           child: Icon(
+              //             Icons.circle,
+              //             color: Colors.yellow,
+              //             size: 10.sp,
+              //           ),
+              //         );
+              //       }),
             ),
           ],
         ),

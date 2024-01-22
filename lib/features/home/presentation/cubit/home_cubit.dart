@@ -174,7 +174,7 @@ class HomeCubit extends Cubit<HomeState> {
   getChartData(
     int id,
   ) async {
-    emit(HomeLoadingState());
+    emit(HomeCurrencyLoadingState());
     var result = await homeBaseRepo.getChartData(
         selectedCoin?.id ?? 19, "live", startDate);
 
@@ -195,7 +195,7 @@ class HomeCubit extends Cubit<HomeState> {
     int id,
   ) async {
     print("startDate $startDate");
-    emit(HomeLoadingState());
+    emit(HomeCurrencyLoadingState());
     var result = await homeBaseRepo.getChartData(
         selectedCoin?.id ?? 19, "black", startDate);
     result.fold((l) {

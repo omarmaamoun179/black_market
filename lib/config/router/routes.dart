@@ -30,7 +30,7 @@ class Routes {
   static const String foregetPassword = 'foregetPassword';
   static const String otp = 'otp';
   static const String confirmPass = 'confirmPass';
-  static const String home = 'home';
+  static const String home = '/home';
   static const String profile = 'profile';
   static const String coins = 'coins';
   static const String golds = 'golds';

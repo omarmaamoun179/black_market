@@ -39,7 +39,7 @@ class HeadOfCoinsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: 38.r,
+                    radius: 30.r,
                     child: Icon(
                       Icons.person,
                       color: Colors.white,

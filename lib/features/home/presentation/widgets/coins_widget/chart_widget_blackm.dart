@@ -38,13 +38,14 @@ class LineChartSample1 extends StatelessWidget {
 
           trackballBehavior: TrackballBehavior(
             enable: true,
-            tooltipSettings: const InteractiveTooltip(
+            tooltipSettings: InteractiveTooltip(
               enable: true,
               color: Colors.white,
-              format: 'point.y',
+              format:
+                  'point.y ${HomeCubit.get(context).getCurrencyCode(HomeCubit.get(context).coinsModel?[0].name ?? '').tr()}: point.x',
               borderWidth: 0,
               borderColor: Colors.transparent,
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 color: Colors.black,
                 fontSize: 12,
               ),
@@ -59,7 +60,6 @@ class LineChartSample1 extends StatelessWidget {
 
           // Initialize category axis
           primaryYAxis: NumericAxis(
-            interval: 3,
             isVisible: true,
             decimalPlaces: 2,
             labelFormat:
@@ -98,39 +98,46 @@ class LineChartSample1 extends StatelessWidget {
           ),
 
           series: <CartesianSeries>[
-            AreaSeries<CurrencyIdBlack, dynamic>(
-              color: const Color(0xffF0E703).withOpacity(0.5),
+            LineSeries<CurrencyIdBlack, dynamic>(
+                width: 3.5.w,
+                color: const Color(0xffF0E703).withOpacity(0.5),
+                pointColorMapper: (CurrencyIdBlack currencies, _) {
+                  final maxprice = currencyData.first.price;
+                  print("Price: $maxprice!");
+                  return currencies.price! > maxprice!
+                      ? Colors.green.withOpacity(.7)
+                      : Colors.red.withOpacity(0.5);
+                },
 
-              // Bind data source
-              dataSource: isToday
-                  ? HomeCubit.get(context).currencyIdBlack ?? []
-                  : filteredData,
-
-              xValueMapper: (CurrencyIdBlack currencies, _) {
-                return isToday ? currencies.hour : currencies.date;
-              },
-              yValueMapper: (CurrencyIdBlack currencies, _) => currencies.price,
-              dataLabelSettings: DataLabelSettings(
-                  useSeriesColor: true,
-                  labelAlignment: ChartDataLabelAlignment.middle,
-                  isVisible: true,
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                  ),
-                  builder: (dynamic data, dynamic point, dynamic series,
-                      int pointIndex, int seriesIndex) {
-                    return SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: Icon(
-                        Icons.circle,
-                        color: Colors.yellow,
-                        size: 10.sp,
-                      ),
-                    );
-                  }),
-            ),
+                // Bind data source
+                dataSource: HomeCubit.get(context).currencyIdBlack ?? [],
+                xValueMapper: (CurrencyIdBlack currencies, _) {
+                  return isToday ? currencies.hour : currencies.date;
+                },
+                yValueMapper: (CurrencyIdBlack currencies, _) =>
+                    currencies.price,
+                enableTooltip: true
+                //   dataLabelSettings: DataLabelSettings(
+                //       useSeriesColor: true,
+                //       labelAlignment: ChartDataLabelAlignment.middle,
+                //       isVisible: true,
+                //       textStyle: const TextStyle(
+                //         color: Colors.black,
+                //         fontSize: 12,
+                //       ),
+                //       builder: (dynamic data, dynamic point, dynamic series,
+                //           int pointIndex, int seriesIndex) {
+                //         return SizedBox(
+                //           height: 30,
+                //           width: 30,
+                //           child: Icon(
+                //             Icons.circle,
+                //             color: Colors.yellow,
+                //             size: 10.sp,
+                //           ),
+                //         );
+                //       }),
+                ),
           ],
         ),
       );

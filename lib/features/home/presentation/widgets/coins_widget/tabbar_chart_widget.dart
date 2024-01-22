@@ -23,6 +23,8 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
   void initState() {
     tabController = TabController(length: 2, vsync: this);
     tabController2 = TabController(length: 3, vsync: this);
+    HomeCubit.get(context).getChartData(19);
+    HomeCubit.get(context).getChartDataForBlack(19);
     super.initState();
   }
 
@@ -41,7 +43,7 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
 
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        return state is HomeLoadingState
+        return state is HomeCurrencyLoadingState
             ? SizedBox(
                 height: 200.h,
                 width: double.infinity,
@@ -70,7 +72,41 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                       child: TabBar(
                         onTap: (index) {
                           tabController.index = index;
-                          setState(() {});
+
+                          if (tabController.index == 0 &&
+                              tabController2.index == 0) {
+                            cubit.startDate = DateTime.now();
+                            cubit.getChartDataForBlack(
+                                cubit.selectedCoin?.id ?? 19);
+                          } else if (tabController.index == 0 &&
+                              tabController2.index == 1) {
+                            cubit.startDate = DateTime.now()
+                                .subtract(const Duration(days: 30));
+                            cubit.getChartDataForBlack(
+                                cubit.selectedCoin?.id ?? 19);
+
+                            print(cubit.startDate);
+                          } else if (tabController.index == 0 &&
+                              tabController2.index == 2) {
+                            cubit.startDate = DateTime.now()
+                                .subtract(const Duration(days: 365));
+                            cubit.getChartDataForBlack(
+                                cubit.selectedCoin?.id ?? 19);
+                          } else if (tabController.index == 1 &&
+                              tabController2.index == 0) {
+                            cubit.startDate = DateTime.now();
+                            cubit.getChartData(cubit.selectedCoin?.id ?? 19);
+                          } else if (tabController.index == 1 &&
+                              tabController2.index == 1) {
+                            cubit.startDate = DateTime.now()
+                                .subtract(const Duration(days: 30));
+                            cubit.getChartData(cubit.selectedCoin?.id ?? 19);
+                          } else if (tabController.index == 1 &&
+                              tabController2.index == 2) {
+                            cubit.startDate = DateTime.now()
+                                .subtract(const Duration(days: 365));
+                            cubit.getChartData(cubit.selectedCoin?.id ?? 19);
+                          }
                         },
                         controller: tabController,
                         padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -201,7 +237,7 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                           } else if (tabController.index == 0 &&
                               tabController2.index == 1) {
                             cubit.startDate = DateTime.now()
-                                .subtract(const Duration(days: 4));
+                                .subtract(const Duration(days: 30));
                             cubit.getChartDataForBlack(
                                 cubit.selectedCoin?.id ?? 19);
 
@@ -219,7 +255,7 @@ class _TabBarChatWidgetState extends State<TabBarChatWidget>
                           } else if (tabController.index == 1 &&
                               tabController2.index == 1) {
                             cubit.startDate = DateTime.now()
-                                .subtract(const Duration(days: 4));
+                                .subtract(const Duration(days: 30));
                             cubit.getChartData(cubit.selectedCoin?.id ?? 19);
                           } else if (tabController.index == 1 &&
                               tabController2.index == 2) {

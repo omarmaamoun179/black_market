@@ -28,7 +28,7 @@ class StackWidget extends StatelessWidget {
       builder: (context, state) {
         var h = MediaQuery.of(context).size.height;
         var w = MediaQuery.of(context).size.width;
-        var selectedCoinsModel = HomeCubit.get(context).selectedCoin;
+        var cubit = HomeCubit.get(context);
         return Container(
           height: h * .118,
           width: w * .9,
@@ -44,7 +44,7 @@ class StackWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        selectedCoinsModel?.name ?? 'الدولار الأمريكي',
+                        cubit.selectedCoin?.name ?? 'الدولار الأمريكي',
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w700,
@@ -52,8 +52,9 @@ class StackWidget extends StatelessWidget {
                         ),
                       ),
                       CachedNetworkImage(
-                        imageUrl:
-                            '${Constant.storage}${selectedCoinsModel?.icon ?? ''}',
+                      imageUrl: cubit.selectedCoin?.icon != null 
+    ? '${Constant.storage}${cubit.selectedCoin!.icon}' 
+    : 'https://voipsys.space/storage/flags/US.png',
                         width: 20.5.w,
                         height: 20.5.h,
                         fit: BoxFit.cover,
@@ -98,7 +99,7 @@ class StackWidget extends StatelessWidget {
                         CoulmnText(
                           text: "اخر تحديث".tr(),
                           text2:
-                              '${"منذ دقيقة".tr()} ${selectedCoinsModel?.updatedAt?.minute ?? ''}',
+                              '${"منذ دقيقة".tr()} ${cubit.selectedCoin?.updatedAt?.minute ?? ''}',
                           color2: const Color(0xff2a2a2a),
                         ),
                         const VerticalDivider(
