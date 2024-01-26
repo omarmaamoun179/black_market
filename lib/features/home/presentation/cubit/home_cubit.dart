@@ -257,10 +257,15 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeSaveFavLoadingState());
 
     SaveBankFavorite.favoriteBox.delete(banksModel?.id);
-    SaveBankFavorite.favoriteBox.clear();
-    SaveBankPriceFavorite.favoriteBox.clear();
-    SaveCoinIdFavorite.favoriteBox.clear();
-    favBank.removeWhere((element) => element.e == banksModel);
+    SaveBankPriceFavorite.favoriteBox.delete(bankPrice.id);
+
+    // SaveBankFavorite.favoriteBox.clear();
+    // SaveBankPriceFavorite.favoriteBox.clear();
+    // SaveCoinIdFavorite.favoriteBox.clear();
+    favBank.removeWhere((element) =>
+        element.e == banksModel &&
+        element.i == bankPrice &&
+        element.j == coinId);
 
     emit(HomeDeleteFavSuccessState());
   }

@@ -20,6 +20,11 @@ class SaveBankFavorite {
     // Retrieve all items using the values property
     return favoriteBox.values.toList();
   }
+  static Future<void> deleteFavorite(BanksModel bankId) async {
+    print(bankId.name);
+    // Generate a unique key for each item, for example, use the bankId as the key
+    await favoriteBox.delete(bankId.id);
+  }
 }
 
 class SaveBankPriceFavorite {
@@ -39,6 +44,11 @@ class SaveBankPriceFavorite {
     // Retrieve all items using the values property
     return favoriteBox.values.toList();
   }
+  static Future<void> deleteFavorite(BankPrice coinId) async {
+    print(coinId.bankId);
+    // Generate a unique key for each item, for example, use the coinId as the key
+    await favoriteBox.delete(coinId.id);
+  }
 }
 
 class SaveCoinIdFavorite {
@@ -57,5 +67,10 @@ class SaveCoinIdFavorite {
   static List<CoinsModel> getFavorites() {
     // Retrieve all items using the values property
     return favoriteBox.values.toList();
+  }
+  static Future<void> deleteFavorite(CoinsModel coinId) async {
+    print(coinId.name);
+    // Generate a unique key for each item, for example, use the coinId as the key
+    await favoriteBox.delete(coinId.id);
   }
 }

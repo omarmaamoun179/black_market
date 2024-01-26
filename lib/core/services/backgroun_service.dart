@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:black_market/core/api/api_manager.dart';
@@ -18,6 +19,7 @@ class BackGroundService {
 
     await service.configure(
       androidConfiguration: AndroidConfiguration(
+        autoStartOnBoot: true,
         onStart: onStart,
         autoStart: true,
         isForegroundMode: true,
@@ -53,23 +55,36 @@ class BackGroundService {
     await notificationCubit.getNotifaction();
     // Fetch notification data
 
-    timer = Timer.periodic(const Duration(seconds: 600), (timer) async {
+    timer = Timer.periodic(
+        const Duration(
+          seconds: 10,
+        ), (timer) async {
       await notificationCubit.getNotifaction();
       if (service is AndroidServiceInstance) {
+        service.isForegroundService();
+
         // Use the notification data from the Cubit
         final notifactionModel = notificationCubit.notifactionModel;
         if (notifactionModel != null &&
             notifactionModel.data?.isNotEmpty == true) {
           NotificationService.showNotification(
-              title: notifactionModel.data?.first.title ?? '',
+              title: notifactionModel.data != null &&
+                      notifactionModel.data!.isNotEmpty
+                  ? notifactionModel
+                          .data![
+                              Random().nextInt(notifactionModel.data!.length)]
+                          .title ??
+                      ''
+                  : '',
               body: notifactionModel.data?.first.body ?? '');
         }
       }
 
       service.invoke(
-        'update',
+        'getNotifaction',
         {
-          "current_date": DateTime.now().toIso8601String(),
+          'title': notifactionModel.data?.first.title ?? '',
+          'body': notifactionModel.data?.first.body ?? '',
         },
       );
     });

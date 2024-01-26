@@ -26,6 +26,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
     super.initState();
+    updateFavorites();
+  }
+
+  void updateFavorites() {
+  
+
     favBank = SaveBankFavorite.getFavorites();
     favBankPrice = SaveBankPriceFavorite.getFavorites();
     favCoinId = SaveCoinIdFavorite.getFavorites();
@@ -36,18 +42,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        cubit.favBank.clear();
+        cubit.favBank = [];
 
         for (var e in favBank) {
           for (var i in favBankPrice) {
             for (var j in favCoinId) {
-              if (i.bankId == e.id && i.currencyId == j.id) {
+              if (i.bankId == e.id && i.currencyId == j.id ) {
                 cubit.favBank.add(BankFavItemWidget(
                   e: e,
                   i: i,
                   j: j,
                   onDelete: (e, i, j) {
-                    cubit.deleteBank(e , i , j);
+                    cubit.deleteBank(e, i, j);
                     setState(() {
                       favBank = SaveBankFavorite.getFavorites();
                       favBankPrice = SaveBankPriceFavorite.getFavorites();
@@ -96,7 +102,7 @@ class BankFavItemWidget extends StatefulWidget {
   final CoinsModel? j;
   final Function(
     BanksModel,
-    BankPrice, 
+    BankPrice,
     CoinsModel,
   ) onDelete;
   @override
@@ -140,7 +146,9 @@ class _BankFavItemWidgetState extends State<BankFavItemWidget> {
                 child: IconButton(
                   onPressed: () {
                     print('clicked22');
-                    widget.e != null ? widget.onDelete(widget.e! , widget.i!,widget.j! ) : null;
+                    widget.e != null
+                        ? widget.onDelete(widget.e!, widget.i!, widget.j!)
+                        : null;
                   },
                   icon: Icon(
                     Icons.favorite,
