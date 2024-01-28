@@ -30,8 +30,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   }
 
   void updateFavorites() {
-  
-
     favBank = SaveBankFavorite.getFavorites();
     favBankPrice = SaveBankPriceFavorite.getFavorites();
     favCoinId = SaveCoinIdFavorite.getFavorites();
@@ -47,7 +45,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         for (var e in favBank) {
           for (var i in favBankPrice) {
             for (var j in favCoinId) {
-              if (i.bankId == e.id && i.currencyId == j.id ) {
+              if (i.bankId == e.id && i.currencyId == j.id) {
                 cubit.favBank.add(BankFavItemWidget(
                   e: e,
                   i: i,

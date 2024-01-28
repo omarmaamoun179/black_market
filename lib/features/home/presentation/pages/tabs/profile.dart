@@ -1,5 +1,6 @@
 import 'package:black_market/config/router/routes.dart';
 import 'package:black_market/core/utils/constant.dart';
+import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/widgets/profie/log_out_bottom_sheet.dart';
 import 'package:black_market/features/home/presentation/widgets/profie/profile_item.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,7 @@ class AlreadyLoginWidget extends StatelessWidget {
             height: 10.h,
           ),
           Container(
+            alignment: Alignment.center,
             width: 82.w,
             height: 82.h,
             decoration: const BoxDecoration(
@@ -80,7 +82,7 @@ class AlreadyLoginWidget extends StatelessWidget {
             ),
             child: Text(
               textAlign: TextAlign.center,
-              'ع',
+              HomeCubit.get(context).profileModel?.name?.substring(0, 1) ?? '',
               style: TextStyle(
                 fontSize: 20.sp,
                 color: const Color(0xffffffff),
@@ -91,7 +93,7 @@ class AlreadyLoginWidget extends StatelessWidget {
             height: 8.h,
           ),
           Text(
-            'عمر مأمون',
+            HomeCubit.get(context).profileModel?.name ?? '',
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w700,

@@ -1,3 +1,5 @@
+import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
+import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/splash/cubit/splash_cubit.dart';
 import 'package:black_market/features/splash/cubit/splash_states.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SplashCubit()..durationTimer(context),
+      create: (context) => SplashCubit(),
       child: BlocConsumer<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state is SplashTimerState) {
@@ -31,33 +33,50 @@ class SplashWdiget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xffFEDC00),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image(
-              image: AssetImage('assets/images/splash.png'),
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
+        if (state is HomeLoadingState) {
+          const SplashWdiget();
+        } else if (state is HomeCurrcinesErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.error.toString()),
             ),
-            Text(
-              'Black<Market',
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+          );
+        }
+      },
+      builder: (context, state) {
+        return const Scaffold(
+          backgroundColor: Color(0xffFEDC00),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image(
+                  image: AssetImage('assets/images/splash.png'),
+                ),
+                Text(
+                  'Black<Market',
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+                Text(
+                  ' بكام في السوق السوداء ؟',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
+                ),
+              ],
             ),
-            Text(
-              ' بكام في السوق السوداء ؟',
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
+
+class HomeBloc {}

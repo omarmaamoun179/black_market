@@ -6,7 +6,7 @@ class ChartModel {
   CurrynciesBlackPrices? blackprices;
   CurrynciesLivePrices? livePrices;
 
-  ChartModel({this.blackprices , this.livePrices});
+  ChartModel({this.blackprices, this.livePrices});
 
   factory ChartModel.fromJson(Map<String, dynamic> json, int id) => ChartModel(
         blackprices: json['black_market_prices'] == null

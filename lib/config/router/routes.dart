@@ -80,9 +80,7 @@ class AppRoutes {
                   create: (context) => AuthCubit(
                     AuthRepoImpl(),
                   ),
-                  child: OtpScreen(
-                    email: settings.arguments as String
-                  ),
+                  child: OtpScreen(email: settings.arguments as String),
                 ));
       // case (Routes.confirmPass):
       //   return MaterialPageRoute(builder: (_) => ConfirmPassword());

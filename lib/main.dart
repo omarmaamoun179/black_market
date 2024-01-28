@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:black_market/bloc_observer.dart';
 import 'package:black_market/core/api/api_manager.dart';
@@ -20,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workmanager/workmanager.dart';
+import 'package:flutter/services.dart';
 
 void callbackDispatcher() {
   NotificationService.initializeNotification();
@@ -37,10 +37,8 @@ void callbackDispatcher() {
     final notifactionModel = notificationCubit.notifactionModel;
     if (notifactionModel != null && notifactionModel.data?.isNotEmpty == true) {
       NotificationService.showNotification(
-        title: notifactionModel
-            .data![Random().nextInt(notifactionModel.data!.length)].title!,
-        body: notifactionModel
-            .data![Random().nextInt(notifactionModel.data!.length)].body!,
+        title: notifactionModel.data!.first.title!,
+        body: notifactionModel.data!.first.body!,
       );
     }
 
@@ -50,18 +48,19 @@ void callbackDispatcher() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+
+  Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: false,
+  );
   Workmanager().registerPeriodicTask(
     '1',
     'simplePeriodicTask',
-    frequency: const Duration(
-      minutes: 15,
-    ),
+    frequency: const Duration(hours: 1),
   );
 
   // BackGroundService.initilaizseService();
   NotificationService.initializeNotification();
-
 
   Bloc.observer = MyBlocObserver();
   await EasyLocalization.ensureInitialized();
@@ -80,6 +79,10 @@ void main() async {
   await SaveBankFavorite.init();
   await SaveBankPriceFavorite.init();
   await SaveCoinIdFavorite.init();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   DioHelper.initDio();
   runApp(EasyLocalization(

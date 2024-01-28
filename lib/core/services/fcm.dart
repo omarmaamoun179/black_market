@@ -31,13 +31,14 @@ class FCM {
     // await Firebase.initializeApp();
     print('Handling a background message ${message.messageId}');
     await NotificationService.showNotification(
-        title: NotifactionModel().data?.first.title ?? 'omar',
-        body:NotifactionModel().data?.first.body ?? 'omar',);
+      title: NotifactionModel().data?.first.title ?? 'omar',
+      body: NotifactionModel().data?.first.body ?? 'omar',
+    );
 
     print(message.notification?.title ?? '');
   }
 
-  static  setupForegroundFCM() {
+  static setupForegroundFCM() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       // Handle the message
       print('Got a message whilst in the foreground!');
@@ -58,7 +59,7 @@ class FCM {
 
         // Get the NotificationCubit from the context
         NotificationCubit notificationCubit =
-NotificationCubit(NotifactionRepoImp());
+            NotificationCubit(NotifactionRepoImp());
         // Send the notification
         notificationCubit.getNotifaction();
       }

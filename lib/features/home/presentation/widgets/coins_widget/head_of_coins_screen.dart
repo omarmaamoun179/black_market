@@ -3,7 +3,7 @@ import 'package:black_market/core/utils/constant.dart';
 import 'package:black_market/features/home/presentation/cubit/home_cubit.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/widgets/coins_widget/stack_widget.dart';
-import 'package:black_market/features/login/presentation/cubit/login_cubit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,14 +38,20 @@ class HeadOfCoinsScreen extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 30.r,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                      size: 48.sp,
-                    ),
+                  CachedNetworkImage(
+                    imageUrl: 'https://xyzys.space/storage/users/default.png',
+                    height: 60.h,
+                    width: 60.w,
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
                   ),
+                  // CircleAvatar(
+                  //   radius: 30.r,
+                  // backgroundImage:
+                  // ),
                   SizedBox(
                     width: 10.w,
                   ),
@@ -63,8 +69,7 @@ class HeadOfCoinsScreen extends StatelessWidget {
                       Text(
                         token == null
                             ? ''
-                            : LoginCubit.get(context).loginModel?.user?.name ??
-                                '',
+                            : HomeCubit.get(context).profileModel?.name ?? '',
                         style: TextStyle(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w700,

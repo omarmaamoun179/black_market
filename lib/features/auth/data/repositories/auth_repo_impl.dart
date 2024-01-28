@@ -14,7 +14,6 @@ class AuthRepoImpl implements BaseAuthRepo {
   Future<Either<Failure, ForgetPassModel>> forgetPassword(String email) async {
     try {
       Response response = await DioHelper.postData(
-        
           '${Constant.baseUrl}${EndPoints.forgetPassword}',
           data: {'email': email});
 

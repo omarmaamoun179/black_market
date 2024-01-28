@@ -52,9 +52,9 @@ class StackWidget extends StatelessWidget {
                         ),
                       ),
                       CachedNetworkImage(
-                      imageUrl: cubit.selectedCoin?.icon != null 
-    ? '${Constant.storage}${cubit.selectedCoin!.icon}' 
-    : 'https://voipsys.space/storage/flags/US.png',
+                        imageUrl: cubit.selectedCoin?.icon != null
+                            ? '${Constant.storage}${cubit.selectedCoin!.icon}'
+                            : 'https://voipsys.space/storage/flags/US.png',
                         width: 20.5.w,
                         height: 20.5.h,
                         fit: BoxFit.cover,

@@ -9,6 +9,7 @@ import 'package:black_market/features/home/data/models/compnies_model/compnies_m
 import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
 import 'package:black_market/features/home/data/models/ingots_model/ingot.dart';
 import 'package:black_market/features/home/data/models/ingots_model/ingots_model.dart';
+import 'package:black_market/features/home/data/models/profiel_model/profiel_model.dart';
 import 'package:black_market/features/home/data/repositories/home_base_repo.dart';
 import 'package:black_market/features/home/presentation/cubit/home_state.dart';
 import 'package:black_market/features/home/presentation/pages/tabs/coins_screen.dart';
@@ -34,6 +35,7 @@ class HomeCubit extends Cubit<HomeState> {
   ChartModel? chartModel;
   List<CurrencyId>? currencyId;
   List<CurrencyIdBlack>? currencyIdBlack;
+  ProfileModel? profileModel;
 
   Set<int> favoriteBankIds = {};
 
@@ -53,6 +55,8 @@ class HomeCubit extends Cubit<HomeState> {
   int selectedIndex = 0;
   int textIndex = 0;
   bool isClicked = false;
+  double maxPrice = 0;
+  double maxPriceBlack = 0;
 
   int currentIndex = 0;
   int index = 0;
@@ -186,6 +190,11 @@ class HomeCubit extends Cubit<HomeState> {
       if (currencyId != null && currencyId!.length > 1) {
         print(currencyId?[1].date);
         print(currencyId?[1].price);
+
+        maxPrice =
+            currencyId?.map((e) => e.price).reduce((a, b) => a! > b! ? a : b) ??
+                0;
+        print('maxPrice $maxPrice');
       }
       emit(HomeLiveSuccessState(r));
     });
@@ -203,6 +212,11 @@ class HomeCubit extends Cubit<HomeState> {
     }, (r) {
       chartModel = r;
       currencyIdBlack = r.blackprices?.currcenyIdBlack;
+      maxPriceBlack = currencyIdBlack
+              ?.map((e) => e.price)
+              .reduce((a, b) => a! + b! / currencyIdBlack!.length) ??
+          0;
+      print('maxPriceBlack $maxPriceBlack');
       print("startDate $startDate");
 
       print(currencyIdBlack?[1].price);
@@ -268,5 +282,17 @@ class HomeCubit extends Cubit<HomeState> {
         element.j == coinId);
 
     emit(HomeDeleteFavSuccessState());
+  }
+
+  getProfile() async {
+    emit(HomeLoadingState());
+    var result = await homeBaseRepo.getProfileData();
+    result.fold((l) {
+      emit(HomeProfileErrorState(l.message));
+    }, (r) {
+       profileModel = r;
+      emit(HomeProfileSuccessStat(r));
+     
+    });
   }
 }

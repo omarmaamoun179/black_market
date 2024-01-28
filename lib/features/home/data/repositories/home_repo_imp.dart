@@ -8,6 +8,7 @@ import 'package:black_market/features/home/data/models/coins_model/coins_model.d
 import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
 import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
 import 'package:black_market/features/home/data/models/ingots_model/ingots_model.dart';
+import 'package:black_market/features/home/data/models/profiel_model/profiel_model.dart';
 import 'package:black_market/features/home/data/repositories/home_base_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -166,6 +167,30 @@ class HomeRepoImp implements HomeBaseRepo {
         id,
       );
 
+      if (response.statusCode == 200) {
+        return Right(
+          model,
+        );
+      } else {
+        return Left(RemoteServerFailure(
+            'Error Code: ${response.statusCode} \n Error Message: ${response.statusMessage}'));
+      }
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(
+          RemoteServerFailure.fromDioError(e),
+        );
+      }
+      return Left(RemoteServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProfileModel>> getProfileData() async {
+    try {
+      var response = await DioHelper.getData('https://xyzys.space/api/me');
+      ProfileModel model = ProfileModel.fromJson(response.data);
+      print('name ${model.name}');
       if (response.statusCode == 200) {
         return Right(
           model,

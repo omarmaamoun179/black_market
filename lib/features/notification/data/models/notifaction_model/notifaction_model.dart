@@ -2,13 +2,14 @@ import 'package:hive/hive.dart';
 
 import 'datum.dart';
 part 'notifaction_model.g.dart';
+
 @HiveType(typeId: 6)
 class NotifactionModel {
   @HiveField(0)
   int? currentPage;
   @HiveField(1)
   List<DatumNots>? data;
-    @HiveField(2)
+  @HiveField(2)
   String? firstPageUrl;
   @HiveField(3)
   int? from;

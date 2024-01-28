@@ -122,8 +122,7 @@ class ForgetPassword extends StatelessWidget {
                             ),
                             onPressed: () {
                               AuthCubit.get(context).forgetPassword(
-                                  AuthCubit.get(context).emailController.text
-                              );
+                                  AuthCubit.get(context).emailController.text);
                             },
                             child: Text(
                               ' إرسال ',

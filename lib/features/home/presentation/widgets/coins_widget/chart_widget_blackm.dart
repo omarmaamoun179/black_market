@@ -103,7 +103,6 @@ class LineChartSample1 extends StatelessWidget {
                 color: const Color(0xffF0E703).withOpacity(0.5),
                 pointColorMapper: (CurrencyIdBlack currencies, _) {
                   final maxprice = currencyData.first.price;
-                  print("Price: $maxprice!");
                   return currencies.price! > maxprice!
                       ? Colors.green.withOpacity(.7)
                       : Colors.red.withOpacity(0.5);

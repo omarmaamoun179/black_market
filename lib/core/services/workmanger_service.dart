@@ -7,8 +7,8 @@ import 'package:black_market/features/notification/presentation/cubit/notificati
 import 'package:workmanager/workmanager.dart';
 
 class WorkMangerService {
- static Timer? timer;
-static callbackDispatcher() {
+  static Timer? timer;
+  static callbackDispatcher() {
     Workmanager().executeTask((task, inputData) async {
       print('onStart0');
       DioHelper.initDio();
@@ -17,43 +17,39 @@ static callbackDispatcher() {
       );
       await notificationCubit.getNotifaction();
       // Fetch notification data
-      
-      timer = Timer.periodic(const Duration(
-        seconds: 10,
-      ), (timer) async {
+
+      timer = Timer.periodic(
+          const Duration(
+            seconds: 10,
+          ), (timer) async {
         await notificationCubit.getNotifaction();
-        
-      
-          // Use the notification data from the Cubit
-          final notifactionModel = notificationCubit.notifactionModel;
-          if (notifactionModel != null &&
-              notifactionModel.data?.isNotEmpty == true) {
-            NotificationService.showNotification(
-              title: notifactionModel.data![0].title!,
-              body: notifactionModel.data![0].body!,
-            
-            );
-          
+
+        // Use the notification data from the Cubit
+        final notifactionModel = notificationCubit.notifactionModel;
+        if (notifactionModel != null &&
+            notifactionModel.data?.isNotEmpty == true) {
+          NotificationService.showNotification(
+            title: notifactionModel.data![0].title!,
+            body: notifactionModel.data![0].body!,
+          );
         }
       });
       return Future.value(true);
     });
-    
-
   }
+
   static Future<void> initilaizseService() async {
     print('onStart0');
     await Workmanager().initialize(
       callbackDispatcher,
       isInDebugMode: true,
     );
-  
-    await Workmanager().registerPeriodicTask(
 
+    await Workmanager().registerPeriodicTask(
       '1',
       'simplePeriodicTask',
       frequency: const Duration(
-      seconds: 10,
+        seconds: 10,
       ),
     );
     print('onStart2');

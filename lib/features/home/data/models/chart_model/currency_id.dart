@@ -4,7 +4,7 @@ class CurrencyId {
   String? date;
   int? hour;
 
-  CurrencyId({this.currencyId, this.price, this.date , this.hour});
+  CurrencyId({this.currencyId, this.price, this.date, this.hour});
 
   factory CurrencyId.fromJson(Map<String, dynamic> json) => CurrencyId(
         currencyId: json['currency_id'] as int?,

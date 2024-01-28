@@ -4,12 +4,14 @@ import 'package:black_market/features/home/data/models/coins_model/coins_model.d
 import 'package:black_market/features/home/data/models/compnies_model/compnies_model.dart';
 import 'package:black_market/features/home/data/models/golds_model/golds_model.dart';
 import 'package:black_market/features/home/data/models/ingots_model/ingots_model.dart';
+import 'package:black_market/features/home/data/models/profiel_model/profiel_model.dart';
 
 abstract class HomeState {}
 
 class HomeInitial extends HomeState {}
 
 class HomeLoadingState extends HomeState {}
+
 class HomeCurrencyLoadingState extends HomeState {}
 
 class HomeChangeBottomNavState extends HomeState {}
@@ -118,8 +120,7 @@ class HomeSaveFavLoadingState extends HomeState {}
 
 class HomeDeleteFavSuccessState extends HomeState {}
 
-class HomeSaveFavSuccessState extends HomeState {
-}
+class HomeSaveFavSuccessState extends HomeState {}
 
 class HomeSaveFavErrorState extends HomeState {
   String error;
@@ -127,3 +128,13 @@ class HomeSaveFavErrorState extends HomeState {
 }
 
 class HomeRemoveFavSuccess extends HomeState {}
+
+class HomeProfileSuccessStat extends HomeState {
+  ProfileModel? profileModel;
+  HomeProfileSuccessStat(this.profileModel);
+}
+
+class HomeProfileErrorState extends HomeState {
+  String error;
+  HomeProfileErrorState(this.error);
+}

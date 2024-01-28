@@ -11,4 +11,5 @@ class EndPoints {
   static String goldIngot = 'ingots-coins';
   static String notifacton = 'notifications';
   static String articles = 'articles';
+  static String profile = 'me';
 }

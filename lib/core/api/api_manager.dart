@@ -1,4 +1,6 @@
+import 'package:black_market/core/utils/constant.dart';
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
 
 class DioHelper {
   static late final Dio dio;
@@ -6,8 +8,16 @@ class DioHelper {
     dio = Dio();
   }
 
-  static Future<Response> getData(String path,
-      {Map<String, dynamic>? query}) async {
+  static Future<Response> getData(
+    String path, {
+    Map<String, dynamic>? query,
+  }) async {
+    var box = Hive.box<String>('user');
+    var token = box.get(Constant.accessToken);
+    dio.options.headers = {
+        'Authorization':'Bearer $token'
+    };
+
     return await dio.get(
       path,
       queryParameters: query ?? {},

@@ -1,7 +1,7 @@
-
 import 'package:hive/hive.dart';
 
 part 'datum.g.dart';
+
 @HiveType(typeId: 7)
 class DatumNots {
   @HiveField(0)
